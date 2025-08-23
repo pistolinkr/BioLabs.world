@@ -1,0 +1,57 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 사용자 문서 규칙
+    match /users/{userId} {
+      // 사용자는 자신의 문서만 읽기/쓰기 가능
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      
+      // 새 사용자 생성은 인증된 사용자만 가능
+      allow create: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // 연구 프로젝트 규칙
+    match /research_projects/{projectId} {
+      // 프로젝트 소유자만 읽기/쓰기 가능
+      allow read, write: if request.auth != null && 
+        request.auth.uid == resource.data.userId;
+      
+      // 새 프로젝트 생성은 인증된 사용자만 가능
+      allow create: if request.auth != null && 
+        request.auth.uid == request.resource.data.userId;
+    }
+    
+    // 진단 결과 규칙
+    match /diagnosis_results/{resultId} {
+      // 결과 소유자만 읽기/쓰기 가능
+      allow read, write: if request.auth != null && 
+        request.auth.uid == resource.data.userId;
+      
+      // 새 결과 생성은 인증된 사용자만 가능
+      allow create: if request.auth != null && 
+        request.auth.uid == request.resource.data.userId;
+    }
+    
+    // 약물 스크리닝 결과 규칙
+    match /drug_screenings/{screeningId} {
+      // 스크리닝 소유자만 읽기/쓰기 가능
+      allow read, write: if request.auth != null && 
+        request.auth.uid == resource.data.userId;
+      
+      // 새 스크리닝 생성은 인증된 사용자만 가능
+      allow create: if request.auth != null && 
+        request.auth.uid == request.resource.data.userId;
+    }
+    
+    // 공개 데이터 (읽기만 가능)
+    match /public_data/{docId} {
+      allow read: if true; // 모든 사용자가 읽기 가능
+      allow write: if false; // 쓰기 불가
+    }
+    
+    // 기본 규칙: 인증된 사용자만 접근 가능
+    match /{document=**} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}
