@@ -136,7 +136,7 @@ const UserProfile: React.FC = () => {
               내 연구실 프로필
             </Typography>
             <Typography variant="h6" sx={{ color: '#b0b0b0' }}>
-              당신만의 ProLab을 관리하세요
+              당신만의 BioLabs를 관리하세요
             </Typography>
           </Box>
 

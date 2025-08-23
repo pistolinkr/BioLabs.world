@@ -97,7 +97,7 @@ const Dashboard: React.FC = () => {
                 fontSize: '2rem'
               }}
             >
-              ProLab에 오신 것을 환영합니다
+              BioLabs에 오신 것을 환영합니다
             </Typography>
             <Typography
               variant="h6"
@@ -108,8 +108,8 @@ const Dashboard: React.FC = () => {
                 fontSize: '1.1rem'
               }}
             >
-              고급 프리온 연구 및 분석 플랫폼
-      </Typography>
+              고급 생물학 연구 및 분석 플랫폼
+            </Typography>
           </Box>
 
           {/* 초기화 상태 안내 */}

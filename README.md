@@ -1,8 +1,8 @@
-# 🧬 ProLab - Research Data Integrated Analysis Platform
+# 🧬 BioLabs - Research Data Integrated Analysis Platform
 
 ## 📋 프로젝트 개요
 
-ProLab은 연구를 위한 통합 분석 플랫폼입니다. 단백질 시뮬레이션, AI 진단, 상호작용 네트워크, 약물 스크리닝, 역학 모델링 등 다양한 연구 도구를 제공합니다.
+BioLabs은 연구를 위한 통합 분석 플랫폼입니다. 단백질 시뮬레이션, AI 진단, 상호작용 네트워크, 약물 스크리닝, 역학 모델링 등 다양한 연구 도구를 제공합니다.
 
 ## ✨ 주요 기능
 
@@ -45,8 +45,8 @@ ProLab은 연구를 위한 통합 분석 플랫폼입니다. 단백질 시뮬레
 
 1. **저장소 클론**
 ```bash
-git clone https://github.com/pistolinkr/ProLab.git
-cd ProLab
+git clone https://github.com/pistolinkr/BioLabs.git
+cd BioLabs
 ```
 
 2. **의존성 설치**
@@ -85,7 +85,7 @@ firebase deploy
 
 ## 🌐 배포된 사이트
 
-**https://prolab-28116.web.app**
+**https://biolabs-28116.web.app**
 
 ## 📁 프로젝트 구조
 
@@ -163,7 +163,7 @@ interface LabData {
 ## 📞 연락처
 
 - **GitHub**: [@pistolinkr](https://github.com/pistolinkr)
-- **프로젝트 링크**: [https://github.com/pistolinkr/ProLab](https://github.com/pistolinkr/ProLab)
+- **프로젝트 링크**: [https://github.com/pistolinkr/BioLabs](https://github.com/pistolinkr/BioLabs)
 
 ## 🙏 감사의 말
 

@@ -1,19 +1,19 @@
-# 🔐 ProLab Firebase 설정 가이드
+# 🔐 BioLabs Firebase 설정 가이드
 
 ## 📋 개요
-ProLab은 Firebase를 백엔드로 사용하여 사용자 인증, 데이터 저장, 파일 관리 기능을 제공합니다. 각 사용자는 자신만의 Lab을 가지며, 모든 데이터는 개인적으로 관리됩니다.
+BioLabs은 Firebase를 백엔드로 사용하여 사용자 인증, 데이터 저장, 파일 관리 기능을 제공합니다. 각 사용자는 자신만의 Lab을 가지며, 모든 데이터는 개인적으로 관리됩니다.
 
 ## 🚀 Firebase 프로젝트 설정
 
 ### 1. Firebase 콘솔에서 프로젝트 생성
 1. [Firebase Console](https://console.firebase.google.com/)에 접속
 2. "프로젝트 추가" 클릭
-3. 프로젝트 이름: `prolab-{your-name}`
+3. 프로젝트 이름: `biolabs-{your-name}`
 4. Google Analytics 활성화 (선택사항)
 
 ### 2. 웹 앱 추가
 1. 프로젝트 대시보드에서 웹 아이콘 클릭
-2. 앱 닉네임: `prolab-web`
+2. 앱 닉네임: `biolabs-web`
 3. Firebase Hosting 설정 체크
 4. 앱 등록
 
@@ -39,7 +39,7 @@ ProLab은 Firebase를 백엔드로 사용하여 사용자 인증, 데이터 저�
 #### GitHub 로그인
 1. GitHub 제공업체 선택
 2. GitHub에서 OAuth App 생성:
-   - Application name: `ProLab`
+   - Application name: `BioLabs`
    - Homepage URL: `https://your-domain.com`
    - Authorization callback URL: `https://your-project.firebaseapp.com/__/auth/handler`
 3. Client ID와 Client Secret을 Firebase에 입력
@@ -217,7 +217,7 @@ REACT_APP_FIREBASE_APP_ID=1:123456789:web:abcdef
 - [Firebase 공식 문서](https://firebase.google.com/docs)
 - [Firebase 보안 규칙 가이드](https://firebase.google.com/docs/firestore/security/get-started)
 - [OAuth 2.0 설정 가이드](https://developers.google.com/identity/protocols/oauth2)
-- [ProLab 개발자 가이드](https://github.com/your-org/prolab)
+- [BioLabs 개발자 가이드](https://github.com/your-org/biolabs)
 
 ## 🎯 다음 단계
 

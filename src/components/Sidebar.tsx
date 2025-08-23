@@ -243,7 +243,7 @@ const Sidebar: React.FC = () => {
                 fontSize: '0.7rem'
               }}
             >
-              ProLab v1.0.0
+              BioLabs v1.0.0
             </Typography>
             <Typography
               variant="caption"

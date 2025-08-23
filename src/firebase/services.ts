@@ -409,7 +409,7 @@ export const deleteFile = async (path: string) => {
   }
 };
 
-// ===== ProLab 특화 서비스 =====
+// ===== BioLabs 특화 서비스 =====
 
 // 사용자별 Protein Simulation 데이터 저장
 export const saveProteinSimulation = async (userId: string, simulationData: any) => {

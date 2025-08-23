@@ -20,8 +20,8 @@ import {
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
-// ProLab 로고 컴포넌트
-const ProLabLogo: React.FC = () => (
+// BioLabs 로고 컴포넌트
+const BioLabsLogo: React.FC = () => (
   <Box
     sx={{
       display: 'flex',
@@ -191,7 +191,7 @@ const Navbar: React.FC = () => {
       <Toolbar sx={{ paddingLeft: '280px', paddingRight: 2 }}>
         {/* 로고 및 제목 */}
         <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
-          <ProLabLogo />
+          <BioLabsLogo />
           <Typography
             variant="h6"
             component="div"
@@ -207,7 +207,7 @@ const Navbar: React.FC = () => {
               }
             }}
           >
-            ProLab
+            BioLabs
           </Typography>
           <Typography
             variant="body2"
@@ -469,7 +469,7 @@ const Navbar: React.FC = () => {
           </MenuItem>
         </Menu>
 
-        {/* 사용자 프로필 메뉴 - ProLab 정체성에 맞게 개선 */}
+        {/* 사용자 프로필 메뉴 - BioLabs 정체성에 맞게 개선 */}
         <Menu
           anchorEl={anchorEl}
           open={isProfileMenuOpen}
@@ -526,7 +526,7 @@ const Navbar: React.FC = () => {
                 marginBottom: 0.5
               }}
             >
-              {userProfile?.displayName || 'ProLab 사용자'}
+              {userProfile?.displayName || 'BioLabs 사용자'}
             </Typography>
             <Typography
               variant="body2"
@@ -536,7 +536,7 @@ const Navbar: React.FC = () => {
                 fontSize: '0.8rem'
               }}
             >
-              {userProfile?.email || 'user@prolab.com'}
+              {userProfile?.email || 'user@biolabs.com'}
             </Typography>
             <Typography
               variant="caption"

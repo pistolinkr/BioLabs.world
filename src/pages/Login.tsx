@@ -153,7 +153,7 @@ const Login: React.FC = () => {
                 fontSize: '1.25rem'
               }}
             >
-                              {isSignUp ? 'ProLab 가입' : 'ProLab 로그인'}
+                              {isSignUp ? 'BioLabs 가입' : 'BioLabs 로그인'}
             </Typography>
             <Typography
               variant="body2"
