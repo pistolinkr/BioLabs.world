@@ -6,43 +6,48 @@ import {
   Box
 } from '@mui/material';
 import { useAuth } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 // BioLabs 로고 컴포넌트
-const BioLabsLogo: React.FC = () => (
-  <Box
-    sx={{
-      display: 'flex',
-      alignItems: 'center',
-      marginRight: 2,
-      position: 'relative',
-      transition: 'all 0.3s ease',
-      '&:hover': {
-        transform: 'scale(1.05)',
-        filter: 'drop-shadow(0 0 8px #3CD3FF)'
-      }
-    }}
-  >
-    <img
-      src="/logo512.png"
-      alt="BioLabs Logo"
-      style={{
-        width: '36px',
-        height: '36px',
-        objectFit: 'contain'
+const BioLabsLogo: React.FC = () => {
+  const navigate = useNavigate();
+  
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        marginRight: 2,
+        position: 'relative',
+        cursor: 'pointer',
+        transition: 'all 0.3s ease'
       }}
-    />
-  </Box>
-);
+      onClick={() => navigate('/dashboard')}
+    >
+      <img
+        src="/logo512.png"
+        alt="BioLabs Logo"
+        style={{
+          width: '36px',
+          height: '36px',
+          objectFit: 'contain'
+        }}
+      />
+    </Box>
+  );
+};
 
 const Navbar: React.FC = () => {
+  const { userProfile } = useAuth();
+  const navigate = useNavigate();
+
   return (
     <AppBar
       position="fixed"
       sx={{
-        backgroundColor: 'rgba(0, 0, 0, 0.1)',
+        backgroundColor: 'rgba(0, 0, 0, 0.9)',
         backdropFilter: 'blur(5px)',
-        WebkitBackdropFilter: 'blur(5px)',
-        borderBottom: 'none',
+        webkitBackdropFilter: 'blur(5px)',
         boxShadow: 'none',
         zIndex: 1200
       }}
@@ -59,12 +64,10 @@ const Navbar: React.FC = () => {
               fontWeight: 500,
               fontSize: '1.3rem',
               marginRight: 3,
-              transition: 'all 0.3s ease',
-              '&:hover': {
-                color: '#3CD3FF',
-                textShadow: '0 0 10px #3CD3FF'
-              }
+              cursor: 'pointer',
+              transition: 'all 0.3s ease'
             }}
+            onClick={() => navigate('/dashboard')}
           >
             BioLabs
           </Typography>
@@ -74,11 +77,7 @@ const Navbar: React.FC = () => {
               color: '#ffffff',
               opacity: 0.7,
               fontSize: '0.8rem',
-              transition: 'all 0.3s ease',
-              '&:hover': {
-                color: '#3CD3FF',
-                opacity: 1
-              }
+              transition: 'all 0.3s ease'
             }}
           >
             연구 통합 플랫폼
