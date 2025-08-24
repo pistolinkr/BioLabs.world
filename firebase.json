@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "target": "biolabs",
     "public": "build",
     "ignore": [
       "firebase.json",
@@ -17,9 +18,18 @@
     "database": "(default)",
     "location": "asia-east1",
     "rules": "firestore.rules",
-    "indexes": "firestore.indexes.json"
+    "indexes": "firebase.indexes.json"
   },
   "storage": {
     "rules": "storage.rules"
+  },
+  "targets": {
+    "biolabs": {
+      "hosting": {
+        "biolabs": [
+          "prionlab-28116"
+        ]
+      }
+    }
   }
 }
