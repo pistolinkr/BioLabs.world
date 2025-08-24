@@ -6,7 +6,7 @@ import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import Login from './pages/Login';
-import Dashboard from './pages/Dashboard';
+import Home from './pages/Home';
 import ProteinSimulation from './pages/ProteinSimulation';
 import DiagnosisAI from './pages/DiagnosisAI';
 import InteractionNetwork from './pages/InteractionNetwork';
@@ -174,11 +174,11 @@ function App() {
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route
-              path="/dashboard"
+              path="/home"
               element={
                 <ProtectedRoute>
                   <MainLayout>
-                    <Dashboard />
+                    <Home />
                   </MainLayout>
                 </ProtectedRoute>
               }
@@ -243,7 +243,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            <Route path="/" element={<Navigate to="/dashboard" replace />} />
+            <Route path="/" element={<Navigate to="/home" replace />} />
           </Routes>
         </Router>
       </AuthProvider>

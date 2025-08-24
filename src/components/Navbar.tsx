@@ -22,7 +22,7 @@ const BioLabsLogo: React.FC = () => {
         cursor: 'pointer',
         transition: 'all 0.3s ease'
       }}
-      onClick={() => navigate('/dashboard')}
+      onClick={() => navigate('/home')}
     >
       <img
         src="/logo512.png"
@@ -67,7 +67,7 @@ const Navbar: React.FC = () => {
               cursor: 'pointer',
               transition: 'all 0.3s ease'
             }}
-            onClick={() => navigate('/dashboard')}
+            onClick={() => navigate('/home')}
           >
             BioLabs
           </Typography>

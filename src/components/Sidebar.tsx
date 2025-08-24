@@ -29,7 +29,7 @@ const Sidebar: React.FC = () => {
   const { userProfile } = useAuth();
 
   const menuItems = [
-    { path: '/dashboard', icon: <DashboardIcon />, text: '대시보드' },
+    { path: '/home', icon: <DashboardIcon />, text: '홈' },
     { path: '/protein-simulation', icon: <ScienceIcon />, text: '단백질 시뮬레이션' },
     { path: '/diagnosis-ai', icon: <AssessmentIcon />, text: 'AI 진단' },
     { path: '/interaction-network', icon: <NetworkIcon />, text: '상호작용 네트워크' },
