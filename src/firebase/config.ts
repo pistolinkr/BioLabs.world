@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider, GithubAuthProvider, OAuthProvider, TwitterAuthProvider } from 'firebase/auth';
+import { getAuth, GoogleAuthProvider, GithubAuthProvider } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 import { getAnalytics } from 'firebase/analytics';
@@ -27,8 +27,6 @@ export const storage = getStorage(app);
 // OAuth 제공자들 초기화
 export const googleProvider = new GoogleAuthProvider();
 export const githubProvider = new GithubAuthProvider();
-export const microsoftProvider = new OAuthProvider('microsoft.com');
-export const twitterProvider = new TwitterAuthProvider();
 
 // OAuth 제공자별 추가 설정
 googleProvider.addScope('email');
@@ -36,11 +34,6 @@ googleProvider.addScope('profile');
 
 githubProvider.addScope('user:email');
 githubProvider.addScope('read:user');
-
-microsoftProvider.addScope('email');
-microsoftProvider.addScope('profile');
-
-// Twitter는 기본 스코프 사용
 
 // Analytics는 브라우저 환경에서만 초기화
 export const analytics = typeof window !== 'undefined' ? getAnalytics(app) : null;

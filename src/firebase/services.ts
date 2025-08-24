@@ -29,7 +29,7 @@ import {
   getDownloadURL, 
   deleteObject 
 } from 'firebase/storage';
-import { auth, db, storage, googleProvider, githubProvider, microsoftProvider, twitterProvider } from './config';
+import { auth, db, storage, googleProvider, githubProvider } from './config';
 
 // ===== 인증 서비스 =====
 
@@ -88,34 +88,6 @@ export const signInWithGithub = async () => {
     
     // 사용자 정보 저장/업데이트
     await saveUserData(result.user, 'github');
-    
-    return { success: true, user: result.user };
-  } catch (error: any) {
-    return { success: false, error: error.message };
-  }
-};
-
-// Microsoft 로그인
-export const signInWithMicrosoft = async () => {
-  try {
-    const result = await signInWithPopup(auth, microsoftProvider);
-    
-    // 사용자 정보 저장/업데이트
-    await saveUserData(result.user, 'microsoft');
-    
-    return { success: true, user: result.user };
-  } catch (error: any) {
-    return { success: false, error: error.message };
-  }
-};
-
-// Twitter 로그인
-export const signInWithTwitter = async () => {
-  try {
-    const result = await signInWithPopup(auth, twitterProvider);
-    
-    // 사용자 정보 저장/업데이트
-    await saveUserData(result.user, 'twitter');
     
     return { success: true, user: result.user };
   } catch (error: any) {

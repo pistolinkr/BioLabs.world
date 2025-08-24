@@ -22,7 +22,7 @@ interface SocialSignUpModalProps {
   open: boolean;
   onClose: () => void;
   socialUser: any; // Firebase에서 반환된 소셜 사용자 정보
-  provider: 'google' | 'github' | 'microsoft' | 'twitter';
+  provider: 'google' | 'github';
 }
 
 const SocialSignUpModal: React.FC<SocialSignUpModalProps> = ({
@@ -42,8 +42,6 @@ const SocialSignUpModal: React.FC<SocialSignUpModalProps> = ({
     switch (provider) {
       case 'google': return 'Google';
       case 'github': return 'GitHub';
-      case 'microsoft': return 'Microsoft';
-      case 'twitter': return 'Twitter';
       default: return '소셜';
     }
   };
@@ -52,8 +50,6 @@ const SocialSignUpModal: React.FC<SocialSignUpModalProps> = ({
     switch (provider) {
       case 'google': return 'G';
       case 'github': return '🐙';
-      case 'microsoft': return 'M';
-      case 'twitter': return '🐦';
       default: return '👤';
     }
   };

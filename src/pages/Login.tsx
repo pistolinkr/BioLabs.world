@@ -19,8 +19,6 @@ import {
 import {
   Google as GoogleIcon,
   GitHub as GitHubIcon,
-  Microsoft as MicrosoftIcon,
-  Twitter as TwitterIcon,
   Person as PersonIcon,
   Email as EmailIcon,
   Lock as LockIcon,
@@ -40,7 +38,7 @@ const Login: React.FC = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  const { signIn, signUp, signInWithGoogle, signInWithGithub, signInWithMicrosoft, signInWithTwitter } = useAuth();
+  const { signIn, signUp, signInWithGoogle, signInWithGithub } = useAuth();
   const navigate = useNavigate();
 
   const handleEmailAuth = async (e: React.FormEvent) => {
@@ -74,7 +72,7 @@ const Login: React.FC = () => {
     }
   };
 
-  const handleOAuthSignIn = async (provider: 'google' | 'github' | 'microsoft' | 'twitter') => {
+  const handleOAuthSignIn = async (provider: 'google' | 'github') => {
     setLoading(true);
     setError('');
     setSuccess('');
@@ -88,12 +86,6 @@ const Login: React.FC = () => {
           break;
         case 'github':
           result = await signInWithGithub();
-          break;
-        case 'microsoft':
-          result = await signInWithMicrosoft();
-          break;
-        case 'twitter':
-          result = await signInWithTwitter();
           break;
         default:
           throw new Error('지원하지 않는 제공업체입니다.');
@@ -224,51 +216,6 @@ const Login: React.FC = () => {
                   }}
                 >
                   GitHub
-                </Button>
-              </Box>
-              
-              <Box sx={{ display: 'flex', gap: 1, marginBottom: 1 }}>
-                <Button
-                  fullWidth
-                  variant="outlined"
-                  startIcon={<MicrosoftIcon />}
-                  onClick={() => handleOAuthSignIn('microsoft')}
-                  disabled={loading}
-                  sx={{
-                    borderColor: '#ffffff',
-                    color: '#ffffff',
-                    backgroundColor: '#000000',
-                    borderRadius: 0,
-                    fontSize: '0.75rem',
-                    padding: '6px 12px',
-                    '&:hover': {
-                      borderColor: '#ffffff',
-                      backgroundColor: '#000000'
-                    }
-                  }}
-                >
-                  Microsoft
-                </Button>
-                <Button
-                  fullWidth
-                  variant="outlined"
-                  startIcon={<TwitterIcon />}
-                  onClick={() => handleOAuthSignIn('twitter')}
-                  disabled={loading}
-                  sx={{
-                    borderColor: '#ffffff',
-                    color: '#ffffff',
-                    backgroundColor: '#000000',
-                    borderRadius: 0,
-                    fontSize: '0.75rem',
-                    padding: '6px 12px',
-                    '&:hover': {
-                      borderColor: '#ffffff',
-                      backgroundColor: '#000000'
-                    }
-                  }}
-                >
-                  Twitter
                 </Button>
               </Box>
 

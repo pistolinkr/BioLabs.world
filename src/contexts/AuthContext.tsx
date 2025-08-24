@@ -9,8 +9,6 @@ import {
   onAuthChange,
   signInWithGoogle,
   signInWithGithub,
-  signInWithMicrosoft,
-  signInWithTwitter,
   getUserLabSettings,
   updateUserLabSettings,
   getUserLabData,
@@ -56,8 +54,6 @@ interface AuthContextType {
   signOut: () => Promise<{ success: boolean; error?: string }>;
   signInWithGoogle: () => Promise<{ success: boolean; user?: User; error?: string }>;
   signInWithGithub: () => Promise<{ success: boolean; user?: User; error?: string }>;
-  signInWithMicrosoft: () => Promise<{ success: boolean; user?: User; error?: string }>;
-  signInWithTwitter: () => Promise<{ success: boolean; user?: User; error?: string }>;
   signUpWithSocial: (socialUser: any, displayName: string, password: string) => Promise<{ success: boolean; user?: User; error?: string }>;
   updateLabSettings: (settings: Partial<LabSettings>) => Promise<{ success: boolean; error?: string }>;
   getLabData: (dataType: keyof LabData) => Promise<{ success: boolean; data?: any; error?: string }>;
@@ -174,24 +170,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   // GitHub 로그인
   const handleGithubSignIn = async () => {
     const result = await signInWithGithub();
-    if (result.success && result.user) {
-      await loadUserProfile(result.user);
-    }
-    return result;
-  };
-
-  // Microsoft 로그인
-  const handleMicrosoftSignIn = async () => {
-    const result = await signInWithMicrosoft();
-    if (result.success && result.user) {
-      await loadUserProfile(result.user);
-    }
-    return result;
-  };
-
-  // Twitter 로그인
-  const handleTwitterSignIn = async () => {
-    const result = await signInWithTwitter();
     if (result.success && result.user) {
       await loadUserProfile(result.user);
     }
@@ -324,8 +302,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     signOut: handleSignOut,
     signInWithGoogle: handleGoogleSignIn,
     signInWithGithub: handleGithubSignIn,
-    signInWithMicrosoft: handleMicrosoftSignIn,
-    signInWithTwitter: handleTwitterSignIn,
     signUpWithSocial,
     updateLabSettings,
     getLabData,
