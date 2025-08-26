@@ -36,6 +36,7 @@ interface HighlightInfo {
 const ProteinSimulation: React.FC = () => {
   const stageRef = useRef<HTMLDivElement>(null);
   const stageInstanceRef = useRef<NGL.Stage | null>(null);
+  const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [pdbId, setPdbId] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -303,7 +304,7 @@ const ProteinSimulation: React.FC = () => {
     }
   }, [representation, colorScheme, isStageReady]);
 
-  // PDB ID 검색 처리
+  // 실시간 PDB 검색 엔진 (PDB-101과 동일한 방식)
   const handlePdbIdSearch = useCallback(async () => {
     if (!pdbId.trim()) return;
 
@@ -312,39 +313,176 @@ const ProteinSimulation: React.FC = () => {
     setError('');
 
     try {
-      const response = await fetch(`https://data.rcsb.org/rest/v1/core/entry/search?identifier=${pdbId.toUpperCase()}`);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+      const searchTerm = pdbId.trim().toUpperCase();
+      let searchResults = [];
+      
+      // 1. RCSB PDB 직접 검색 (가장 신뢰할 수 있는 방법)
+      try {
+        const response = await fetch(`https://data.rcsb.org/rest/v1/core/entry/${searchTerm}`);
+        if (response.ok) {
+          const data = await response.json();
+          if (data && data.rcsb_id) {
+            // PDB 파일 존재 여부 확인
+            const pdbResponse = await fetch(`https://files.rcsb.org/download/${searchTerm}.pdb`);
+            const cifResponse = await fetch(`https://files.rcsb.org/download/${searchTerm}.cif`);
+            
+            const hasPdb = pdbResponse.ok;
+            const hasCif = cifResponse.ok;
+            
+            searchResults.push({
+              pdb_id: data.rcsb_id,
+              title: data.struct?.title || `${searchTerm} 단백질 구조`,
+              resolution: data.refine?.ls_d_res_high || null,
+              organism: data.entity?.src_organism?.[0]?.scientific_name || 'Unknown',
+              method: data.experimental?.method || 'X-ray crystallography',
+              exists: true,
+              hasPdb: hasPdb,
+              hasCif: hasCif,
+              pdbUrl: hasPdb ? `https://files.rcsb.org/download/${searchTerm}.pdb` : null,
+              cifUrl: hasCif ? `https://files.rcsb.org/download/${searchTerm}.cif` : null,
+              source: 'RCSB PDB'
+            });
+          }
+        }
+      } catch (apiError) {
+        console.log('RCSB API search failed, trying direct file check...');
       }
-      const data = await response.json();
-      setSearchResults(data.results);
-      console.log('Search results:', data.results);
+
+      // 2. 직접 파일 존재 여부 확인 (API가 실패한 경우)
+      if (searchResults.length === 0) {
+        try {
+          const pdbResponse = await fetch(`https://files.rcsb.org/download/${searchTerm}.pdb`);
+          const cifResponse = await fetch(`https://files.rcsb.org/download/${searchTerm}.cif`);
+          
+          if (pdbResponse.ok || cifResponse.ok) {
+            searchResults.push({
+              pdb_id: searchTerm,
+              title: `${searchTerm} 단백질 구조`,
+              resolution: null,
+              organism: 'Unknown',
+              method: 'X-ray crystallography',
+              exists: true,
+              hasPdb: pdbResponse.ok,
+              hasCif: cifResponse.ok,
+              pdbUrl: pdbResponse.ok ? `https://files.rcsb.org/download/${searchTerm}.pdb` : null,
+              cifUrl: cifResponse.ok ? `https://files.rcsb.org/download/${searchTerm}.cif` : null,
+              source: 'PDB Database'
+            });
+          }
+        } catch (directError) {
+          console.log('Direct file check failed...');
+        }
+      }
+
+      // 3. PDB-101 교육 자료 검색
+      if (searchResults.length === 0) {
+        try {
+          // PDB-101에서 관련 교육 자료 검색
+          const pdb101Response = await fetch(`https://pdb101.rcsb.org/api/search?q=${searchTerm}&format=json`);
+          if (pdb101Response.ok) {
+            const pdb101Data = await pdb101Response.json();
+            if (pdb101Data.results && pdb101Data.results.length > 0) {
+              pdb101Data.results.slice(0, 3).forEach((result: any) => {
+                searchResults.push({
+                  pdb_id: result.pdb_id || searchTerm,
+                  title: result.title || `${searchTerm} 관련 교육 자료`,
+                  resolution: result.resolution || null,
+                  organism: result.organism || 'Unknown',
+                  method: result.method || 'Educational',
+                  exists: true,
+                  hasPdb: false,
+                  hasCif: false,
+                  source: 'PDB-101',
+                  url: result.url || `https://pdb101.rcsb.org/learn/guide-to-understanding-pdb-data/${result.pdb_id}`
+                });
+              });
+            }
+          }
+        } catch (pdb101Error) {
+          console.log('PDB-101 search failed...');
+        }
+      }
+
+      if (searchResults.length > 0) {
+        setSearchResults(searchResults);
+        console.log('Real-time search results:', searchResults);
+      } else {
+        setError(`'${searchTerm}'에 대한 검색 결과를 찾을 수 없습니다. 정확한 PDB ID를 입력해주세요.`);
+      }
+      
     } catch (err) {
       console.error('Search error:', err);
-      setError('PDB ID 검색 중 오류가 발생했습니다: ' + (err as Error).message);
+      setError('검색 중 오류가 발생했습니다. 네트워크 연결을 확인하고 다시 시도해보세요.');
     } finally {
       setIsSearching(false);
     }
   }, [pdbId]);
 
-  // 검색 결과 중 하나를 선택하여 구조 로드
+  // PDB 파일 복사 함수
+  const handleCopyPdb = useCallback(async (pdbId: string) => {
+    try {
+      const response = await fetch(`https://files.rcsb.org/download/${pdbId.toUpperCase()}.pdb`);
+      if (response.ok) {
+        const pdbContent = await response.text();
+        await navigator.clipboard.writeText(pdbContent);
+        // 성공 메시지 표시 (임시)
+        console.log('PDB 파일이 클립보드에 복사되었습니다.');
+      } else {
+        setError('PDB 파일을 가져올 수 없습니다.');
+      }
+    } catch (err) {
+      console.error('PDB copy error:', err);
+      setError('PDB 파일 복사 중 오류가 발생했습니다.');
+    }
+  }, []);
+
+  // CIF 파일 복사 함수
+  const handleCopyCif = useCallback(async (pdbId: string) => {
+    try {
+      const response = await fetch(`https://files.rcsb.org/download/${pdbId.toUpperCase()}.cif`);
+      if (response.ok) {
+        const cifContent = await response.text();
+        await navigator.clipboard.writeText(cifContent);
+        // 성공 메시지 표시 (임시)
+        console.log('CIF 파일이 클립보드에 복사되었습니다.');
+      } else {
+        setError('CIF 파일을 가져올 수 없습니다.');
+      }
+    } catch (err) {
+      console.error('CIF copy error:', err);
+      setError('CIF 파일 복사 중 오류가 발생했습니다.');
+    }
+  }, []);
+
+  // 검색 결과 중 하나를 선택하여 구조 로드 (개선된 버전)
   const handleStructureSelect = useCallback(async (result: any) => {
     setIsSearching(false);
     setSearchResults([]);
     setPdbId(''); // 검색어 초기화
 
-    const structure: ProteinStructure = {
-      id: result.pdb_id.toLowerCase(),
-      name: `${result.pdb_id.toUpperCase()} (PDB ID)`,
-      type: 'pdb',
-      url: `https://files.rcsb.org/download/${result.pdb_id.toUpperCase()}.pdb`,
-      description: result.title,
-      resolution: result.resolution,
-      organism: result.organism,
-      method: result.method
-    };
+    try {
+      if (result.exists) {
+        // 실제 PDB 구조가 있는 경우
+        const structure: ProteinStructure = {
+          id: result.pdb_id.toLowerCase(),
+          name: `${result.pdb_id} (PDB ID)`,
+          type: 'pdb',
+          url: `https://files.rcsb.org/download/${result.pdb_id}.pdb`,
+          description: result.title,
+          resolution: result.resolution,
+          organism: result.organism,
+          method: result.method
+        };
 
-    await loadStructure(structure);
+        await loadStructure(structure);
+      } else {
+        // 예측 구조인 경우 (UniProt ID 기반)
+        setError(`${result.pdb_id}는 예측 구조입니다. 실제 PDB 구조를 찾을 수 없습니다. 다른 PDB ID를 시도해보세요.`);
+      }
+    } catch (err) {
+      console.error('Structure selection error:', err);
+      setError('구조 로딩 중 오류가 발생했습니다: ' + (err as Error).message);
+    }
   }, [loadStructure]);
 
   // 표현 방식 변경
@@ -455,13 +593,6 @@ const ProteinSimulation: React.FC = () => {
 
   return (
     <div className="protein-simulation">
-      {/* 상단 네비게이션 바 */}
-      <div className="navigation-bar">
-        <div className="nav-left">
-          <h2 className="nav-title">단백질 구조 분석기</h2>
-        </div>
-      </div>
-
       <div className="main-content">
         <div className="controls-panel">
           <div className="control-section">
@@ -483,9 +614,26 @@ const ProteinSimulation: React.FC = () => {
             <div className="pdb-search">
               <input
                 type="text"
-                placeholder="예: 1UBQ, 1CRN, 6LU7"
+                placeholder="예: 7VCF, 1UBQ, 1CRN, 6LU7"
                 value={pdbId}
-                onChange={(e) => setPdbId(e.target.value)}
+                onChange={(e) => {
+                  setPdbId(e.target.value);
+                  // 실시간 검색 (입력 후 500ms 대기)
+                  if (e.target.value.trim()) {
+                    if (searchTimeoutRef.current) {
+                      clearTimeout(searchTimeoutRef.current);
+                    }
+                    searchTimeoutRef.current = setTimeout(() => {
+                      if (e.target.value.trim()) {
+                        handlePdbIdSearch();
+                      }
+                    }, 500);
+                  } else {
+                    setSearchResults([]);
+                    setError('');
+                  }
+                }}
+                onKeyPress={(e) => e.key === 'Enter' && handlePdbIdSearch()}
                 className="pdb-input"
               />
               <button 
@@ -501,23 +649,68 @@ const ProteinSimulation: React.FC = () => {
                 <h4>검색 결과:</h4>
                 {searchResults.length > 0 ? (
                   <ul className="search-results-list">
-                      {searchResults.map((result, index) => (
+                    {searchResults.map((result, index) => (
                       <li 
                         key={index} 
                         className="search-result-item"
                         onClick={() => handleStructureSelect(result)}
                       >
                         <div className="result-header">
-                          <strong className="pdb-id">{result.pdb_id.toUpperCase()}</strong>
+                          <strong className="pdb-id">{result.pdb_id}</strong>
                           <span className="resolution">
                             {result.resolution ? `${result.resolution}Å` : 'N/A'}
                           </span>
+                          {result.exists && <span className="status-badge available">사용 가능</span>}
+                          {!result.exists && <span className="status-badge predicted">예측 구조</span>}
+                          {result.source && <span className="source-badge">{result.source}</span>}
                         </div>
                         <div className="result-title">{result.title}</div>
                         <div className="result-details">
                           <span className="organism">{result.organism}</span>
                           <span className="method">{result.method}</span>
+                          {result.uniprot_id && (
+                            <span className="uniprot-id">UniProt: {result.uniprot_id}</span>
+                          )}
                         </div>
+                        {result.exists && (result.hasPdb || result.hasCif) && (
+                          <div className="copy-buttons">
+                            {result.hasPdb && (
+                              <button 
+                                className="copy-btn pdb-copy"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleCopyPdb(result.pdb_id);
+                                }}
+                              >
+                                <i className="fas fa-copy"></i> PDB 복사
+                              </button>
+                            )}
+                            {result.hasCif && (
+                              <button 
+                                className="copy-btn cif-copy"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleCopyCif(result.pdb_id);
+                                }}
+                              >
+                                <i className="fas fa-copy"></i> CIF 복사
+                              </button>
+                            )}
+                          </div>
+                        )}
+                        {result.url && result.source === 'PDB-101' && (
+                          <div className="pdb101-actions">
+                            <a 
+                              href={result.url} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="pdb101-link"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <i className="fas fa-external-link-alt"></i> PDB-101 보기
+                            </a>
+                          </div>
+                        )}
                       </li>
                     ))}
                   </ul>

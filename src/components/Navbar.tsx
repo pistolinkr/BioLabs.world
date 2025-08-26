@@ -49,10 +49,34 @@ const Navbar: React.FC = () => {
         backdropFilter: 'blur(5px)',
         webkitBackdropFilter: 'blur(5px)',
         boxShadow: 'none',
-        zIndex: 1200
+        border: 'none',
+        borderBottom: 'none',
+        outline: 'none',
+        zIndex: 1200,
+        '& .MuiPaper-root': {
+          border: 'none',
+          borderBottom: 'none',
+          outline: 'none'
+        },
+        '& .MuiAppBar-root': {
+          border: 'none',
+          borderBottom: 'none',
+          outline: 'none'
+        }
       }}
     >
-      <Toolbar sx={{ paddingLeft: '280px', paddingRight: 2 }}>
+      <Toolbar sx={{ 
+        paddingLeft: '280px', 
+        paddingRight: 2,
+        border: 'none',
+        borderBottom: 'none',
+        outline: 'none',
+        '& .MuiToolbar-root': {
+          border: 'none',
+          borderBottom: 'none',
+          outline: 'none'
+        }
+      }}>
         {/* 로고 및 제목 */}
         <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
           <BioLabsLogo />

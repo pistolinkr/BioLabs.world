@@ -150,7 +150,9 @@ const darkTheme = createTheme({
       styleOverrides: {
         root: {
           boxShadow: 'none',
-          borderBottom: '1px solid #ffffff'
+          borderBottom: 'none',
+          border: 'none',
+          outline: 'none'
         }
       }
     },
@@ -158,7 +160,10 @@ const darkTheme = createTheme({
       styleOverrides: {
         root: {
           minHeight: '64px',
-          padding: '0 16px'
+          padding: '0 16px',
+          border: 'none',
+          borderBottom: 'none',
+          outline: 'none'
         }
       }
     }
