@@ -43,7 +43,7 @@ const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   );
 };
 
-// 다크 테마 생성 (검은색/하얀색만 사용)
+// 흑백 테마 생성 (검은색/하얀색만 사용)
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',

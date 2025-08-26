@@ -39,7 +39,7 @@ const InteractionNetwork: React.FC = () => {
       <Grid container spacing={3}>
         {/* 네트워크 시각화 */}
         <Grid item xs={12} lg={8}>
-          <Card sx={{ backgroundColor: '#1a1a1a', border: '1px solid #333333', height: '600px' }}>
+          <Card sx={{ backgroundColor: '#000000', border: '1px solid #ffffff', height: '600px' }}>
             <CardContent sx={{ height: '100%', p: 0 }}>
               <Box
                 sx={{
@@ -54,7 +54,7 @@ const InteractionNetwork: React.FC = () => {
                 }}
               >
                 <Box sx={{ textAlign: 'center' }}>
-                  <HubIcon sx={{ fontSize: 64, color: '#00bcd4', mb: 2 }} />
+                  <HubIcon sx={{ fontSize: 64, color: '#ffffff', mb: 2 }} />
                   <Typography variant="h6" sx={{ color: '#ffffff', mb: 1 }}>
                     Protein Interaction Network
                   </Typography>
@@ -69,7 +69,7 @@ const InteractionNetwork: React.FC = () => {
 
         {/* 제어 패널 */}
         <Grid item xs={12} lg={4}>
-          <Card sx={{ backgroundColor: '#1a1a1a', border: '1px solid #333333', mb: 3 }}>
+          <Card sx={{ backgroundColor: '#000000', border: '1px solid #ffffff', mb: 3 }}>
             <CardContent>
               <Typography variant="h6" gutterBottom sx={{ color: '#ffffff', mb: 2 }}>
                 Network Controls
@@ -92,7 +92,7 @@ const InteractionNetwork: React.FC = () => {
                 </Button>
               </Box>
 
-              <Divider sx={{ backgroundColor: '#333333', my: 2 }} />
+              <Divider sx={{ backgroundColor: '#ffffff', my: 2 }} />
 
               <FormControl fullWidth sx={{ mb: 3 }}>
                 <InputLabel sx={{ color: '#b0b0b0' }}>Network Type</InputLabel>
@@ -145,7 +145,7 @@ const InteractionNetwork: React.FC = () => {
           </Card>
 
           {/* 네트워크 통계 */}
-          <Card sx={{ backgroundColor: '#1a1a1a', border: '1px solid #333333', mb: 3 }}>
+          <Card sx={{ backgroundColor: '#000000', border: '1px solid #ffffff', mb: 3 }}>
             <CardContent>
               <Typography variant="h6" gutterBottom sx={{ color: '#ffffff', mb: 2 }}>
                 Network Statistics
@@ -169,7 +169,7 @@ const InteractionNetwork: React.FC = () => {
           </Card>
 
           {/* 핵심 노드 */}
-          <Card sx={{ backgroundColor: '#1a1a1a', border: '1px solid #333333' }}>
+          <Card sx={{ backgroundColor: '#000000', border: '1px solid #ffffff' }}>
             <CardContent>
               <Typography variant="h6" gutterBottom sx={{ color: '#ffffff', mb: 2 }}>
                 Key Proteins
@@ -179,22 +179,22 @@ const InteractionNetwork: React.FC = () => {
                 <Chip
                   label="PrP^C"
                   size="small"
-                  sx={{ mr: 1, mb: 1, backgroundColor: '#4caf50', color: '#ffffff' }}
+                  sx={{ mr: 1, mb: 1, backgroundColor: '#000000', color: '#ffffff', border: '1px solid #ffffff' }}
                 />
                 <Chip
                   label="PrP^Sc"
                   size="small"
-                  sx={{ mr: 1, mb: 1, backgroundColor: '#f44336', color: '#ffffff' }}
+                  sx={{ mr: 1, mb: 1, backgroundColor: '#000000', color: '#ffffff', border: '1px solid #ffffff' }}
                 />
                 <Chip
                   label="14-3-3"
                   size="small"
-                  sx={{ mr: 1, mb: 1, backgroundColor: '#2196f3', color: '#ffffff' }}
+                  sx={{ mr: 1, mb: 1, backgroundColor: '#000000', color: '#ffffff', border: '1px solid #ffffff' }}
                 />
                 <Chip
                   label="Tau"
                   size="small"
-                  sx={{ mr: 1, mb: 1, backgroundColor: '#ff9800', color: '#ffffff' }}
+                  sx={{ mr: 1, mb: 1, backgroundColor: '#000000', color: '#ffffff', border: '1px solid #ffffff' }}
                 />
               </Box>
             </CardContent>

@@ -52,7 +52,7 @@ const Login: React.FC = () => {
         const result = await signUp(email, password, displayName);
         if (result.success) {
           setSuccess('회원가입이 완료되었습니다!');
-          setTimeout(() => navigate('/dashboard'), 1500);
+          setTimeout(() => navigate('/home'), 1500);
         } else {
           setError(result.error || '회원가입 중 오류가 발생했습니다.');
         }
@@ -60,7 +60,7 @@ const Login: React.FC = () => {
         const result = await signIn(email, password);
         if (result.success) {
           setSuccess('로그인이 완료되었습니다!');
-          setTimeout(() => navigate('/dashboard'), 1500);
+          setTimeout(() => navigate('/home'), 1500);
         } else {
           setError(result.error || '로그인 중 오류가 발생했습니다.');
         }
@@ -93,7 +93,7 @@ const Login: React.FC = () => {
 
       if (result.success) {
         setSuccess(`${provider} 로그인이 완료되었습니다!`);
-        setTimeout(() => navigate('/dashboard'), 1500);
+        setTimeout(() => navigate('/home'), 1500);
       } else {
         setError(result.error || `${provider} 로그인 중 오류가 발생했습니다.`);
       }

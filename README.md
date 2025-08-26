@@ -7,7 +7,7 @@ BioLabs은 연구를 위한 통합 분석 플랫폼입니다. 단백질 시뮬�
 ## ✨ 주요 기능
 
 ### 🔬 **연구 모듈**
-- **Protein Simulation**: 3D 단백질 구조 시뮬레이션
+- **Protein Simulation**: PDB-101의 PDB/CIF 파일을 불러와 3D 단백질 구조 시각화
 - **AI Diagnosis**: AI 기반 프리온 질병 진단
 - **Interaction Network**: 단백질 상호작용 네트워크 분석
 - **Drug Screening**: 약물 스크리닝 및 개발
@@ -25,7 +25,7 @@ BioLabs은 연구를 위한 통합 분석 플랫폼입니다. 단백질 시뮬�
 - **React 18** - 사용자 인터페이스
 - **TypeScript** - 타입 안전성
 - **Material-UI (MUI)** - 컴포넌트 라이브러리
-- **Three.js** - 3D 시각화
+- **NGL Viewer** - 3D 단백질 구조 시각화
 - **Chart.js** - 데이터 차트
 
 ### **Backend**
@@ -85,7 +85,7 @@ firebase deploy
 
 ## 🌐 배포된 사이트
 
-**https://biolabs-28116.web.app**
+**https://biolabs.world**
 
 ## 📁 프로젝트 구조
 
@@ -93,12 +93,36 @@ firebase deploy
 src/
 ├── components/          # 재사용 가능한 컴포넌트
 ├── pages/              # 페이지 컴포넌트
+│   └── ProteinSimulation.tsx  # 단백질 구조 시각화 엔진
 ├── contexts/           # React Context
 ├── firebase/           # Firebase 설정 및 서비스
 ├── utils/              # 유틸리티 함수
 ├── types/              # TypeScript 타입 정의
+│   └── ngl.d.ts        # NGL Viewer 타입 정의
 └── data/               # 정적 데이터
 ```
+
+## 🧬 단백질 시각화 엔진
+
+### **주요 기능**
+- **파일 업로드**: 로컬 PDB, CIF, ENT 파일 직접 업로드
+- **PDB ID 검색**: RCSB PDB의 구조 ID로 직접 검색 및 로드
+- **샘플 구조**: 미리 준비된 단백질 구조들 (Ubiquitin, Hemoglobin 등)
+- **다양한 표현 방식**: Cartoon, Surface, Ball+Stick, Ribbon, Spacefill 등
+- **색상 체계**: Chain ID, Element, Residue, Atom Index 등으로 구분
+- **3D 조작**: 마우스로 회전, 확대/축소, 이동
+- **스크린샷**: 현재 뷰를 PNG 이미지로 저장
+
+### **지원 파일 형식**
+- **PDB (.pdb)**: Protein Data Bank 표준 형식
+- **CIF (.cif)**: Crystallographic Information File
+- **ENT (.ent)**: PDB 엔트리 파일
+
+### **기술적 특징**
+- **NGL Viewer**: 웹 기반 고성능 3D 분자 시각화 라이브러리
+- **WebGL 가속**: 하드웨어 가속을 통한 부드러운 렌더링
+- **반응형 디자인**: 모든 디바이스에서 최적의 시각화 경험
+- **실시간 렌더링**: 다양한 표현 방식과 색상 체계를 실시간으로 변경
 
 ## 🔧 개발 환경 설정
 
@@ -163,14 +187,7 @@ interface LabData {
 ## 📞 연락처
 
 - **GitHub**: [@pistolinkr](https://github.com/pistolinkr)
+- **Mail**: [pistolinkr@icloud.com](pistolinkr@icloud.com)
 - **프로젝트 링크**: [https://github.com/pistolinkr/BioLabs](https://github.com/pistolinkr/BioLabs)
-
-## 🙏 감사의 말
-
-- **React** 팀에게 훌륭한 프레임워크를 제공해주셔서 감사합니다
-- **Firebase** 팀에게 강력한 백엔드 서비스를 제공해주셔서 감사합니다
-- **Material-UI** 팀에게 아름다운 컴포넌트를 제공해주셔서 감사합니다
-
----
 
 ⭐ 이 프로젝트가 도움이 되었다면 스타를 눌러주세요!

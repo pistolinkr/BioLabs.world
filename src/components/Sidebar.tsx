@@ -13,7 +13,7 @@ import {
   Fade
 } from '@mui/material';
 import {
-  Dashboard as DashboardIcon,
+  Home as HomeIcon,
   Science as ScienceIcon,
   Assessment as AssessmentIcon,
   AccountTree as NetworkIcon,
@@ -29,7 +29,7 @@ const Sidebar: React.FC = () => {
   const { userProfile } = useAuth();
 
   const menuItems = [
-    { path: '/home', icon: <DashboardIcon />, text: '홈' },
+    { path: '/home', icon: <HomeIcon />, text: '홈' },
     { path: '/protein-simulation', icon: <ScienceIcon />, text: '단백질 시뮬레이션' },
     { path: '/diagnosis-ai', icon: <AssessmentIcon />, text: 'AI 진단' },
     { path: '/interaction-network', icon: <NetworkIcon />, text: '상호작용 네트워크' },

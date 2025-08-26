@@ -32,40 +32,40 @@ const Home: React.FC = () => {
       id: 'protein-simulation',
       title: 'Protein Simulation',
       description: '3D 단백질 구조 시뮬레이션 및 분석',
-      icon: <ScienceIcon sx={{ fontSize: 40, color: '#3CD3FF' }} />,
-      color: '#3CD3FF',
+      icon: <ScienceIcon sx={{ fontSize: 40, color: '#ffffff' }} />,
+      color: '#ffffff',
       path: '/protein-simulation'
     },
     {
       id: 'diagnosis-ai',
       title: 'AI Diagnosis',
       description: '인공지능 기반 질병 진단 및 분석',
-      icon: <PsychologyIcon sx={{ fontSize: 40, color: '#FF6B6B' }} />,
-      color: '#FF6B6B',
+      icon: <PsychologyIcon sx={{ fontSize: 40, color: '#ffffff' }} />,
+      color: '#ffffff',
       path: '/diagnosis-ai'
     },
     {
       id: 'interaction-network',
       title: 'Interaction Network',
       description: '분자 상호작용 네트워크 분석',
-      icon: <ShareIcon sx={{ fontSize: 40, color: '#4ECDC4' }} />,
-      color: '#4ECDC4',
+      icon: <ShareIcon sx={{ fontSize: 40, color: '#ffffff' }} />,
+      color: '#ffffff',
       path: '/interaction-network'
     },
     {
       id: 'drug-screening',
       title: 'Drug Screening',
       description: '약물 스크리닝 및 효과 분석',
-      icon: <MedicationIcon sx={{ fontSize: 40, color: '#45B7D1' }} />,
-      color: '#45B7D1',
+      icon: <MedicationIcon sx={{ fontSize: 40, color: '#ffffff' }} />,
+      color: '#ffffff',
       path: '/drug-screening'
     },
     {
       id: 'epidemiology-model',
       title: 'Epidemiology Model',
       description: '역학 모델링 및 예측 분석',
-      icon: <TimelineIcon sx={{ fontSize: 40, color: '#96CEB4' }} />,
-      color: '#96CEB4',
+      icon: <TimelineIcon sx={{ fontSize: 40, color: '#ffffff' }} />,
+      color: '#ffffff',
       path: '/epidemiology-model'
     }
   ];
@@ -84,20 +84,17 @@ const Home: React.FC = () => {
         {/* 헤더 섹션 */}
         <Fade in timeout={800}>
           <Box sx={{ textAlign: 'center', marginBottom: 6 }}>
-            <HomeIcon sx={{ fontSize: 60, color: '#3CD3FF', marginBottom: 2 }} />
+            <HomeIcon sx={{ fontSize: 60, color: '#ffffff', marginBottom: 2 }} />
             <Typography
               variant="h3"
               component="h1"
               sx={{
                 fontWeight: 700,
                 marginBottom: 2,
-                background: 'linear-gradient(45deg, #3CD3FF, #ffffff)',
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent'
+                color: '#ffffff'
               }}
             >
-              BioLabs 홈에 오신 것을 환영합니다
+              BioLabs 생명학 시뮬레이션 도구
             </Typography>
             <Typography
               variant="h6"
@@ -108,13 +105,13 @@ const Home: React.FC = () => {
                 lineHeight: 1.6
               }}
             >
-              고급 생물학 연구 및 분석 플랫폼
+              생명학 연구를 위한 다양한 시뮬레이션 및 테스팅 도구 모음
             </Typography>
             {userProfile && (
               <Typography
                 variant="body1"
                 sx={{
-                  color: '#3CD3FF',
+                  color: '#ffffff',
                   marginTop: 2,
                   fontSize: '1.1rem'
                 }}
@@ -138,7 +135,7 @@ const Home: React.FC = () => {
                 color: '#ffffff'
               }}
             >
-              지원하는 서비스
+              사용 가능한 시뮬레이션 도구
             </Typography>
             <Grid container spacing={3}>
               {services.map((service, index) => (
@@ -200,7 +197,7 @@ const Home: React.FC = () => {
                             }
                           }}
                         >
-                          서비스 이용하기
+                          도구 시작하기
                         </Button>
                       </CardActions>
                     </Card>
@@ -215,8 +212,8 @@ const Home: React.FC = () => {
         <Fade in timeout={1400}>
           <Paper
             sx={{
-              backgroundColor: 'rgba(60, 211, 255, 0.05)',
-              border: '1px solid rgba(60, 211, 255, 0.3)',
+              backgroundColor: 'rgba(255, 255, 255, 0.05)',
+              border: '1px solid rgba(255, 255, 255, 0.3)',
               borderRadius: 2,
               padding: 4,
               textAlign: 'center'
@@ -228,10 +225,10 @@ const Home: React.FC = () => {
               sx={{
                 fontWeight: 600,
                 marginBottom: 2,
-                color: '#3CD3FF'
+                color: '#ffffff'
               }}
             >
-              BioLabs의 특징
+              BioLabs 도구의 특징
             </Typography>
             <Grid container spacing={3}>
               <Grid item xs={12} md={4}>

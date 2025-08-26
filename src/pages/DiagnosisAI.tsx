@@ -146,13 +146,13 @@ const DiagnosisAI: React.FC = () => {
   const getResultColor = (result: string) => {
     switch (result) {
       case 'normal':
-        return '#4caf50';
+        return '#ffffff';
       case 'suspicious':
-        return '#ff9800';
+        return '#ffffff';
       case 'positive':
-        return '#f44336';
+        return '#ffffff';
       default:
-        return '#2196f3';
+        return '#ffffff';
     }
   };
 
@@ -178,7 +178,7 @@ const DiagnosisAI: React.FC = () => {
       <Grid container spacing={3}>
         {/* 이미지 업로드 및 분석 */}
         <Grid item xs={12} lg={6}>
-          <Card sx={{ backgroundColor: '#1a1a1a', border: '1px solid #333333', mb: 3 }}>
+          <Card sx={{ backgroundColor: '#000000', border: '1px solid #ffffff', mb: 3 }}>
             <CardContent>
               <Typography variant="h6" gutterBottom sx={{ color: '#ffffff', mb: 3 }}>
                 Image Upload & Analysis
@@ -246,9 +246,9 @@ const DiagnosisAI: React.FC = () => {
                     sx={{
                       height: 8,
                       borderRadius: 4,
-                      backgroundColor: '#333333',
+                      backgroundColor: 'rgba(255, 255, 255, 0.1)',
                       '& .MuiLinearProgress-bar': {
-                        backgroundColor: '#00bcd4',
+                        backgroundColor: '#ffffff',
                       },
                     }}
                   />
@@ -283,7 +283,7 @@ const DiagnosisAI: React.FC = () => {
                     </Box>
                   </Box>
 
-                  <Divider sx={{ backgroundColor: '#333333', my: 2 }} />
+                  <Divider sx={{ backgroundColor: '#ffffff', my: 2 }} />
 
                   <Typography variant="subtitle2" sx={{ color: '#ffffff', mb: 1 }}>
                     Detected Symptoms:
@@ -294,7 +294,7 @@ const DiagnosisAI: React.FC = () => {
                         key={index}
                         label={symptom}
                         size="small"
-                        sx={{ mr: 1, mb: 1, backgroundColor: '#333333', color: '#ffffff' }}
+                        sx={{ mr: 1, mb: 1, backgroundColor: '#000000', color: '#ffffff', border: '1px solid #ffffff' }}
                       />
                     ))}
                   </Box>
@@ -308,7 +308,7 @@ const DiagnosisAI: React.FC = () => {
                         key={index}
                         label={rec}
                         size="small"
-                        sx={{ mr: 1, mb: 1, backgroundColor: '#00bcd4', color: '#ffffff' }}
+                        sx={{ mr: 1, mb: 1, backgroundColor: '#000000', color: '#ffffff', border: '1px solid #ffffff' }}
                       />
                     ))}
                   </Box>
@@ -320,36 +320,36 @@ const DiagnosisAI: React.FC = () => {
 
         {/* 진단 히스토리 */}
         <Grid item xs={12} lg={6}>
-          <Card sx={{ backgroundColor: '#1a1a1a', border: '1px solid #333333' }}>
+          <Card sx={{ backgroundColor: '#000000', border: '1px solid #ffffff' }}>
             <CardContent>
               <Typography variant="h6" gutterBottom sx={{ color: '#ffffff', mb: 3 }}>
                 Diagnosis History
               </Typography>
 
-              <TableContainer component={Paper} sx={{ backgroundColor: '#1a1a1a' }}>
+              <TableContainer component={Paper} sx={{ backgroundColor: '#000000' }}>
                 <Table>
                   <TableHead>
                     <TableRow>
-                      <TableCell sx={{ color: '#ffffff', borderColor: '#333333' }}>Patient ID</TableCell>
-                      <TableCell sx={{ color: '#ffffff', borderColor: '#333333' }}>Date</TableCell>
-                      <TableCell sx={{ color: '#ffffff', borderColor: '#333333' }}>Type</TableCell>
-                      <TableCell sx={{ color: '#ffffff', borderColor: '#333333' }}>Result</TableCell>
-                      <TableCell sx={{ color: '#ffffff', borderColor: '#333333' }}>Confidence</TableCell>
+                                              <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>Patient ID</TableCell>
+                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>Date</TableCell>
+                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>Type</TableCell>
+                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>Result</TableCell>
+                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>Confidence</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
                     {mockDiagnosisHistory.map((row) => (
                       <TableRow key={row.id}>
-                        <TableCell sx={{ color: '#ffffff', borderColor: '#333333' }}>
+                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>
                           {row.patientId}
                         </TableCell>
-                        <TableCell sx={{ color: '#ffffff', borderColor: '#333333' }}>
+                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>
                           {row.date}
                         </TableCell>
-                        <TableCell sx={{ color: '#ffffff', borderColor: '#333333' }}>
+                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>
                           {row.imageType}
                         </TableCell>
-                        <TableCell sx={{ color: '#ffffff', borderColor: '#333333' }}>
+                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>
                           <Chip
                             label={row.result}
                             size="small"
@@ -359,7 +359,7 @@ const DiagnosisAI: React.FC = () => {
                             }}
                           />
                         </TableCell>
-                        <TableCell sx={{ color: '#ffffff', borderColor: '#333333' }}>
+                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>
                           {row.confidence}%
                         </TableCell>
                       </TableRow>

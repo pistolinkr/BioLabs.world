@@ -105,26 +105,26 @@ const DrugScreening: React.FC = () => {
   const getToxicityColor = (toxicity: string) => {
     switch (toxicity) {
       case 'low':
-        return '#4caf50';
+        return '#ffffff';
       case 'medium':
-        return '#ff9800';
+        return '#ffffff';
       case 'high':
-        return '#f44336';
+        return '#ffffff';
       default:
-        return '#2196f3';
+        return '#ffffff';
     }
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'screening':
-        return '#2196f3';
+        return '#ffffff';
       case 'testing':
-        return '#ff9800';
+        return '#ffffff';
       case 'approved':
-        return '#4caf50';
+        return '#ffffff';
       default:
-        return '#b0b0b0';
+        return '#ffffff';
     }
   };
 
@@ -137,7 +137,7 @@ const DrugScreening: React.FC = () => {
       <Grid container spacing={3}>
         {/* 검색 및 필터 */}
         <Grid item xs={12}>
-          <Card sx={{ backgroundColor: '#1a1a1a', border: '1px solid #333333', mb: 3 }}>
+          <Card sx={{ backgroundColor: '#000000', border: '1px solid #ffffff', mb: 3 }}>
             <CardContent>
               <Typography variant="h6" gutterBottom sx={{ color: '#ffffff', mb: 3 }}>
                 Drug Discovery & Screening
@@ -154,8 +154,8 @@ const DrugScreening: React.FC = () => {
                       '& .MuiInputLabel-root': { color: '#b0b0b0' },
                       '& .MuiInputBase-input': { color: '#ffffff' },
                       '& .MuiOutlinedInput-root': {
-                        '& fieldset': { borderColor: '#333333' },
-                        '&:hover fieldset': { borderColor: '#00bcd4' },
+                                '& fieldset': { borderColor: '#ffffff' },
+        '&:hover fieldset': { borderColor: '#ffffff' },
                       },
                     }}
                   />
@@ -202,9 +202,9 @@ const DrugScreening: React.FC = () => {
                     sx={{
                       height: 8,
                       borderRadius: 4,
-                      backgroundColor: '#333333',
+                      backgroundColor: 'rgba(255, 255, 255, 0.1)',
                       '& .MuiLinearProgress-bar': {
-                        backgroundColor: '#00bcd4',
+                        backgroundColor: '#ffffff',
                       },
                     }}
                   />
@@ -216,43 +216,43 @@ const DrugScreening: React.FC = () => {
 
         {/* 약물 후보 목록 */}
         <Grid item xs={12}>
-          <Card sx={{ backgroundColor: '#1a1a1a', border: '1px solid #333333' }}>
+          <Card sx={{ backgroundColor: '#000000', border: '1px solid #ffffff' }}>
             <CardContent>
               <Typography variant="h6" gutterBottom sx={{ color: '#ffffff', mb: 3 }}>
                 Drug Candidates
               </Typography>
 
-              <TableContainer component={Paper} sx={{ backgroundColor: '#1a1a1a' }}>
+              <TableContainer component={Paper} sx={{ backgroundColor: '#000000' }}>
                 <Table>
                   <TableHead>
                     <TableRow>
-                      <TableCell sx={{ color: '#ffffff', borderColor: '#333333' }}>Name</TableCell>
-                      <TableCell sx={{ color: '#ffffff', borderColor: '#333333' }}>Binding Affinity (kcal/mol)</TableCell>
-                      <TableCell sx={{ color: '#ffffff', borderColor: '#333333' }}>Toxicity</TableCell>
-                      <TableCell sx={{ color: '#ffffff', borderColor: '#333333' }}>Bioavailability</TableCell>
-                      <TableCell sx={{ color: '#ffffff', borderColor: '#333333' }}>MW (Da)</TableCell>
-                      <TableCell sx={{ color: '#ffffff', borderColor: '#333333' }}>LogP</TableCell>
-                      <TableCell sx={{ color: '#ffffff', borderColor: '#333333' }}>Status</TableCell>
-                      <TableCell sx={{ color: '#ffffff', borderColor: '#333333' }}>Actions</TableCell>
+                                              <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>Name</TableCell>
+                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>Binding Affinity (kcal/mol)</TableCell>
+                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>Toxicity</TableCell>
+                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>Bioavailability</TableCell>
+                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>MW (Da)</TableCell>
+                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>LogP</TableCell>
+                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>Status</TableCell>
+                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>Actions</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
                     {mockDrugCandidates.map((drug) => (
                       <TableRow key={drug.id}>
-                        <TableCell sx={{ color: '#ffffff', borderColor: '#333333' }}>
+                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>
                           <Box>
                             <Typography variant="body2" sx={{ color: '#ffffff', fontWeight: 600 }}>
                               {drug.name}
                             </Typography>
-                            <Typography variant="caption" sx={{ color: '#b0b0b0' }}>
+                            <Typography variant="caption" sx={{ color: '#ffffff' }}>
                               {drug.smiles}
                             </Typography>
                           </Box>
                         </TableCell>
-                        <TableCell sx={{ color: '#ffffff', borderColor: '#333333' }}>
+                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>
                           {drug.bindingAffinity}
                         </TableCell>
-                        <TableCell sx={{ color: '#ffffff', borderColor: '#333333' }}>
+                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>
                           <Chip
                             label={drug.toxicity}
                             size="small"
@@ -262,16 +262,16 @@ const DrugScreening: React.FC = () => {
                             }}
                           />
                         </TableCell>
-                        <TableCell sx={{ color: '#ffffff', borderColor: '#333333' }}>
+                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>
                           {(drug.bioavailability * 100).toFixed(1)}%
                         </TableCell>
-                        <TableCell sx={{ color: '#ffffff', borderColor: '#333333' }}>
+                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>
                           {drug.molecularWeight.toFixed(1)}
                         </TableCell>
-                        <TableCell sx={{ color: '#ffffff', borderColor: '#333333' }}>
+                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>
                           {drug.logP.toFixed(1)}
                         </TableCell>
-                        <TableCell sx={{ color: '#ffffff', borderColor: '#333333' }}>
+                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>
                           <Chip
                             label={drug.status}
                             size="small"
@@ -281,7 +281,7 @@ const DrugScreening: React.FC = () => {
                             }}
                           />
                         </TableCell>
-                        <TableCell sx={{ color: '#ffffff', borderColor: '#333333' }}>
+                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>
                           <Button size="small" variant="outlined" sx={{ mr: 1 }}>
                             View
                           </Button>

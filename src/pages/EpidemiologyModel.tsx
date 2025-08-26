@@ -129,7 +129,7 @@ const EpidemiologyModel: React.FC = () => {
                 </Button>
               </Box>
 
-              <Divider sx={{ backgroundColor: '#333333', my: 2 }} />
+              <Divider sx={{ backgroundColor: '#ffffff', my: 2 }} />
 
               <Typography variant="subtitle2" sx={{ color: '#ffffff', mb: 1 }}>
                 Simulation Time: {simulationTime} days
@@ -138,7 +138,7 @@ const EpidemiologyModel: React.FC = () => {
           </Card>
 
           {/* 모델 파라미터 */}
-          <Card sx={{ backgroundColor: '#1a1a1a', border: '1px solid #333333', mb: 3 }}>
+          <Card sx={{ backgroundColor: '#000000', border: '1px solid #ffffff', mb: 3 }}>
             <CardContent>
               <Typography variant="h6" gutterBottom sx={{ color: '#ffffff', mb: 3 }}>
                 Model Parameters
@@ -206,7 +206,7 @@ const EpidemiologyModel: React.FC = () => {
           </Card>
 
           {/* 고급 설정 */}
-          <Card sx={{ backgroundColor: '#1a1a1a', border: '1px solid #333333' }}>
+          <Card sx={{ backgroundColor: '#000000', border: '1px solid #ffffff' }}>
             <CardContent>
               <Typography variant="h6" gutterBottom sx={{ color: '#ffffff', mb: 2 }}>
                 Advanced Settings
@@ -228,7 +228,7 @@ const EpidemiologyModel: React.FC = () => {
 
         {/* 시뮬레이션 결과 */}
         <Grid item xs={12} lg={8}>
-          <Card sx={{ backgroundColor: '#1a1a1a', border: '1px solid #333333', mb: 3 }}>
+          <Card sx={{ backgroundColor: '#000000', border: '1px solid #ffffff', mb: 3 }}>
             <CardContent>
               <Typography variant="h6" gutterBottom sx={{ color: '#ffffff', mb: 3 }}>
                 Simulation Results
@@ -236,8 +236,8 @@ const EpidemiologyModel: React.FC = () => {
 
               <Grid container spacing={3} sx={{ mb: 3 }}>
                 <Grid item xs={6} md={3}>
-                  <Box sx={{ textAlign: 'center', p: 2, backgroundColor: '#333333', borderRadius: 2 }}>
-                    <Typography variant="h4" sx={{ color: '#4caf50', mb: 1 }}>
+                  <Box sx={{ textAlign: 'center', p: 2, backgroundColor: '#000000', border: '1px solid #ffffff', borderRadius: 2 }}>
+                    <Typography variant="h4" sx={{ color: '#ffffff', mb: 1 }}>
                       {susceptible.toLocaleString()}
                     </Typography>
                     <Typography variant="body2" sx={{ color: '#ffffff' }}>
@@ -247,8 +247,8 @@ const EpidemiologyModel: React.FC = () => {
                 </Grid>
 
                 <Grid item xs={6} md={3}>
-                  <Box sx={{ textAlign: 'center', p: 2, backgroundColor: '#333333', borderRadius: 2 }}>
-                    <Typography variant="h4" sx={{ color: '#ff9800', mb: 1 }}>
+                  <Box sx={{ textAlign: 'center', p: 2, backgroundColor: '#000000', border: '1px solid #ffffff', borderRadius: 2 }}>
+                    <Typography variant="h4" sx={{ color: '#ffffff', mb: 1 }}>
                       {infected.toLocaleString()}
                     </Typography>
                     <Typography variant="body2" sx={{ color: '#ffffff' }}>
@@ -258,8 +258,8 @@ const EpidemiologyModel: React.FC = () => {
                 </Grid>
 
                 <Grid item xs={6} md={3}>
-                  <Box sx={{ textAlign: 'center', p: 2, backgroundColor: '#333333', borderRadius: 2 }}>
-                    <Typography variant="h4" sx={{ color: '#2196f3', mb: 1 }}>
+                  <Box sx={{ textAlign: 'center', p: 2, backgroundColor: '#000000', border: '1px solid #ffffff', borderRadius: 2 }}>
+                    <Typography variant="h4" sx={{ color: '#ffffff', mb: 1 }}>
                       {recovered.toLocaleString()}
                     </Typography>
                     <Typography variant="body2" sx={{ color: '#ffffff' }}>
@@ -269,8 +269,8 @@ const EpidemiologyModel: React.FC = () => {
                 </Grid>
 
                 <Grid item xs={6} md={3}>
-                  <Box sx={{ textAlign: 'center', p: 2, backgroundColor: '#333333', borderRadius: 2 }}>
-                    <Typography variant="h4" sx={{ color: '#f44336', mb: 1 }}>
+                  <Box sx={{ textAlign: 'center', p: 2, backgroundColor: '#000000', border: '1px solid #ffffff', borderRadius: 2 }}>
+                    <Typography variant="h4" sx={{ color: '#ffffff', mb: 1 }}>
                       {deceased.toLocaleString()}
                     </Typography>
                     <Typography variant="body2" sx={{ color: '#ffffff' }}>
@@ -289,13 +289,13 @@ const EpidemiologyModel: React.FC = () => {
                   color: '#ffffff'
                 }}>
                   <Box sx={{ textAlign: 'center' }}>
-                    <TrendingUpIcon sx={{ fontSize: 64, color: '#00bcd4', mb: 2 }} />
+                    <TrendingUpIcon sx={{ fontSize: 64, color: '#ffffff', mb: 2 }} />
                     <Typography variant="h6" sx={{ color: '#ffffff', mb: 1 }}>
                       Epidemiological Curves
                     </Typography>
-                    <Typography variant="body2" sx={{ color: '#b0b0b0' }}>
-                      SIR 모델 시각화가 여기에 표시됩니다
-                    </Typography>
+                            <Typography variant="body2" sx={{ color: '#ffffff' }}>
+          SIR 모델 시각화가 여기에 표시됩니다
+        </Typography>
                   </Box>
                 </Box>
               </Box>
@@ -303,31 +303,31 @@ const EpidemiologyModel: React.FC = () => {
           </Card>
 
           {/* 모델 정보 */}
-          <Card sx={{ backgroundColor: '#1a1a1a', border: '1px solid #333333' }}>
+          <Card sx={{ backgroundColor: '#000000', border: '1px solid #ffffff' }}>
             <CardContent>
               <Typography variant="h6" gutterBottom sx={{ color: '#ffffff', mb: 3 }}>
                 Model Information
               </Typography>
 
-              <Alert severity="info" sx={{ backgroundColor: '#1a1a1a', color: '#00bcd4', mb: 2 }}>
+              <Alert severity="info" sx={{ backgroundColor: '#000000', color: '#ffffff', border: '1px solid #ffffff', mb: 2 }}>
                 이 시뮬레이션은 SIR (Susceptible-Infected-Recovered) 모델을 기반으로 합니다.
               </Alert>
 
-              <Typography variant="body2" sx={{ color: '#b0b0b0', mb: 2 }}>
+              <Typography variant="body2" sx={{ color: '#ffffff', mb: 2 }}>
                 <strong>SIR 모델</strong>은 전염병의 전파를 모델링하는 수학적 모델입니다:
               </Typography>
 
               <Box sx={{ pl: 2 }}>
-                <Typography variant="body2" sx={{ color: '#b0b0b0', mb: 1 }}>
+                <Typography variant="body2" sx={{ color: '#ffffff', mb: 1 }}>
                   • <strong>S (Susceptible)</strong>: 감염 가능한 개체 수
                 </Typography>
-                <Typography variant="body2" sx={{ color: '#b0b0b0', mb: 1 }}>
+                <Typography variant="body2" sx={{ color: '#ffffff', mb: 1 }}>
                   • <strong>I (Infected)</strong>: 현재 감염된 개체 수
                 </Typography>
-                <Typography variant="body2" sx={{ color: '#b0b0b0', mb: 1 }}>
+                <Typography variant="body2" sx={{ color: '#ffffff', mb: 1 }}>
                   • <strong>R (Recovered)</strong>: 회복된 개체 수
                 </Typography>
-                <Typography variant="body2" sx={{ color: '#b0b0b0' }}>
+                <Typography variant="body2" sx={{ color: '#ffffff' }}>
                   • <strong>D (Deceased)</strong>: 사망한 개체 수
                 </Typography>
               </Box>
