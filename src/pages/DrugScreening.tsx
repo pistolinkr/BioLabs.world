@@ -53,7 +53,7 @@ const DrugScreening: React.FC = () => {
   const mockDrugCandidates: DrugCandidate[] = [
     {
       id: '1',
-      name: 'Quinacrine',
+      name: '퀴나크린',
       smiles: 'CC1=CC=C(C=C1)NC(=O)C2=CC=C(C=C2)Cl',
       bindingAffinity: -8.5,
       toxicity: 'medium',
@@ -64,7 +64,7 @@ const DrugScreening: React.FC = () => {
     },
     {
       id: '2',
-      name: 'Pentosan Polysulfate',
+      name: '펜토산 폴리설페이트',
       smiles: 'C(C1C(C(C(C(O1)OS(=O)(=O)O)OS(=O)(=O)O)OS(=O)(=O)O)OS(=O)(=O)O)O',
       bindingAffinity: -7.8,
       toxicity: 'low',
@@ -75,7 +75,7 @@ const DrugScreening: React.FC = () => {
     },
     {
       id: '3',
-      name: 'Dextran Sulfate',
+      name: '덱스트란 설페이트',
       smiles: 'C(C1C(C(C(C(O1)OS(=O)(=O)O)OS(=O)(=O)O)OS(=O)(=O)O)OS(=O)(=O)O)O',
       bindingAffinity: -6.9,
       toxicity: 'low',
@@ -131,7 +131,7 @@ const DrugScreening: React.FC = () => {
   return (
     <Box sx={{ p: 3 }}>
       <Typography variant="h3" gutterBottom sx={{ mb: 4, color: '#ffffff' }}>
-        Virtual Drug Screening
+        가상 약물 스크리닝
       </Typography>
 
       <Grid container spacing={3}>
@@ -140,14 +140,14 @@ const DrugScreening: React.FC = () => {
           <Card sx={{ backgroundColor: '#000000', border: '1px solid #ffffff', mb: 3 }}>
             <CardContent>
               <Typography variant="h6" gutterBottom sx={{ color: '#ffffff', mb: 3 }}>
-                Drug Discovery & Screening
+                약물 발견 및 스크리닝
               </Typography>
 
               <Grid container spacing={3}>
                 <Grid item xs={12} md={4}>
                   <TextField
                     fullWidth
-                    label="Search Compounds"
+                    label="화합물 검색"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     sx={{
@@ -163,16 +163,16 @@ const DrugScreening: React.FC = () => {
 
                 <Grid item xs={12} md={4}>
                   <FormControl fullWidth>
-                    <InputLabel sx={{ color: '#b0b0b0' }}>Toxicity Filter</InputLabel>
+                    <InputLabel sx={{ color: '#b0b0b0' }}>독성 필터</InputLabel>
                     <Select
                       value={filterToxicity}
                       onChange={(e) => setFilterToxicity(e.target.value)}
                       sx={{ color: '#ffffff' }}
                     >
-                      <MenuItem value="all">All Toxicity Levels</MenuItem>
-                      <MenuItem value="low">Low Toxicity</MenuItem>
-                      <MenuItem value="medium">Medium Toxicity</MenuItem>
-                      <MenuItem value="high">High Toxicity</MenuItem>
+                      <MenuItem value="all">모든 독성 수준</MenuItem>
+                      <MenuItem value="low">낮은 독성</MenuItem>
+                      <MenuItem value="medium">중간 독성</MenuItem>
+                      <MenuItem value="high">높은 독성</MenuItem>
                     </Select>
                   </FormControl>
                 </Grid>
@@ -186,7 +186,7 @@ const DrugScreening: React.FC = () => {
                     fullWidth
                     sx={{ height: '56px' }}
                   >
-                    {isScreening ? 'Screening...' : 'Start Screening'}
+                    {isScreening ? '스크리닝 중...' : '스크리닝 시작'}
                   </Button>
                 </Grid>
               </Grid>
@@ -194,7 +194,7 @@ const DrugScreening: React.FC = () => {
               {isScreening && (
                 <Box sx={{ mt: 3 }}>
                   <Typography variant="body2" sx={{ color: '#ffffff', mb: 1 }}>
-                    Virtual screening in progress... {screeningProgress.toFixed(1)}%
+                    가상 스크리닝 진행 중... {screeningProgress.toFixed(1)}%
                   </Typography>
                   <LinearProgress
                     variant="determinate"
@@ -219,21 +219,21 @@ const DrugScreening: React.FC = () => {
           <Card sx={{ backgroundColor: '#000000', border: '1px solid #ffffff' }}>
             <CardContent>
               <Typography variant="h6" gutterBottom sx={{ color: '#ffffff', mb: 3 }}>
-                Drug Candidates
+                약물 후보
               </Typography>
 
               <TableContainer component={Paper} sx={{ backgroundColor: '#000000' }}>
                 <Table>
                   <TableHead>
                     <TableRow>
-                                              <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>Name</TableCell>
-                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>Binding Affinity (kcal/mol)</TableCell>
-                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>Toxicity</TableCell>
-                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>Bioavailability</TableCell>
-                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>MW (Da)</TableCell>
+                                              <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>이름</TableCell>
+                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>결합 친화도 (kcal/mol)</TableCell>
+                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>독성</TableCell>
+                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>생체이용률</TableCell>
+                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>분자량 (Da)</TableCell>
                         <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>LogP</TableCell>
-                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>Status</TableCell>
-                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>Actions</TableCell>
+                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>상태</TableCell>
+                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>작업</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -254,7 +254,8 @@ const DrugScreening: React.FC = () => {
                         </TableCell>
                         <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>
                           <Chip
-                            label={drug.toxicity}
+                            label={drug.toxicity === 'low' ? '낮음' : 
+                                  drug.toxicity === 'medium' ? '중간' : '높음'}
                             size="small"
                             sx={{
                               backgroundColor: getToxicityColor(drug.toxicity),
@@ -273,7 +274,8 @@ const DrugScreening: React.FC = () => {
                         </TableCell>
                         <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>
                           <Chip
-                            label={drug.status}
+                            label={drug.status === 'screening' ? '스크리닝' : 
+                                  drug.status === 'testing' ? '테스트' : '승인됨'}
                             size="small"
                             sx={{
                               backgroundColor: getStatusColor(drug.status),
@@ -283,10 +285,10 @@ const DrugScreening: React.FC = () => {
                         </TableCell>
                         <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>
                           <Button size="small" variant="outlined" sx={{ mr: 1 }}>
-                            View
+                            보기
                           </Button>
                           <Button size="small" variant="outlined">
-                            Select
+                            선택
                           </Button>
                         </TableCell>
                       </TableRow>

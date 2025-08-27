@@ -1,12 +1,19 @@
 {
   "projects": {
-    "default": "prionlab-28116"
+    "default": "biolabs"
   },
   "targets": {
-    "prionlab-28116": {
+    "biolabs": {
       "hosting": {
         "biolabs": [
           "biolabs"
+        ]
+      }
+    },
+    "prionlab-28116": {
+      "hosting": {
+        "biolabs-world": [
+          "biolabs-world"
         ]
       }
     }

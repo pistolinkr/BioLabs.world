@@ -86,7 +86,7 @@ const EpidemiologyModel: React.FC = () => {
   return (
     <Box sx={{ p: 3 }}>
       <Typography variant="h3" gutterBottom sx={{ mb: 4, color: '#ffffff' }}>
-        Epidemiology Modeling
+        역학 모델링
       </Typography>
 
       <Grid container spacing={3}>
@@ -95,7 +95,7 @@ const EpidemiologyModel: React.FC = () => {
           <Card sx={{ backgroundColor: '#1a1a1a', border: '1px solid #333333', mb: 3 }}>
             <CardContent>
               <Typography variant="h6" gutterBottom sx={{ color: '#ffffff', mb: 3 }}>
-                Simulation Controls
+                시뮬레이션 제어
               </Typography>
               
               <Box sx={{ mb: 3 }}>
@@ -107,7 +107,7 @@ const EpidemiologyModel: React.FC = () => {
                   sx={{ mr: 1, mb: 1 }}
                   fullWidth
                 >
-                  {isSimulating ? 'Pause' : 'Start'}
+                  {isSimulating ? '일시정지' : '시작'}
                 </Button>
                 <Button
                   variant="outlined"
@@ -117,7 +117,7 @@ const EpidemiologyModel: React.FC = () => {
                   sx={{ mr: 1, mb: 1 }}
                   fullWidth
                 >
-                  Stop
+                  정지
                 </Button>
                 <Button
                   variant="outlined"
@@ -125,14 +125,14 @@ const EpidemiologyModel: React.FC = () => {
                   onClick={handleResetSimulation}
                   fullWidth
                 >
-                  Reset
+                  재설정
                 </Button>
               </Box>
 
               <Divider sx={{ backgroundColor: '#ffffff', my: 2 }} />
 
               <Typography variant="subtitle2" sx={{ color: '#ffffff', mb: 1 }}>
-                Simulation Time: {simulationTime} days
+                시뮬레이션 시간: {simulationTime}일
               </Typography>
             </CardContent>
           </Card>
@@ -141,11 +141,11 @@ const EpidemiologyModel: React.FC = () => {
           <Card sx={{ backgroundColor: '#000000', border: '1px solid #ffffff', mb: 3 }}>
             <CardContent>
               <Typography variant="h6" gutterBottom sx={{ color: '#ffffff', mb: 3 }}>
-                Model Parameters
+                모델 매개변수
               </Typography>
 
               <Typography variant="subtitle2" sx={{ color: '#ffffff', mb: 1 }}>
-                Population Size: {populationSize.toLocaleString()}
+                인구 크기: {populationSize.toLocaleString()}
               </Typography>
               <Slider
                 value={populationSize}
@@ -157,7 +157,7 @@ const EpidemiologyModel: React.FC = () => {
               />
 
               <Typography variant="subtitle2" sx={{ color: '#ffffff', mb: 1 }}>
-                Initial Infected: {initialInfected}
+                초기 감염자: {initialInfected}
               </Typography>
               <Slider
                 value={initialInfected}
@@ -168,7 +168,7 @@ const EpidemiologyModel: React.FC = () => {
               />
 
               <Typography variant="subtitle2" sx={{ color: '#ffffff', mb: 1 }}>
-                Transmission Rate: {transmissionRate}
+                전파율: {transmissionRate}
               </Typography>
               <Slider
                 value={transmissionRate}
@@ -180,7 +180,7 @@ const EpidemiologyModel: React.FC = () => {
               />
 
               <Typography variant="subtitle2" sx={{ color: '#ffffff', mb: 1 }}>
-                Recovery Rate: {recoveryRate}
+                회복율: {recoveryRate}
               </Typography>
               <Slider
                 value={recoveryRate}
@@ -192,7 +192,7 @@ const EpidemiologyModel: React.FC = () => {
               />
 
               <Typography variant="subtitle2" sx={{ color: '#ffffff', mb: 1 }}>
-                Mortality Rate: {mortalityRate}
+                사망율: {mortalityRate}
               </Typography>
               <Slider
                 value={mortalityRate}
@@ -209,7 +209,7 @@ const EpidemiologyModel: React.FC = () => {
           <Card sx={{ backgroundColor: '#000000', border: '1px solid #ffffff' }}>
             <CardContent>
               <Typography variant="h6" gutterBottom sx={{ color: '#ffffff', mb: 2 }}>
-                Advanced Settings
+                고급 설정
               </Typography>
               
               <FormControlLabel
@@ -219,7 +219,7 @@ const EpidemiologyModel: React.FC = () => {
                     onChange={(e) => setShowAdvanced(e.target.checked)}
                   />
                 }
-                label="Show Advanced Options"
+                label="고급 옵션 표시"
                 sx={{ color: '#ffffff' }}
               />
             </CardContent>
@@ -231,7 +231,7 @@ const EpidemiologyModel: React.FC = () => {
           <Card sx={{ backgroundColor: '#000000', border: '1px solid #ffffff', mb: 3 }}>
             <CardContent>
               <Typography variant="h6" gutterBottom sx={{ color: '#ffffff', mb: 3 }}>
-                Simulation Results
+                시뮬레이션 결과
               </Typography>
 
               <Grid container spacing={3} sx={{ mb: 3 }}>
@@ -241,7 +241,7 @@ const EpidemiologyModel: React.FC = () => {
                       {susceptible.toLocaleString()}
                     </Typography>
                     <Typography variant="body2" sx={{ color: '#ffffff' }}>
-                      Susceptible
+                      감염 가능자
                     </Typography>
                   </Box>
                 </Grid>
@@ -252,7 +252,7 @@ const EpidemiologyModel: React.FC = () => {
                       {infected.toLocaleString()}
                     </Typography>
                     <Typography variant="body2" sx={{ color: '#ffffff' }}>
-                      Infected
+                      감염자
                     </Typography>
                   </Box>
                 </Grid>
@@ -263,7 +263,7 @@ const EpidemiologyModel: React.FC = () => {
                       {recovered.toLocaleString()}
                     </Typography>
                     <Typography variant="body2" sx={{ color: '#ffffff' }}>
-                      Recovered
+                      회복자
                     </Typography>
                   </Box>
                 </Grid>
@@ -274,7 +274,7 @@ const EpidemiologyModel: React.FC = () => {
                       {deceased.toLocaleString()}
                     </Typography>
                     <Typography variant="body2" sx={{ color: '#ffffff' }}>
-                      Deceased
+                      사망자
                     </Typography>
                   </Box>
                 </Grid>
@@ -291,7 +291,7 @@ const EpidemiologyModel: React.FC = () => {
                   <Box sx={{ textAlign: 'center' }}>
                     <TrendingUpIcon sx={{ fontSize: 64, color: '#ffffff', mb: 2 }} />
                     <Typography variant="h6" sx={{ color: '#ffffff', mb: 1 }}>
-                      Epidemiological Curves
+                      역학 곡선
                     </Typography>
                             <Typography variant="body2" sx={{ color: '#ffffff' }}>
           SIR 모델 시각화가 여기에 표시됩니다
@@ -306,7 +306,7 @@ const EpidemiologyModel: React.FC = () => {
           <Card sx={{ backgroundColor: '#000000', border: '1px solid #ffffff' }}>
             <CardContent>
               <Typography variant="h6" gutterBottom sx={{ color: '#ffffff', mb: 3 }}>
-                Model Information
+                모델 정보
               </Typography>
 
               <Alert severity="info" sx={{ backgroundColor: '#000000', color: '#ffffff', border: '1px solid #ffffff', mb: 2 }}>

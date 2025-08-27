@@ -312,26 +312,22 @@ const UserProfile: React.FC = () => {
                     </Grid>
 
                     <Grid item xs={12} sm={6}>
-                      <TextField
-                        select
-                        fullWidth
-                        label="언어"
-                        value={labSettings.language}
-                        onChange={(e) => setLabSettings({
-                          ...labSettings,
-                          language: e.target.value as 'ko' | 'en'
-                        })}
-                        disabled={!isEditing}
-                        sx={{
-                          '& .MuiOutlinedInput-root': {
-                            '&:hover fieldset': { borderColor: '#ffffff' },
-                            '&.Mui-focused fieldset': { borderColor: '#ffffff' }
-                          }
-                        }}
-                      >
-                        <option value="ko">한국어</option>
-                        <option value="en">English</option>
-                      </TextField>
+                      <Box sx={{ 
+                        padding: 2, 
+                        backgroundColor: 'rgba(255, 255, 255, 0.05)', 
+                        border: '1px solid rgba(255, 255, 255, 0.2)',
+                        borderRadius: 1
+                      }}>
+                        <Typography variant="subtitle2" sx={{ color: '#ffffff', marginBottom: 1 }}>
+                          언어
+                        </Typography>
+                        <Typography variant="body2" sx={{ color: '#b0b0b0' }}>
+                          한국어 (고정)
+                        </Typography>
+                        <Typography variant="caption" sx={{ color: '#888888', fontStyle: 'italic' }}>
+                          영어 버전 출시 예정
+                        </Typography>
+                      </Box>
                     </Grid>
                   </Grid>
                 </CardContent>

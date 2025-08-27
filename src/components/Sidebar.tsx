@@ -34,8 +34,7 @@ const Sidebar: React.FC = () => {
     { path: '/diagnosis-ai', icon: <AssessmentIcon />, text: 'AI 진단' },
     { path: '/interaction-network', icon: <NetworkIcon />, text: '상호작용 네트워크' },
     { path: '/drug-screening', icon: <DrugIcon />, text: '약물 스크리닝' },
-    { path: '/epidemiology-model', icon: <TimelineIcon />, text: '역학 모델링' },
-    { path: '/user-profile', icon: <PersonIcon />, text: '내 프로필' }
+    { path: '/epidemiology-model', icon: <TimelineIcon />, text: '역학 모델링' }
   ];
 
 
@@ -62,10 +61,18 @@ const Sidebar: React.FC = () => {
           {/* 사용자 프로필 섹션 */}
           {userProfile && (
             <Box
+              onClick={() => navigate('/user-profile')}
               sx={{
                 padding: 2,
                 borderBottom: 'none',
-                backgroundColor: '#000000'
+                backgroundColor: '#000000',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                  transform: 'translateX(4px)',
+                  boxShadow: '0 4px 12px rgba(255, 255, 255, 0.1)'
+                }
               }}
             >
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, marginBottom: 2 }}>
@@ -76,18 +83,35 @@ const Sidebar: React.FC = () => {
                     backgroundColor: '#ffffff',
                     color: '#000000',
                     border: '1px solid #ffffff',
-                    fontSize: '1.2rem'
+                    fontSize: '1.2rem',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      transform: 'scale(1.1)',
+                      borderColor: '#888888',
+                      boxShadow: '0 4px 12px rgba(255, 255, 255, 0.2)'
+                    }
                   }}
                 >
                   {userProfile.displayName ? userProfile.displayName.charAt(0).toUpperCase() : 'U'}
                 </Avatar>
-                <Box sx={{ flex: 1 }}>
+                <Box sx={{ 
+                  flex: 1, 
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    '& .MuiTypography-root': {
+                      color: '#888888'
+                    }
+                  }
+                }}>
                   <Typography
                     variant="subtitle1"
                     sx={{
                       color: '#ffffff',
                       fontWeight: 500,
-                      fontSize: '0.9rem'
+                      fontSize: '0.9rem',
+                      transition: 'color 0.3s ease'
                     }}
                   >
                     {userProfile.displayName || '사용자'}
@@ -97,7 +121,8 @@ const Sidebar: React.FC = () => {
                     sx={{
                       color: '#ffffff',
                       opacity: 0.7,
-                      fontSize: '0.75rem'
+                      fontSize: '0.75rem',
+                      transition: 'color 0.3s ease'
                     }}
                   >
                     {userProfile.email}
@@ -113,7 +138,15 @@ const Sidebar: React.FC = () => {
                     backgroundColor: '#000000',
                     border: '1px solid #ffffff',
                     borderRadius: 0,
-                    textAlign: 'center'
+                    textAlign: 'center',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                      borderColor: '#888888',
+                      transform: 'translateY(-2px)',
+                      boxShadow: '0 4px 8px rgba(255, 255, 255, 0.1)'
+                    }
                   }}
                 >
                   <Typography
@@ -121,7 +154,8 @@ const Sidebar: React.FC = () => {
                     sx={{
                       color: '#ffffff',
                       fontSize: '0.7rem',
-                      display: 'block'
+                      display: 'block',
+                      transition: 'color 0.3s ease'
                     }}
                   >
                     테마
@@ -131,7 +165,8 @@ const Sidebar: React.FC = () => {
                     sx={{
                       color: '#ffffff',
                       fontSize: '0.8rem',
-                      fontWeight: 500
+                      fontWeight: 500,
+                      transition: 'color 0.3s ease'
                     }}
                   >
                     {userProfile.labSettings?.theme === 'dark' ? '다크' : '라이트'}
@@ -144,7 +179,15 @@ const Sidebar: React.FC = () => {
                     backgroundColor: '#000000',
                     border: '1px solid #ffffff',
                     borderRadius: 0,
-                    textAlign: 'center'
+                    textAlign: 'center',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                      borderColor: '#888888',
+                      transform: 'translateY(-2px)',
+                      boxShadow: '0 4px 8px rgba(255, 255, 255, 0.1)'
+                    }
                   }}
                 >
                   <Typography
@@ -152,7 +195,8 @@ const Sidebar: React.FC = () => {
                     sx={{
                       color: '#ffffff',
                       fontSize: '0.7rem',
-                      display: 'block'
+                      display: 'block',
+                      transition: 'color 0.3s ease'
                     }}
                   >
                     언어
@@ -162,10 +206,11 @@ const Sidebar: React.FC = () => {
                     sx={{
                       color: '#ffffff',
                       fontSize: '0.8rem',
-                      fontWeight: 500
+                      fontWeight: 500,
+                      transition: 'color 0.3s ease'
                     }}
                   >
-                    {userProfile.labSettings?.language === 'ko' ? '한국어' : 'English'}
+                    한국어
                   </Typography>
                 </Box>
               </Box>

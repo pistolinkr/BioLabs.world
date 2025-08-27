@@ -172,7 +172,7 @@ const DiagnosisAI: React.FC = () => {
   return (
     <Box sx={{ p: 3 }}>
       <Typography variant="h3" gutterBottom sx={{ mb: 4, color: '#ffffff' }}>
-        AI Diagnosis System
+        AI 진단 시스템
       </Typography>
 
       <Grid container spacing={3}>
@@ -181,7 +181,7 @@ const DiagnosisAI: React.FC = () => {
           <Card sx={{ backgroundColor: '#000000', border: '1px solid #ffffff', mb: 3 }}>
             <CardContent>
               <Typography variant="h6" gutterBottom sx={{ color: '#ffffff', mb: 3 }}>
-                Image Upload & Analysis
+                이미지 업로드 및 분석
               </Typography>
 
               <Box sx={{ mb: 3 }}>
@@ -200,7 +200,7 @@ const DiagnosisAI: React.FC = () => {
                     sx={{ mb: 2 }}
                     fullWidth
                   >
-                    {selectedImage ? selectedImage.name : 'Upload Medical Image'}
+                    {selectedImage ? selectedImage.name : '의료 이미지 업로드'}
                   </Button>
                 </label>
 
@@ -212,7 +212,7 @@ const DiagnosisAI: React.FC = () => {
               </Box>
 
               <FormControl fullWidth sx={{ mb: 3 }}>
-                <InputLabel sx={{ color: '#b0b0b0' }}>Image Type</InputLabel>
+                <InputLabel sx={{ color: '#b0b0b0' }}>이미지 유형</InputLabel>
                 <Select
                   value={imageType}
                   onChange={(e) => setImageType(e.target.value)}
@@ -232,7 +232,7 @@ const DiagnosisAI: React.FC = () => {
                 fullWidth
                 sx={{ mb: 2 }}
               >
-                {isAnalyzing ? 'Analyzing...' : 'Start AI Analysis'}
+                {isAnalyzing ? '분석 중...' : 'AI 분석 시작'}
               </Button>
 
               {isAnalyzing && (
@@ -262,7 +262,7 @@ const DiagnosisAI: React.FC = () => {
             <Card sx={{ backgroundColor: '#1a1a1a', border: '1px solid #333333' }}>
               <CardContent>
                 <Typography variant="h6" gutterBottom sx={{ color: '#ffffff', mb: 3 }}>
-                  Diagnosis Result
+                  진단 결과
                 </Typography>
 
                 <Box sx={{ mb: 3 }}>
@@ -275,10 +275,11 @@ const DiagnosisAI: React.FC = () => {
                     </Avatar>
                     <Box>
                       <Typography variant="h6" sx={{ color: '#ffffff' }}>
-                        {diagnosisResult.result.toUpperCase()}
+                        {diagnosisResult.result === 'normal' ? '정상' : 
+                         diagnosisResult.result === 'suspicious' ? '의심' : '양성'}
                       </Typography>
                       <Typography variant="body2" sx={{ color: '#b0b0b0' }}>
-                        Confidence: {diagnosisResult.confidence}%
+                        신뢰도: {diagnosisResult.confidence}%
                       </Typography>
                     </Box>
                   </Box>
@@ -286,7 +287,7 @@ const DiagnosisAI: React.FC = () => {
                   <Divider sx={{ backgroundColor: '#ffffff', my: 2 }} />
 
                   <Typography variant="subtitle2" sx={{ color: '#ffffff', mb: 1 }}>
-                    Detected Symptoms:
+                    감지된 증상:
                   </Typography>
                   <Box sx={{ mb: 2 }}>
                     {diagnosisResult.symptoms.map((symptom, index) => (
@@ -300,7 +301,7 @@ const DiagnosisAI: React.FC = () => {
                   </Box>
 
                   <Typography variant="subtitle2" sx={{ color: '#ffffff', mb: 1 }}>
-                    Recommendations:
+                    권장사항:
                   </Typography>
                   <Box>
                     {diagnosisResult.recommendations.map((rec, index) => (
@@ -323,18 +324,18 @@ const DiagnosisAI: React.FC = () => {
           <Card sx={{ backgroundColor: '#000000', border: '1px solid #ffffff' }}>
             <CardContent>
               <Typography variant="h6" gutterBottom sx={{ color: '#ffffff', mb: 3 }}>
-                Diagnosis History
+                진단 기록
               </Typography>
 
               <TableContainer component={Paper} sx={{ backgroundColor: '#000000' }}>
                 <Table>
                   <TableHead>
                     <TableRow>
-                                              <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>Patient ID</TableCell>
-                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>Date</TableCell>
-                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>Type</TableCell>
-                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>Result</TableCell>
-                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>Confidence</TableCell>
+                                              <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>환자 ID</TableCell>
+                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>날짜</TableCell>
+                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>유형</TableCell>
+                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>결과</TableCell>
+                        <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>신뢰도</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -351,7 +352,8 @@ const DiagnosisAI: React.FC = () => {
                         </TableCell>
                         <TableCell sx={{ color: '#ffffff', borderColor: '#ffffff' }}>
                           <Chip
-                            label={row.result}
+                            label={row.result === 'normal' ? '정상' : 
+                                  row.result === 'suspicious' ? '의심' : '양성'}
                             size="small"
                             sx={{
                               backgroundColor: getResultColor(row.result),

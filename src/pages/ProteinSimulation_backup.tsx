@@ -52,21 +52,24 @@ const ProteinSimulation: React.FC = () => {
   const [showCopyNotification, setShowCopyNotification] = useState<boolean>(false);
   const [show3DModal, setShow3DModal] = useState<boolean>(false);
   const [showSettingsModal, setShowSettingsModal] = useState<boolean>(false);
-  
-  // 구조체 시각적 표현 설정
   const [structureSettings, setStructureSettings] = useState({
-    representation: "cartoon",
-    colorScheme: "chainid",
-    opacity: 1.0,
-    showLabels: false,
-    showAxes: false,
-    showWater: false,
-    showLigands: true,
-    showSecondaryStructure: true,
-    showHydrogenBonds: false,
-    showDisulfides: true,
-    showIons: true
+    representation: 'cartoon',
+    colorScheme: 'chainid',
+    showBonds: true,
+    showAtoms: false,
+    showSurface: false,
+    showAxes: false
   });
+  
+  // 기본 설정 (이전 세팅 불러오기용)
+  const defaultSettings = {
+    representation: 'cartoon',
+    colorScheme: 'chainid',
+    showBonds: true,
+    showAtoms: false,
+    showSurface: false,
+    showAxes: false
+  };
   
   // 참조들
   const stageContainerRef = useRef<HTMLDivElement>(null);
@@ -79,6 +82,85 @@ const ProteinSimulation: React.FC = () => {
     setShowCopyNotification(true);
     setTimeout(() => setShowCopyNotification(false), 3000);
   }, []);
+
+  // 구조체 설정 적용
+  const applyStructureSettings = useCallback(async () => {
+    if (modalStageInstanceRef.current && pdbData) {
+      try {
+        setIsLoading(true);
+        setError('');
+        
+        // 기존 컴포넌트 제거
+        modalStageInstanceRef.current.removeAllComponents();
+        
+        // 구조체 다시 로드
+        const file = new File([pdbData], "structure.pdb", { type: "text/plain" });
+        const component = await modalStageInstanceRef.current.loadFile(file, { ext: "pdb" });
+        
+        // 표현 방식 적용
+        if (structureSettings.representation === 'cartoon') {
+          component.addRepresentation('cartoon', { 
+            color: structureSettings.colorScheme,
+            opacity: 1.0
+          });
+        } else if (structureSettings.representation === 'surface') {
+          component.addRepresentation('surface', { 
+            color: structureSettings.colorScheme,
+            opacity: 0.8
+          });
+        } else if (structureSettings.representation === 'ball+stick') {
+          component.addRepresentation('ball+stick', { 
+            color: structureSettings.colorScheme,
+            opacity: 1.0
+          });
+        }
+        
+        // 결합선 표시
+        if (structureSettings.showBonds) {
+          component.addRepresentation('line', { 
+            color: 'white',
+            opacity: 0.6
+          });
+        }
+        
+        // 원자 표시
+        if (structureSettings.showAtoms) {
+          component.addRepresentation('spacefill', { 
+            color: structureSettings.colorScheme,
+            opacity: 0.8
+          });
+        }
+        
+        // 표면 표시
+        if (structureSettings.showSurface) {
+          component.addRepresentation('surface', { 
+            color: structureSettings.colorScheme,
+            opacity: 0.3
+          });
+        }
+        
+        // 축 표시 (현재 지원되지 않음)
+        if (structureSettings.showAxes) {
+          console.log('축 표시 기능은 현재 지원되지 않습니다.');
+        }
+        
+        // 뷰어 업데이트
+        modalStageInstanceRef.current.handleResize();
+        modalStageInstanceRef.current.autoView();
+        
+        console.log('구조체 설정이 적용되었습니다:', structureSettings);
+        setError('');
+        
+      } catch (error) {
+        console.error('구조체 설정 적용 오류:', error);
+        setError(`구조체 설정 적용 실패: ${error instanceof Error ? error.message : '알 수 없는 오류'}`);
+      } finally {
+        setIsLoading(false);
+      }
+    } else {
+      setError('구조체 데이터가 없거나 뷰어가 초기화되지 않았습니다.');
+    }
+  }, [modalStageInstanceRef, pdbData, structureSettings]);
 
   // 3D 모달 열기
   const open3DModal = useCallback(() => {
@@ -102,157 +184,20 @@ const ProteinSimulation: React.FC = () => {
             modalStageInstanceRef.current.handleResize();
             
             console.log('protein-viewer.html 스타일 모달 NGL 뷰어 초기화 완료');
+            
+            // 기존 구조체가 있다면 설정을 적용하여 다시 로드
+            if (pdbData) {
+              setTimeout(() => {
+                applyStructureSettings();
+              }, 200);
+            }
           }
         } catch (err) {
           console.error('모달 NGL 초기화 오류:', err);
         }
       }
     }, 100);
-  }, []);
-
-  // 구조체 설정 적용
-  const applyStructureSettings = useCallback(async () => {
-    if (modalStageInstanceRef.current && pdbData) {
-      try {
-        setIsLoading(true);
-        setError('');
-        
-        // 기존 구조 제거
-        modalStageInstanceRef.current.removeAllComponents();
-        
-        // 텍스트에서 파일 생성
-        const file = new File([pdbData], "structure.pdb", { type: "text/plain" });
-        
-        // 구조 로드
-        const component = await modalStageInstanceRef.current.loadFile(file, { ext: "pdb" });
-        
-        // 메인 표현 추가
-        if (structureSettings.representation === "cartoon") {
-          component.addRepresentation("cartoon", { 
-            color: structureSettings.colorScheme,
-            opacity: structureSettings.opacity
-          });
-        } else if (structureSettings.representation === "ball+stick") {
-          component.addRepresentation("ball+stick", { 
-            sele: "all", 
-            color: structureSettings.colorScheme,
-            opacity: structureSettings.opacity
-          });
-        } else if (structureSettings.representation === "surface") {
-          component.addRepresentation("surface", { 
-            sele: "all",
-            opacity: structureSettings.opacity
-          });
-        } else if (structureSettings.representation === "ribbon") {
-          component.addRepresentation("ribbon", { 
-            sele: "all",
-            color: structureSettings.colorScheme,
-            opacity: structureSettings.opacity
-          });
-        } else if (structureSettings.representation === "line") {
-          component.addRepresentation("line", { 
-            sele: "all",
-            color: structureSettings.colorScheme,
-            opacity: structureSettings.opacity
-          });
-        }
-        
-        // 추가 표현들
-        if (structureSettings.showLigands) {
-          component.addRepresentation("ball+stick", {
-            sele: "ligand or ion",
-            color: "element",
-            opacity: 0.8
-          });
-        }
-        
-        if (structureSettings.showSecondaryStructure) {
-          component.addRepresentation("cartoon", {
-            sele: "protein",
-            color: "secondary structure",
-            opacity: 0.9
-          });
-        }
-        
-        if (structureSettings.showDisulfides) {
-          component.addRepresentation("ball+stick", {
-            sele: "cys and sg",
-            color: "yellow",
-            opacity: 1.0
-          });
-        }
-        
-        if (structureSettings.showIons) {
-          component.addRepresentation("ball+stick", {
-            sele: "ion",
-            color: "element",
-            opacity: 0.9
-          });
-        }
-        
-        if (structureSettings.showWater) {
-          component.addRepresentation("ball+stick", {
-            sele: "water",
-            color: "blue",
-            opacity: 0.6
-          });
-        }
-        
-        // 라벨 표시
-        if (structureSettings.showLabels) {
-          component.addRepresentation("label", {
-            sele: "protein and .CA",
-            color: "white",
-            fontSize: 12
-          });
-        }
-        
-        // 축 표시 (unitcell은 현재 NGL.js 버전에서 지원되지 않음)
-        if (structureSettings.showAxes) {
-          // 축 표시 기능은 향후 구현 예정
-          console.log('축 표시 기능은 현재 지원되지 않습니다.');
-        }
-        
-        // 자동 뷰 조정
-        modalStageInstanceRef.current.autoView();
-        
-        console.log('구조체 설정이 적용되었습니다:', structureSettings);
-        setError(''); // 성공 시 에러 메시지 제거
-      } catch (error) {
-        console.error('구조체 설정 적용 오류:', error);
-        setError(`구조체 설정 적용 실패: ${error instanceof Error ? error.message : '알 수 없는 오류'}`);
-      } finally {
-        setIsLoading(false);
-      }
-    } else {
-      setError('구조체 데이터가 없거나 뷰어가 초기화되지 않았습니다.');
-    }
-  }, [modalStageInstanceRef, pdbData, structureSettings]);
-
-  // 설정 변경 핸들러
-  const handleSettingChange = useCallback((key: string, value: any) => {
-    setStructureSettings(prev => ({
-      ...prev,
-      [key]: value
-    }));
-  }, []);
-
-  // 설정 초기화
-  const resetStructureSettings = useCallback(() => {
-    setStructureSettings({
-      representation: "cartoon",
-      colorScheme: "chainid",
-      opacity: 1.0,
-      showLabels: false,
-      showAxes: false,
-      showWater: false,
-      showLigands: true,
-      showSecondaryStructure: true,
-      showHydrogenBonds: false,
-      showDisulfides: true,
-      showIons: true
-    });
-  }, []);
+  }, [pdbData, applyStructureSettings]);
 
   // 3D 모달 닫기
   const close3DModal = useCallback(() => {
@@ -262,19 +207,72 @@ const ProteinSimulation: React.FC = () => {
       modalStageInstanceRef.current = null;
     }
   }, []);
-  
-  // 세팅 모달 열기 (3D 모달이 활성화되었을 때만)
+
+  // 설정 모달 열기
   const openSettingsModal = useCallback(() => {
-    if (show3DModal) {
-      setShowSettingsModal(true);
-    }
-  }, [show3DModal]);
-  
-  // 세팅 모달 닫기
+    setShowSettingsModal(true);
+  }, []);
+
+  // 설정 모달 닫기
   const closeSettingsModal = useCallback(() => {
     setShowSettingsModal(false);
   }, []);
-  
+
+  // 구조체 설정 변경 처리
+  const handleSettingChange = useCallback((setting: string, value: any) => {
+    setStructureSettings(prev => ({
+      ...prev,
+      [setting]: value
+    }));
+  }, []);
+
+  // 이전 세팅 불러오기
+  const loadPreviousSettings = useCallback(async () => {
+    if (modalStageInstanceRef.current && pdbData) {
+      try {
+        setIsLoading(true);
+        setError('');
+        
+        // 기본 설정으로 복원
+        setStructureSettings(defaultSettings);
+        
+        // 기존 컴포넌트 제거
+        modalStageInstanceRef.current.removeAllComponents();
+        
+        // 구조체 다시 로드
+        const file = new File([pdbData], "structure.pdb", { type: "text/plain" });
+        const component = await modalStageInstanceRef.current.loadFile(file, { ext: "pdb" });
+        
+        // 기본 표현 방식 적용
+        component.addRepresentation('cartoon', { 
+          color: 'chainid',
+          opacity: 1.0
+        });
+        
+        // 결합선 표시
+        component.addRepresentation('line', { 
+          color: 'white',
+          opacity: 0.6
+        });
+        
+        // 뷰어 업데이트
+        modalStageInstanceRef.current.handleResize();
+        modalStageInstanceRef.current.autoView();
+        
+        console.log('이전 세팅이 불러와졌습니다:', defaultSettings);
+        setError('');
+        
+      } catch (error) {
+        console.error('이전 세팅 불러오기 오류:', error);
+        setError(`이전 세팅 불러오기 실패: ${error instanceof Error ? error.message : '알 수 없는 오류'}`);
+      } finally {
+        setIsLoading(false);
+      }
+    } else {
+      setError('구조체 데이터가 없거나 뷰어가 초기화되지 않았습니다.');
+    }
+  }, [modalStageInstanceRef, pdbData]);
+
   // 데모용 샘플 구조들
   const sampleStructures = [
     {
@@ -877,8 +875,15 @@ const ProteinSimulation: React.FC = () => {
           
           // protein-viewer.html과 동일한 하이라이트 동작
           if (modalStageInstanceRef.current) {
-            // 카메라 조작 제거 - 구조가 튕기거나 사라지는 문제 방지
-            // 단순히 하이라이트 정보만 표시
+            // 클릭한 원자 주변으로 카메라 부드럽게 이동
+            modalStageInstanceRef.current.viewerControls.orient([0, 0, 1], [0, 1, 0]);
+            
+            // 약간 축소하여 적절한 시야 확보
+            setTimeout(() => {
+              if (modalStageInstanceRef.current) {
+                modalStageInstanceRef.current.viewerControls.zoom(0.8);
+              }
+            }, 100);
           }
           
           setHighlightInfo({
@@ -1154,6 +1159,7 @@ const ProteinSimulation: React.FC = () => {
         <div className="modal-overlay" onClick={close3DModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
+              <h3>3D 구조 뷰어</h3>
               <div className="modal-header-actions">
                 <button 
                   className="modal-settings-btn"
@@ -1167,7 +1173,6 @@ const ProteinSimulation: React.FC = () => {
                   <i className="fas fa-times"></i>
                 </button>
               </div>
-              <h3>3D 구조 뷰어</h3>
             </div>
             
             <div className="modal-body">
@@ -1230,173 +1235,128 @@ const ProteinSimulation: React.FC = () => {
             </div>
             
             <div className="modal-footer">
-              <button className="modal-action-btn secondary" onClick={close3DModal}>
-                닫기
-              </button>
-              <button 
-                className="modal-action-btn primary"
-                onClick={() => {
-                  if (modalStageInstanceRef.current) {
-                    modalStageInstanceRef.current.autoView();
-                  }
-                }}
-              >
-                자동 뷰
-              </button>
+              <div className="left-buttons">
+                <button 
+                  className="modal-action-btn restore-settings-btn"
+                  onClick={loadPreviousSettings}
+                  title="이전 세팅 불러오기"
+                >
+                  <i className="fas fa-undo"></i>
+                  이전 세팅
+                </button>
+              </div>
+              <div className="right-buttons">
+                <button className="modal-action-btn secondary" onClick={close3DModal}>
+                  닫기
+                </button>
+                <button 
+                  className="modal-action-btn primary"
+                  onClick={() => {
+                    if (modalStageInstanceRef.current) {
+                      modalStageInstanceRef.current.autoView();
+                    }
+                  }}
+                >
+                  자동 뷰
+                </button>
+              </div>
             </div>
           </div>
         </div>
       )}
 
-      {/* 구조체 시각적 표현 설정 모달 */}
+      {/* 설정 모달 */}
       {showSettingsModal && (
-        <div className="settings-modal-overlay" onClick={() => setShowSettingsModal(false)}>
+        <div className="settings-modal-overlay" onClick={closeSettingsModal}>
           <div className="settings-modal-content" onClick={(e) => e.stopPropagation()}>
             <div className="settings-modal-header">
-              <h3>구조체 시각적 표현 설정</h3>
-              <button className="modal-close-btn" onClick={() => setShowSettingsModal(false)}>
+              <h3>구조체 시각화 설정</h3>
+              <button className="modal-close-btn" onClick={closeSettingsModal}>
                 <i className="fas fa-times"></i>
               </button>
             </div>
             
             <div className="settings-modal-body">
-              <div className="settings-section">
-                <h4>기본 표현</h4>
-                <div className="setting-group">
-                  <label>표현 방식:</label>
-                  <select 
-                    value={structureSettings.representation}
-                    onChange={(e) => handleSettingChange("representation", e.target.value)}
-                  >
-                    <option value="cartoon">Cartoon (리본)</option>
-                    <option value="ball+stick">Ball+Stick (구+막대)</option>
-                    <option value="surface">Surface (표면)</option>
-                    <option value="ribbon">Ribbon (리본)</option>
-                    <option value="line">Line (선)</option>
-                  </select>
-                </div>
-                
-                <div className="setting-group">
-                  <label>색상 체계:</label>
-                  <select 
-                    value={structureSettings.colorScheme}
-                    onChange={(e) => handleSettingChange("colorScheme", e.target.value)}
-                  >
-                    <option value="chainid">체인 ID</option>
-                    <option value="element">원소</option>
-                    <option value="secondary structure">2차 구조</option>
-                    <option value="b-factor">B-factor</option>
-                    <option value="residue index">잔기 인덱스</option>
-                  </select>
-                </div>
-                
-                <div className="setting-group">
-                  <label>투명도:</label>
+              <div className="setting-group">
+                <label>표현 방식:</label>
+                <select 
+                  value={structureSettings.representation}
+                  onChange={(e) => handleSettingChange('representation', e.target.value)}
+                >
+                  <option value="cartoon">카툰 (Cartoon)</option>
+                  <option value="surface">표면 (Surface)</option>
+                  <option value="ball+stick">공+막대 (Ball+Stick)</option>
+                </select>
+              </div>
+              
+              <div className="setting-group">
+                <label>색상 체계:</label>
+                <select 
+                  value={structureSettings.colorScheme}
+                  onChange={(e) => handleSettingChange('colorScheme', e.target.value)}
+                >
+                  <option value="chainid">체인 ID</option>
+                  <option value="element">원소</option>
+                  <option value="residueindex">잔기 인덱스</option>
+                  <option value="resname">잔기 이름</option>
+                  <option value="uniform">단일 색상</option>
+                </select>
+              </div>
+              
+              <div className="setting-group">
+                <label>
                   <input 
-                    type="range" 
-                    min="0.1" 
-                    max="1.0" 
-                    step="0.1"
-                    value={structureSettings.opacity}
-                    onChange={(e) => handleSettingChange("opacity", parseFloat(e.target.value))}
+                    type="checkbox"
+                    checked={structureSettings.showBonds}
+                    onChange={(e) => handleSettingChange('showBonds', e.target.checked)}
                   />
-                  <span>{structureSettings.opacity}</span>
-                </div>
+                  결합선 표시
+                </label>
               </div>
               
-              <div className="settings-section">
-                <h4>생물학적 요소</h4>
-                <div className="setting-group">
-                  <label>
-                    <input 
-                      type="checkbox"
-                      checked={structureSettings.showSecondaryStructure}
-                      onChange={(e) => handleSettingChange("showSecondaryStructure", e.target.checked)}
-                    />
-                    2차 구조 표시 (α-helix, β-sheet)
-                  </label>
-                </div>
-                
-                <div className="setting-group">
-                  <label>
-                    <input 
-                      type="checkbox"
-                      checked={structureSettings.showLigands}
-                      onChange={(e) => handleSettingChange("showLigands", e.target.checked)}
-                    />
-                    리간드/이온 표시
-                  </label>
-                </div>
-                
-                <div className="setting-group">
-                  <label>
-                    <input 
-                      type="checkbox"
-                      checked={structureSettings.showDisulfides}
-                      onChange={(e) => handleSettingChange("showDisulfides", e.target.checked)}
-                    />
-                    이황화 결합 표시 (Cys-S-S-Cys)
-                  </label>
-                </div>
-                
-                <div className="setting-group">
-                  <label>
-                    <input 
-                      type="checkbox"
-                      checked={structureSettings.showIons}
-                      onChange={(e) => handleSettingChange("showIons", e.target.checked)}
-                    />
-                    금속 이온 표시
-                  </label>
-                </div>
-                
-                <div className="setting-group">
-                  <label>
-                    <input 
-                      type="checkbox"
-                      checked={structureSettings.showWater}
-                      onChange={(e) => handleSettingChange("showWater", e.target.checked)}
-                    />
-                    물 분자 표시
-                  </label>
-                </div>
+              <div className="setting-group">
+                <label>
+                  <input 
+                    type="checkbox"
+                    checked={structureSettings.showAtoms}
+                    onChange={(e) => handleSettingChange('showAtoms', e.target.checked)}
+                  />
+                  원자 표시
+                </label>
               </div>
               
-              <div className="settings-section">
-                <h4>추가 요소</h4>
-                <div className="setting-group">
-                  <label>
-                    <input 
-                      type="checkbox"
-                      checked={structureSettings.showLabels}
-                      onChange={(e) => handleSettingChange("showLabels", e.target.checked)}
-                    />
-                    아미노산 라벨 표시
-                  </label>
-                </div>
-                
-                <div className="setting-group">
-                  <label>
-                    <input 
-                      type="checkbox"
-                      checked={structureSettings.showAxes}
-                      onChange={(e) => handleSettingChange("showAxes", e.target.checked)}
-                    />
-                    단위 셀 축 표시
-                  </label>
-                </div>
+              <div className="setting-group">
+                <label>
+                  <input 
+                    type="checkbox"
+                    checked={structureSettings.showSurface}
+                    onChange={(e) => handleSettingChange('showSurface', e.target.checked)}
+                  />
+                  표면 표시
+                </label>
+              </div>
+              
+              <div className="setting-group">
+                <label>
+                  <input 
+                    type="checkbox"
+                    checked={structureSettings.showAxes}
+                    onChange={(e) => handleSettingChange('showAxes', e.target.checked)}
+                  />
+                  축 표시 (미지원)
+                </label>
               </div>
             </div>
             
             <div className="settings-modal-footer">
-              <button className="modal-action-btn secondary" onClick={() => setShowSettingsModal(false)}>
+              <button className="modal-action-btn secondary" onClick={closeSettingsModal}>
                 취소
               </button>
               <button 
                 className="modal-action-btn primary"
                 onClick={() => {
                   applyStructureSettings();
-                  setShowSettingsModal(false);
+                  closeSettingsModal();
                 }}
               >
                 적용

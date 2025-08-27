@@ -769,9 +769,8 @@
   flex: 1;
   padding: 20px;
   position: relative;
-  overflow: visible;
+  overflow: hidden;
   background: #121212;
-  min-height: 400px;
 }
 
 .modal-ngl-viewer {
@@ -815,37 +814,23 @@
 
 .modal-highlight-info {
   position: absolute;
-  bottom: 80px;
+  bottom: 20px;
   left: 20px;
   background: #121212;
   padding: 15px;
   border-radius: 0;
   border: 1px solid #333333;
   max-width: 350px;
-  z-index: 100;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-  pointer-events: auto;
 }
 
 .modal-footer {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: flex-end;
   gap: 15px;
   padding: 20px 25px;
   border-top: 1px solid #333333;
   background: #121212;
   border-radius: 0;
-}
-
-.modal-footer .left-buttons {
-  display: flex;
-  gap: 10px;
-}
-
-.modal-footer .right-buttons {
-  display: flex;
-  gap: 15px;
 }
 
 .modal-action-btn {
@@ -870,24 +855,6 @@
 
 .modal-action-btn:hover {
   background: #1a1a1a;
-}
-
-.modal-action-btn.restore-settings-btn {
-  padding: 8px 16px;
-  font-size: 12px;
-  background: #2a2a2a;
-  color: #cccccc;
-  border: 1px solid #444444;
-}
-
-.modal-action-btn.restore-settings-btn:hover {
-  background: #3a3a3a;
-  color: #ffffff;
-}
-
-.modal-action-btn.restore-settings-btn i {
-  margin-right: 6px;
-  font-size: 11px;
 }
 
 @keyframes pulse {

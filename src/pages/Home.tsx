@@ -30,7 +30,7 @@ const Home: React.FC = () => {
   const services = [
     {
       id: 'protein-simulation',
-      title: 'Protein Simulation',
+      title: '단백질 시뮬레이션',
       description: '3D 단백질 구조 시뮬레이션 및 분석',
       icon: <ScienceIcon sx={{ fontSize: 40, color: '#ffffff' }} />,
       color: '#ffffff',
@@ -38,7 +38,7 @@ const Home: React.FC = () => {
     },
     {
       id: 'diagnosis-ai',
-      title: 'AI Diagnosis',
+      title: 'AI 진단',
       description: '인공지능 기반 질병 진단 및 분석',
       icon: <PsychologyIcon sx={{ fontSize: 40, color: '#ffffff' }} />,
       color: '#ffffff',
@@ -46,7 +46,7 @@ const Home: React.FC = () => {
     },
     {
       id: 'interaction-network',
-      title: 'Interaction Network',
+      title: '상호작용 네트워크',
       description: '분자 상호작용 네트워크 분석',
       icon: <ShareIcon sx={{ fontSize: 40, color: '#ffffff' }} />,
       color: '#ffffff',
@@ -54,7 +54,7 @@ const Home: React.FC = () => {
     },
     {
       id: 'drug-screening',
-      title: 'Drug Screening',
+      title: '약물 스크리닝',
       description: '약물 스크리닝 및 효과 분석',
       icon: <MedicationIcon sx={{ fontSize: 40, color: '#ffffff' }} />,
       color: '#ffffff',
@@ -62,7 +62,7 @@ const Home: React.FC = () => {
     },
     {
       id: 'epidemiology-model',
-      title: 'Epidemiology Model',
+      title: '역학 모델링',
       description: '역학 모델링 및 예측 분석',
       icon: <TimelineIcon sx={{ fontSize: 40, color: '#ffffff' }} />,
       color: '#ffffff',

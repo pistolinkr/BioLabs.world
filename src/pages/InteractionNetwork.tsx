@@ -33,7 +33,7 @@ const InteractionNetwork: React.FC = () => {
   return (
     <Box sx={{ p: 3 }}>
       <Typography variant="h3" gutterBottom sx={{ mb: 4, color: '#ffffff' }}>
-        Protein Interaction Network Analysis
+        단백질 상호작용 네트워크 분석
       </Typography>
 
       <Grid container spacing={3}>
@@ -56,7 +56,7 @@ const InteractionNetwork: React.FC = () => {
                 <Box sx={{ textAlign: 'center' }}>
                   <HubIcon sx={{ fontSize: 64, color: '#ffffff', mb: 2 }} />
                   <Typography variant="h6" sx={{ color: '#ffffff', mb: 1 }}>
-                    Protein Interaction Network
+                    단백질 상호작용 네트워크
                   </Typography>
                   <Typography variant="body2" sx={{ color: '#b0b0b0' }}>
                     네트워크 시각화가 여기에 표시됩니다
@@ -72,7 +72,7 @@ const InteractionNetwork: React.FC = () => {
           <Card sx={{ backgroundColor: '#000000', border: '1px solid #ffffff', mb: 3 }}>
             <CardContent>
               <Typography variant="h6" gutterBottom sx={{ color: '#ffffff', mb: 2 }}>
-                Network Controls
+                네트워크 제어
               </Typography>
               
               <Box sx={{ mb: 3 }}>
@@ -81,35 +81,35 @@ const InteractionNetwork: React.FC = () => {
                   startIcon={<ZoomInIcon />}
                   sx={{ mr: 1, mb: 1 }}
                 >
-                  Zoom In
+                  확대
                 </Button>
                 <Button
                   variant="outlined"
                   startIcon={<ZoomOutIcon />}
                   sx={{ mb: 1 }}
                 >
-                  Zoom Out
+                  축소
                 </Button>
               </Box>
 
               <Divider sx={{ backgroundColor: '#ffffff', my: 2 }} />
 
               <FormControl fullWidth sx={{ mb: 3 }}>
-                <InputLabel sx={{ color: '#b0b0b0' }}>Network Type</InputLabel>
+                <InputLabel sx={{ color: '#b0b0b0' }}>네트워크 유형</InputLabel>
                 <Select
                   value={networkType}
                   onChange={(e) => setNetworkType(e.target.value)}
                   sx={{ color: '#ffffff' }}
                 >
-                  <MenuItem value="protein-protein">Protein-Protein</MenuItem>
-                  <MenuItem value="protein-dna">Protein-DNA</MenuItem>
-                  <MenuItem value="protein-ligand">Protein-Ligand</MenuItem>
-                  <MenuItem value="metabolic">Metabolic Pathway</MenuItem>
+                  <MenuItem value="protein-protein">단백질-단백질</MenuItem>
+                  <MenuItem value="protein-dna">단백질-DNA</MenuItem>
+                  <MenuItem value="protein-ligand">단백질-리간드</MenuItem>
+                  <MenuItem value="metabolic">대사 경로</MenuItem>
                 </Select>
               </FormControl>
 
               <Typography variant="subtitle2" sx={{ color: '#ffffff', mb: 1 }}>
-                Interaction Threshold: {interactionThreshold}
+                상호작용 임계값: {interactionThreshold}
               </Typography>
               <Slider
                 value={interactionThreshold}
@@ -127,7 +127,7 @@ const InteractionNetwork: React.FC = () => {
                     onChange={(e) => setShowLabels(e.target.checked)}
                   />
                 }
-                label="Show Labels"
+                label="라벨 표시"
                 sx={{ color: '#ffffff', mb: 1 }}
               />
               
@@ -138,7 +138,7 @@ const InteractionNetwork: React.FC = () => {
                     onChange={(e) => setShowWeights(e.target.checked)}
                   />
                 }
-                label="Show Weights"
+                label="가중치 표시"
                 sx={{ color: '#ffffff' }}
               />
             </CardContent>
@@ -148,21 +148,21 @@ const InteractionNetwork: React.FC = () => {
           <Card sx={{ backgroundColor: '#000000', border: '1px solid #ffffff', mb: 3 }}>
             <CardContent>
               <Typography variant="h6" gutterBottom sx={{ color: '#ffffff', mb: 2 }}>
-                Network Statistics
+                네트워크 통계
               </Typography>
               
               <Box sx={{ mb: 2 }}>
                 <Typography variant="body2" sx={{ color: '#b0b0b0' }}>
-                  Nodes: 1,247
+                  노드: 1,247
                 </Typography>
                 <Typography variant="body2" sx={{ color: '#b0b0b0' }}>
-                  Edges: 3,891
+                  엣지: 3,891
                 </Typography>
                 <Typography variant="body2" sx={{ color: '#b0b0b0' }}>
-                  Density: 0.0025
+                  밀도: 0.0025
                 </Typography>
                 <Typography variant="body2" sx={{ color: '#b0b0b0' }}>
-                  Clustering Coefficient: 0.187
+                  클러스터링 계수: 0.187
                 </Typography>
               </Box>
             </CardContent>
@@ -172,7 +172,7 @@ const InteractionNetwork: React.FC = () => {
           <Card sx={{ backgroundColor: '#000000', border: '1px solid #ffffff' }}>
             <CardContent>
               <Typography variant="h6" gutterBottom sx={{ color: '#ffffff', mb: 2 }}>
-                Key Proteins
+                핵심 단백질
               </Typography>
               
               <Box sx={{ mb: 2 }}>
