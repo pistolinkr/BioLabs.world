@@ -58,7 +58,8 @@ const ProteinSimulation: React.FC = () => {
     showBonds: true,
     showAtoms: false,
     showSurface: false,
-    showAxes: false
+    showAxes: false,
+    ballStickMode: 'single' // "single": 하이라이트만, "multiple": 전체 표시
   });
   
   // 기본 설정 (이전 세팅 불러오기용)
@@ -68,7 +69,8 @@ const ProteinSimulation: React.FC = () => {
     showBonds: true,
     showAtoms: false,
     showSurface: false,
-    showAxes: false
+    showAxes: false,
+    ballStickMode: 'single'
   };
   
   // 참조들
@@ -1283,11 +1285,24 @@ const ProteinSimulation: React.FC = () => {
                   value={structureSettings.representation}
                   onChange={(e) => handleSettingChange('representation', e.target.value)}
                 >
-                  <option value="cartoon">카툰 (Cartoon)</option>
-                  <option value="surface">표면 (Surface)</option>
-                  <option value="ball+stick">공+막대 (Ball+Stick)</option>
+                  <option value="cartoon">카툰</option>
+                  <option value="surface">표면</option>
+                  <option value="ball+stick">공+막대</option>
                 </select>
               </div>
+              
+              {structureSettings.representation === "ball+stick" && (
+                <div className="setting-group">
+                  <label>공+막대 모드:</label>
+                  <select 
+                    value={structureSettings.ballStickMode}
+                    onChange={(e) => handleSettingChange('ballStickMode', e.target.value)}
+                  >
+                    <option value="single">단일표시 (하이라이트만)</option>
+                    <option value="multiple">복수표시 (전체 표시)</option>
+                  </select>
+                </div>
+              )}
               
               <div className="setting-group">
                 <label>색상 체계:</label>
@@ -1298,8 +1313,6 @@ const ProteinSimulation: React.FC = () => {
                   <option value="chainid">체인 ID</option>
                   <option value="element">원소</option>
                   <option value="residueindex">잔기 인덱스</option>
-                  <option value="resname">잔기 이름</option>
-                  <option value="uniform">단일 색상</option>
                 </select>
               </div>
               
@@ -1322,28 +1335,6 @@ const ProteinSimulation: React.FC = () => {
                     onChange={(e) => handleSettingChange('showAtoms', e.target.checked)}
                   />
                   원자 표시
-                </label>
-              </div>
-              
-              <div className="setting-group">
-                <label>
-                  <input 
-                    type="checkbox"
-                    checked={structureSettings.showSurface}
-                    onChange={(e) => handleSettingChange('showSurface', e.target.checked)}
-                  />
-                  표면 표시
-                </label>
-              </div>
-              
-              <div className="setting-group">
-                <label>
-                  <input 
-                    type="checkbox"
-                    checked={structureSettings.showAxes}
-                    onChange={(e) => handleSettingChange('showAxes', e.target.checked)}
-                  />
-                  축 표시 (미지원)
                 </label>
               </div>
             </div>

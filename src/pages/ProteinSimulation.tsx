@@ -65,7 +65,8 @@ const ProteinSimulation: React.FC = () => {
     showSecondaryStructure: true,
     showHydrogenBonds: false,
     showDisulfides: true,
-    showIons: true
+    showIons: true,
+    ballStickMode: "single" // "single": 하이라이트만, "multiple": 전체 표시
   });
   
   // 참조들
@@ -133,11 +134,22 @@ const ProteinSimulation: React.FC = () => {
             opacity: structureSettings.opacity
           });
         } else if (structureSettings.representation === "ball+stick") {
-          component.addRepresentation("ball+stick", { 
-            sele: "all", 
-            color: structureSettings.colorScheme,
-            opacity: structureSettings.opacity
-          });
+          if (structureSettings.ballStickMode === "multiple") {
+            // 복수표시: 전체 구조를 공+막대로 표시
+            component.addRepresentation("ball+stick", { 
+              sele: "all", 
+              color: structureSettings.colorScheme,
+              opacity: structureSettings.opacity
+            });
+          } else {
+            // 단일표시: 기본 표현은 카툰으로만, 하이라이트는 클릭 시 추가
+            component.addRepresentation("cartoon", { 
+              sele: "all",
+              color: structureSettings.colorScheme,
+              opacity: 0.9,
+              side: "double"
+            });
+          }
         } else if (structureSettings.representation === "surface") {
           component.addRepresentation("surface", { 
             sele: "all",
@@ -229,6 +241,51 @@ const ProteinSimulation: React.FC = () => {
     }
   }, [modalStageInstanceRef, pdbData, structureSettings]);
 
+  // 하이라이트 정보 닫기 (공+막대 표현도 함께 제거)
+  const closeHighlightInfo = useCallback(() => {
+    // 단일표시 모드일 때 공+막대 표현 제거
+    if (structureSettings.representation === "ball+stick" && structureSettings.ballStickMode === "single") {
+      try {
+        // 모달과 메인 뷰어 모두에서 하이라이트 표현 제거
+        if (modalStageInstanceRef.current) {
+          const stage = modalStageInstanceRef.current as any;
+          if (stage.components) {
+            stage.components.forEach((component: any) => {
+              if (component.representations) {
+                component.representations.forEach((repr: any) => {
+                  if (repr.userData && repr.userData.isHighlight) {
+                    component.removeRepresentation(repr);
+                  }
+                });
+              }
+            });
+          }
+        }
+        
+        if (stageInstanceRef.current) {
+          const stage = stageInstanceRef.current as any;
+          if (stage.components) {
+            stage.components.forEach((component: any) => {
+              if (component.representations) {
+                component.representations.forEach((repr: any) => {
+                  if (repr.userData && repr.userData.isHighlight) {
+                    component.removeRepresentation(repr);
+                  }
+                });
+              }
+            });
+          }
+        }
+        
+        console.log('하이라이트 공+막대 표현 제거됨');
+      } catch (error) {
+        console.log('하이라이트 표현 제거 실패:', error);
+      }
+    }
+    
+    setHighlightInfo(null);
+  }, [structureSettings.representation, structureSettings.ballStickMode]);
+
   // 설정 변경 핸들러
   const handleSettingChange = useCallback((key: string, value: any) => {
     setStructureSettings(prev => ({
@@ -250,7 +307,8 @@ const ProteinSimulation: React.FC = () => {
       showSecondaryStructure: true,
       showHydrogenBonds: false,
       showDisulfides: true,
-      showIons: true
+      showIons: true,
+      ballStickMode: "single"
     });
   }, []);
 
@@ -684,6 +742,48 @@ const ProteinSimulation: React.FC = () => {
             }, 100);
           }
           
+          // 단일표시 모드일 때만 하이라이트에 공+막대 표현 추가
+          if (structureSettings.representation === "ball+stick" && structureSettings.ballStickMode === "single") {
+            try {
+              // 현재 활성화된 컴포넌트 찾기
+              if (stageInstanceRef.current) {
+                const stage = stageInstanceRef.current as any;
+                if (stage.components && stage.components.length > 0) {
+                  const component = stage.components[0];
+                  
+                  // 기존 하이라이트 표현들 제거
+                  const representations = component.representations;
+                  if (representations) {
+                    representations.forEach((repr: any) => {
+                      if (repr.userData && repr.userData.isHighlight) {
+                        component.removeRepresentation(repr);
+                      }
+                    });
+                  }
+                  
+                  // 해당 잔기만 공+막대로 표시 (명확하게)
+                  const residueSelection = `/${atom.chainid}/${atom.resid}`;
+                  
+                  const ballStickRepr = component.addRepresentation("ball+stick", {
+                    sele: residueSelection,
+                    color: "element",
+                    opacity: 1.0,
+                    side: "double",
+                    linewidth: 3.0,
+                    sphereDetail: 3
+                  });
+                  
+                  // 하이라이트 표현임을 표시
+                  ballStickRepr.userData = { isHighlight: true };
+                  
+                  console.log(`잔기 ${atom.resname}${atom.resid} (체인 ${atom.chainid}) 하이라이트 공+막대 추가됨`);
+                }
+              }
+            } catch (error) {
+              console.log('하이라이트 공+막대 표현 추가 실패:', error);
+            }
+          }
+          
           setHighlightInfo({
             residueName: atom.resname || '알 수 없음',
             chain: atom.chainid || 'A',
@@ -879,6 +979,48 @@ const ProteinSimulation: React.FC = () => {
           if (modalStageInstanceRef.current) {
             // 카메라 조작 제거 - 구조가 튕기거나 사라지는 문제 방지
             // 단순히 하이라이트 정보만 표시
+          }
+          
+          // 단일표시 모드일 때만 하이라이트에 공+막대 표현 추가
+          if (structureSettings.representation === "ball+stick" && structureSettings.ballStickMode === "single") {
+            try {
+              // 현재 활성화된 컴포넌트 찾기
+              if (modalStageInstanceRef.current) {
+                const stage = modalStageInstanceRef.current as any;
+                if (stage.components && stage.components.length > 0) {
+                  const component = stage.components[0];
+                  
+                  // 기존 하이라이트 표현들 제거
+                  const representations = component.representations;
+                  if (representations) {
+                    representations.forEach((repr: any) => {
+                      if (repr.userData && repr.userData.isHighlight) {
+                        component.removeRepresentation(repr);
+                      }
+                    });
+                  }
+                  
+                  // 해당 잔기만 공+막대로 표시 (명확하게)
+                  const residueSelection = `/${atom.chainid}/${atom.resid}`;
+                  
+                  const ballStickRepr = component.addRepresentation("ball+stick", {
+                    sele: residueSelection,
+                    color: "element",
+                    opacity: 1.0,
+                    side: "double",
+                    linewidth: 3.0,
+                    sphereDetail: 3
+                  });
+                  
+                  // 하이라이트 표현임을 표시
+                  ballStickRepr.userData = { isHighlight: true };
+                  
+                  console.log(`잔기 ${atom.resname}${atom.resid} (체인 ${atom.chainid}) 모달 하이라이트 공+막대 추가됨`);
+                }
+              }
+            } catch (error) {
+              console.log('하이라이트 공+막대 표현 추가 실패:', error);
+            }
           }
           
           setHighlightInfo({
@@ -1137,12 +1279,12 @@ const ProteinSimulation: React.FC = () => {
                        <div><strong>원자:</strong> {highlightInfo.atom}</div>
                        <div><strong>좌표:</strong> X: {highlightInfo.coordinates.x.toFixed(2)}, Y: {highlightInfo.coordinates.y.toFixed(2)}, Z: {highlightInfo.coordinates.z.toFixed(2)}</div>
                  </div>
-                     <button 
-                       className="close-highlight-btn"
-                       onClick={() => setHighlightInfo(null)}
-                     >
-                       닫기
-                     </button>
+                                            <button 
+                         className="close-highlight-btn"
+                         onClick={closeHighlightInfo}
+                       >
+                         닫기
+                       </button>
                    </div>
                  )}
           </div>
@@ -1208,25 +1350,25 @@ const ProteinSimulation: React.FC = () => {
                 </div>
               )}
               
-              {highlightInfo && highlightInfo.visible && (
-                <div className="modal-highlight-info">
-                  <div className="highlight-header">
-                    <strong>원자 정보</strong>
-                    <span className="chain-info">체인 {highlightInfo.chain}</span>
-                  </div>
-                  <div className="atom-details">
-                    <div><strong>잔기:</strong> {highlightInfo.residueName} {highlightInfo.residueNumber}</div>
-                    <div><strong>원자:</strong> {highlightInfo.atom}</div>
-                    <div><strong>좌표:</strong> X: {highlightInfo.coordinates.x.toFixed(2)}, Y: {highlightInfo.coordinates.y.toFixed(2)}, Z: {highlightInfo.coordinates.z.toFixed(2)}</div>
-                  </div>
-                  <button 
-                    className="close-highlight-btn"
-                    onClick={() => setHighlightInfo(null)}
-                  >
-                    닫기
-                  </button>
-                </div>
-              )}
+                                 {highlightInfo && highlightInfo.visible && (
+                     <div className="modal-highlight-info">
+                       <div className="highlight-header">
+                         <strong>원자 정보</strong>
+                         <span className="chain-info">체인 {highlightInfo.chain}</span>
+                       </div>
+                       <div className="atom-details">
+                         <div><strong>잔기:</strong> {highlightInfo.residueName} {highlightInfo.residueNumber}</div>
+                         <div><strong>원자:</strong> {highlightInfo.atom}</div>
+                         <div><strong>좌표:</strong> X: {highlightInfo.coordinates.x.toFixed(2)}, Y: {highlightInfo.coordinates.y.toFixed(2)}, Z: {highlightInfo.coordinates.z.toFixed(2)}</div>
+                       </div>
+                       <button 
+                         className="close-highlight-btn"
+                         onClick={closeHighlightInfo}
+                       >
+                         닫기
+                       </button>
+                     </div>
+                   )}
             </div>
             
             <div className="modal-footer">
@@ -1260,106 +1402,63 @@ const ProteinSimulation: React.FC = () => {
             </div>
             
             <div className="settings-modal-body">
-              <div className="settings-section">
-                <h4>기본 표현</h4>
-                <div className="setting-group">
-                  <label>표현 방식:</label>
-                  <select 
-                    value={structureSettings.representation}
-                    onChange={(e) => handleSettingChange("representation", e.target.value)}
-                  >
-                    <option value="cartoon">Cartoon (리본)</option>
-                    <option value="ball+stick">Ball+Stick (구+막대)</option>
-                    <option value="surface">Surface (표면)</option>
-                    <option value="ribbon">Ribbon (리본)</option>
-                    <option value="line">Line (선)</option>
-                  </select>
-                </div>
-                
-                <div className="setting-group">
-                  <label>색상 체계:</label>
-                  <select 
-                    value={structureSettings.colorScheme}
-                    onChange={(e) => handleSettingChange("colorScheme", e.target.value)}
-                  >
-                    <option value="chainid">체인 ID</option>
-                    <option value="element">원소</option>
-                    <option value="secondary structure">2차 구조</option>
-                    <option value="b-factor">B-factor</option>
-                    <option value="residue index">잔기 인덱스</option>
-                  </select>
-                </div>
-                
-                <div className="setting-group">
-                  <label>투명도:</label>
-                  <input 
-                    type="range" 
-                    min="0.1" 
-                    max="1.0" 
-                    step="0.1"
-                    value={structureSettings.opacity}
-                    onChange={(e) => handleSettingChange("opacity", parseFloat(e.target.value))}
-                  />
-                  <span>{structureSettings.opacity}</span>
-                </div>
+              <div className="setting-group">
+                <label>표현 방식:</label>
+                <select 
+                  value={structureSettings.representation}
+                  onChange={(e) => handleSettingChange("representation", e.target.value)}
+                >
+                  <option value="cartoon">카툰</option>
+                  <option value="ball+stick">공+막대</option>
+                  <option value="surface">표면</option>
+                </select>
               </div>
               
-              <div className="settings-section">
-                <h4>생물학적 요소</h4>
+              {structureSettings.representation === "ball+stick" && (
                 <div className="setting-group">
-                  <label>
-                    <input 
-                      type="checkbox"
-                      checked={structureSettings.showSecondaryStructure}
-                      onChange={(e) => handleSettingChange("showSecondaryStructure", e.target.checked)}
-                    />
-                    2차 구조 표시 (α-helix, β-sheet)
-                  </label>
+                  <label>공+막대 모드:</label>
+                  <select 
+                    value={structureSettings.ballStickMode}
+                    onChange={(e) => handleSettingChange("ballStickMode", e.target.value)}
+                  >
+                    <option value="single">단일표시 (하이라이트만)</option>
+                    <option value="multiple">복수표시 (전체 표시)</option>
+                  </select>
                 </div>
-                
-                <div className="setting-group">
-                  <label>
-                    <input 
-                      type="checkbox"
-                      checked={structureSettings.showLigands}
-                      onChange={(e) => handleSettingChange("showLigands", e.target.checked)}
-                    />
-                    리간드/이온 표시
-                  </label>
-                </div>
-                
-                <div className="setting-group">
-                  <label>
-                    <input 
-                      type="checkbox"
-                      checked={structureSettings.showDisulfides}
-                      onChange={(e) => handleSettingChange("showDisulfides", e.target.checked)}
-                    />
-                    이황화 결합 표시 (Cys-S-S-Cys)
-                  </label>
-                </div>
-                
-                <div className="setting-group">
-                  <label>
-                    <input 
-                      type="checkbox"
-                      checked={structureSettings.showIons}
-                      onChange={(e) => handleSettingChange("showIons", e.target.checked)}
-                    />
-                    금속 이온 표시
-                  </label>
-                </div>
-                
-                <div className="setting-group">
-                  <label>
-                    <input 
-                      type="checkbox"
-                      checked={structureSettings.showWater}
-                      onChange={(e) => handleSettingChange("showWater", e.target.checked)}
-                    />
-                    물 분자 표시
-                  </label>
-                </div>
+              )}
+              
+              <div className="setting-group">
+                <label>색상 체계:</label>
+                <select 
+                  value={structureSettings.colorScheme}
+                  onChange={(e) => handleSettingChange("colorScheme", e.target.value)}
+                >
+                  <option value="chainid">체인 ID</option>
+                  <option value="element">원소</option>
+                  <option value="residue index">잔기 인덱스</option>
+                </select>
+              </div>
+              
+              <div className="setting-group">
+                <label>
+                  <input 
+                    type="checkbox"
+                    checked={structureSettings.showLabels}
+                    onChange={(e) => handleSettingChange("showLabels", e.target.checked)}
+                  />
+                  라벨 표시
+                </label>
+              </div>
+              
+              <div className="setting-group">
+                <label>
+                  <input 
+                    type="checkbox"
+                    checked={structureSettings.showAxes}
+                    onChange={(e) => handleSettingChange("showAxes", e.target.checked)}
+                  />
+                  축 표시
+                </label>
               </div>
               
               <div className="settings-section">
