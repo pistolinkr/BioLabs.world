@@ -5,15 +5,15 @@ import { getStorage } from 'firebase/storage';
 import { getAnalytics } from 'firebase/analytics';
 
 // Firebase 설정
-// Firebase CLI에서 가져온 실제 값
+// 환경 변수에서 가져오거나 기본값 사용
 const firebaseConfig = {
-  apiKey: "AIzaSyDJv0Xtdk3D4hIaBE28H14UP9fntZToKlk",
-  authDomain: "prionlab-28116.firebaseapp.com",
-  projectId: "prionlab-28116",
-  storageBucket: "prionlab-28116.firebasestorage.app",
-  messagingSenderId: "531953772834",
-  appId: "1:531953772834:web:4c60da8a5495631ea99d7b",
-  measurementId: "G-36PK2HFT36"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY || "AIzaSyDJv0Xtdk3D4hIaBE28H14UP9fntZToKlk",
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN || "prionlab-28116.firebaseapp.com",
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID || "prionlab-28116",
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET || "prionlab-28116.firebasestorage.app",
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID || "531953772834",
+  appId: process.env.REACT_APP_FIREBASE_APP_ID || "1:531953772834:web:4c60da8a5495631ea99d7b",
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID || "G-36PK2HFT36"
 };
 
 // Firebase 앱 초기화

@@ -772,6 +772,8 @@
   overflow: visible;
   background: #121212;
   min-height: 400px;
+  /* 사파리 스크롤 문제 해결 */
+  -webkit-overflow-scrolling: touch;
 }
 
 .modal-ngl-viewer {
@@ -1349,6 +1351,8 @@
   overflow-y: auto;
   border: 1px solid #333333;
   position: relative;
+  /* 사파리 스크롤 문제 해결 */
+  -webkit-overflow-scrolling: touch;
 }
 
 .settings-modal-header {
@@ -1552,5 +1556,79 @@
   
   .modal-action-btn {
     width: 100%;
+  }
+}
+
+/* 전역 스크롤바 스타일링 (사파리 호환성) */
+* {
+  /* 사파리 스크롤 문제 해결 */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 스크롤바가 있는 컨테이너들 */
+.protein-simulation,
+.main-content,
+.search-section,
+.pdb-input-section,
+.sample-structures,
+.viewer-panel,
+.page-footer,
+.modal-body,
+.settings-modal-content {
+  /* 사파리 스크롤 문제 해결 */
+  -webkit-overflow-scrolling: touch;
+  /* 부드러운 스크롤 */
+  scroll-behavior: smooth;
+}
+
+/* 사파리 전용 스크롤바 스타일링 */
+@supports (-webkit-appearance: none) {
+  .protein-simulation::-webkit-scrollbar,
+  .main-content::-webkit-scrollbar,
+  .search-section::-webkit-scrollbar,
+  .pdb-input-section::-webkit-scrollbar,
+  .sample-structures::-webkit-scrollbar,
+  .viewer-panel::-webkit-scrollbar,
+  .page-footer::-webkit-scrollbar,
+  .modal-body::-webkit-scrollbar,
+  .settings-modal-content::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .protein-simulation::-webkit-scrollbar-track,
+  .main-content::-webkit-scrollbar-track,
+  .search-section::-webkit-scrollbar-track,
+  .pdb-input-section::-webkit-scrollbar-track,
+  .sample-structures::-webkit-scrollbar-track,
+  .viewer-panel::-webkit-scrollbar-track,
+  .page-footer::-webkit-scrollbar-track,
+  .modal-body::-webkit-scrollbar-track,
+  .settings-modal-content::-webkit-scrollbar-track {
+    background: #1a1a1a;
+  }
+  
+  .protein-simulation::-webkit-scrollbar-thumb,
+  .main-content::-webkit-scrollbar-thumb,
+  .search-section::-webkit-scrollbar-thumb,
+  .pdb-input-section::-webkit-scrollbar-thumb,
+  .sample-structures::-webkit-scrollbar-thumb,
+  .viewer-panel::-webkit-scrollbar-thumb,
+  .page-footer::-webkit-scrollbar-thumb,
+  .modal-body::-webkit-scrollbar-thumb,
+  .settings-modal-content::-webkit-scrollbar-thumb {
+    background: #888888;
+    border-radius: 4px;
+  }
+  
+  .protein-simulation::-webkit-scrollbar-thumb:hover,
+  .main-content::-webkit-scrollbar-thumb:hover,
+  .search-section::-webkit-scrollbar-thumb:hover,
+  .pdb-input-section::-webkit-scrollbar-thumb:hover,
+  .sample-structures::-webkit-scrollbar-thumb:hover,
+  .viewer-panel::-webkit-scrollbar-thumb:hover,
+  .page-footer::-webkit-scrollbar-thumb:hover,
+  .modal-body::-webkit-scrollbar-thumb:hover,
+  .settings-modal-content::-webkit-scrollbar-thumb:hover {
+    background: #666666;
   }
 }
