@@ -2,6 +2,7 @@
 * {
   box-sizing: border-box;
   overscroll-behavior: none;
+  scroll-behavior: smooth;
 }
 
 body, html {
@@ -26,11 +27,13 @@ body, html {
 
 ::-webkit-scrollbar-thumb {
   background: var(--text-primary);
-  border-radius: 0;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-primary);
+  background: var(--accent-primary);
+  transition: background-color 0.3s ease;
 }
 
 /* 애니메이션 */
@@ -70,6 +73,28 @@ body, html {
 
 .spin {
   animation: spin 1s linear infinite;
+}
+
+/* 부드러운 스크롤 관련 클래스 */
+.smooth-scroll {
+  scroll-behavior: smooth;
+  transition: all 0.3s ease;
+}
+
+.smooth-scroll-container {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
+}
+
+/* 부드러운 스크롤 애니메이션 */
+@keyframes smoothScroll {
+  from { transform: translateY(0); }
+  to { transform: translateY(-10px); }
+}
+
+.smooth-scroll-animation {
+  animation: smoothScroll 0.3s ease-in-out;
 }
 
 /* 호버 효과 제거 */

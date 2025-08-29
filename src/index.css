@@ -56,10 +56,13 @@ body {
 
 html {
   overscroll-behavior: none;
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px; /* 네비게이션 바 높이만큼 패딩 */
 }
 
 * {
   overscroll-behavior: none;
+  scroll-behavior: smooth;
 }
 
 code {
@@ -160,11 +163,13 @@ th {
 
 ::-webkit-scrollbar-thumb {
   background: var(--text-primary);
-  border-radius: 0;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-primary);
+  background: var(--accent-primary);
+  transition: background-color 0.3s ease;
 }
 
 /* 선택된 텍스트 */

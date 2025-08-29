@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider as MuiThemeProvider, createTheme } from '@mui/material/styles';
 import { CssBaseline, Box } from '@mui/material';
@@ -81,14 +81,14 @@ const LoginRoute: React.FC = () => {
 // 메인 레이아웃 컴포넌트
 const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: '#000000' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: 'var(--bg-primary)' }}>
       <Navbar />
       <Box
         component="main"
         sx={{
           paddingTop: '64px', // Navbar 높이만큼 상단 패딩 추가
           flexGrow: 1,
-          backgroundColor: '#000000'
+          backgroundColor: 'var(--bg-primary)'
         }}
       >
         {children}
@@ -225,6 +225,58 @@ const darkTheme = createTheme({
 });
 
 function App() {
+  // 부드러운 스크롤 효과 설정
+  useEffect(() => {
+    // 부드러운 스크롤 함수
+    const smoothScroll = (target: Element, duration: number = 800) => {
+      const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - 80; // 네비게이션 바 높이만큼 조정
+      const startPosition = window.pageYOffset;
+      const distance = targetPosition - startPosition;
+      let startTime: number | null = null;
+
+      const animation = (currentTime: number) => {
+        if (startTime === null) startTime = currentTime;
+        const timeElapsed = currentTime - startTime;
+        const run = easeInOutCubic(timeElapsed, startPosition, distance, duration);
+        window.scrollTo(0, run);
+        if (timeElapsed < duration) requestAnimationFrame(animation);
+      };
+
+      // 이징 함수 (부드러운 가속/감속)
+      const easeInOutCubic = (t: number, b: number, c: number, d: number) => {
+        t /= d / 2;
+        if (t < 1) return c / 2 * t * t * t + b;
+        t -= 2;
+        return c / 2 * (t * t * t + 2) + b;
+      };
+
+      requestAnimationFrame(animation);
+    };
+
+    // 전역 스크롤 이벤트 리스너 추가
+    const handleWheel = (e: WheelEvent) => {
+      // 부드러운 스크롤을 위한 추가 설정
+      if (Math.abs(e.deltaY) > 0) {
+        e.preventDefault();
+        const scrollAmount = e.deltaY * 0.5; // 스크롤 속도 조절
+        window.scrollBy({
+          top: scrollAmount,
+          behavior: 'smooth'
+        });
+      }
+    };
+
+    // 휠 이벤트 리스너 등록 (선택적)
+    // document.addEventListener('wheel', handleWheel, { passive: false });
+
+    // 부드러운 스크롤 유틸리티를 전역에 추가
+    (window as any).smoothScroll = smoothScroll;
+
+    return () => {
+      // document.removeEventListener('wheel', handleWheel);
+    };
+  }, []);
+
   return (
     <ThemeProvider>
       <MuiThemeProvider theme={darkTheme}>
