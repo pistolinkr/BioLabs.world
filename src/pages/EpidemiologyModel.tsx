@@ -55,18 +55,18 @@ const EpidemiologyModel: React.FC = () => {
     >
       <Container maxWidth="lg">
         <Typography variant="h3" gutterBottom sx={{ mb: 4, color: 'var(--text-primary)' }}>
-          역학 모델링
-        </Typography>
+        역학 모델링
+      </Typography>
 
-        <Grid container spacing={3}>
+      <Grid container spacing={3}>
           {/* 입력 폼 */}
           <Grid item xs={12} lg={6}>
             <Card sx={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border-primary)', mb: 3 }}>
-              <CardContent>
+            <CardContent>
                 <Typography variant="h6" gutterBottom sx={{ color: 'var(--text-primary)', mb: 3 }}>
                   역학 모델링 입력
-                </Typography>
-                
+              </Typography>
+              
                 <TextField
                   fullWidth
                   label="질병명"
@@ -104,18 +104,18 @@ const EpidemiologyModel: React.FC = () => {
                 >
                   {loading ? '모델링 중...' : '역학 모델링 시작'}
                 </Button>
-              </CardContent>
-            </Card>
-          </Grid>
+            </CardContent>
+          </Card>
+        </Grid>
 
           {/* 결과 표시 */}
           <Grid item xs={12} lg={6}>
             <Card sx={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border-primary)', mb: 3 }}>
-              <CardContent>
+            <CardContent>
                 <Typography variant="h6" gutterBottom sx={{ color: 'var(--text-primary)', mb: 3 }}>
                   모델링 결과
-                </Typography>
-                
+              </Typography>
+
                 {showResult && modeling && (
                   <Alert severity="success" sx={{ mb: 2 }}>
                     {modeling}
@@ -130,10 +130,10 @@ const EpidemiologyModel: React.FC = () => {
                     </Typography>
                   </Box>
                 )}
-              </CardContent>
-            </Card>
-          </Grid>
+            </CardContent>
+          </Card>
         </Grid>
+      </Grid>
       </Container>
     </Box>
   );
