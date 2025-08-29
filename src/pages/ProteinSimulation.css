@@ -1,11 +1,14 @@
 /* 단백질 시뮬레이션 페이지 스타일 - BioLabs 정체성 반영 */
 .protein-simulation {
   min-height: 100vh;
-  background: #0a0a0a;
-  color: #ffffff;
+  background: var(--bg-primary);
+  color: var(--text-primary);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   /* 가로 스크롤바 숨김 */
   overflow-x: hidden;
+  /* 사파리 스크롤 문제 해결 */
+  -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
 }
 
 .main-content {
@@ -14,33 +17,41 @@
   margin: 0;
   /* 가로 스크롤바 숨김 */
   overflow-x: hidden;
+  /* 사파리 스크롤 문제 해결 */
+  -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
 }
 
 .viewer-container {
   width: 100%;
-  background: #000000;
+  background: var(--bg-primary);
   border: none;
   border-radius: 0;
   overflow: hidden;
   margin: 0;
   /* 가로 스크롤바 숨김 */
   overflow-x: hidden;
+  /* 사파리 스크롤 문제 해결 */
+  -webkit-overflow-scrolling: touch;
 }
 
 /* 단백질 뷰어 메인 컨테이너 */
 .protein-viewer {
-  background: #121212;
-  color: #ffffff;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
   padding: 0;
   /* 가로 스크롤바 숨김 */
   overflow-x: hidden;
+  /* 사파리 스크롤 문제 해결 */
+  -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
 }
 
 /* 뷰어 헤더 */
 .viewer-header {
   padding: 25px;
-  background: #1a1a1a;
-  border-bottom: 1px solid #333333;
+  background: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border-primary);
   text-align: center;
 }
 
@@ -48,22 +59,25 @@
   margin: 0 0 8px 0;
   font-size: 2rem;
   font-weight: 600;
-  color: #ffffff;
+  color: var(--text-primary);
 }
 
 .viewer-header p {
   margin: 0;
   font-size: 1.1rem;
-  color: #cccccc;
+  color: var(--text-secondary);
 }
 
 /* 검색 섹션 */
 .search-section {
   padding: 25px;
-  background: #121212;
-  border-bottom: 1px solid #333333;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-primary);
   /* 가로 스크롤바 숨김 */
   overflow-x: hidden;
+  /* 사파리 스크롤 문제 해결 */
+  -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
 }
 
 .search-input-group {
@@ -75,29 +89,29 @@
 .search-input {
   flex: 1;
   padding: 15px;
-  border: 1px solid #888888;
+  border: 1px solid var(--text-muted);
   border-radius: 0;
-  background: #1a1a1a;
-  color: #ffffff;
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
   font-size: 1rem;
   transition: none;
 }
 
 .search-input:focus {
   outline: none;
-  border-color: #ffffff;
-  background: #2a2a2a;
+  border-color: var(--text-primary);
+  background: var(--bg-secondary);
 }
 
 .search-input::placeholder {
-  color: #666666;
+  color: var(--text-muted);
 }
 
 .search-btn {
   padding: 15px 25px;
-  background: #888888;
-  color: #ffffff;
-  border: 1px solid #888888;
+  background: var(--text-muted);
+  color: var(--text-primary);
+  border: 1px solid var(--text-muted);
   border-radius: 0;
   cursor: pointer;
   font-size: 1rem;
@@ -111,14 +125,14 @@
 }
 
 .search-btn:hover:not(:disabled) {
-  background: #666666;
-  border-color: #666666;
+  background: var(--text-muted);
+  border-color: var(--text-muted);
 }
 
 .search-btn:disabled {
-  background: #333333;
-  color: #666666;
-  border-color: #333333;
+  background: var(--border-primary);
+  color: var(--text-muted);
+  border-color: var(--border-primary);
   cursor: not-allowed;
 }
 
@@ -132,7 +146,7 @@
  }
  
  .search-help small {
-   color: #888888;
+   color: var(--text-muted);
    font-size: 0.8rem;
    font-style: italic;
    display: block;
@@ -143,13 +157,13 @@
  .search-history {
    margin-top: 15px;
    padding: 15px;
-   background: rgba(255, 255, 255, 0.05);
-   border: 1px solid rgba(255, 255, 255, 0.1);
+   background: var(--bg-tertiary);
+   border: 1px solid var(--border-primary);
    border-radius: 4px;
  }
  
  .search-history small {
-   color: #cccccc;
+   color: var(--text-secondary);
    font-size: 0.8rem;
    margin-bottom: 10px;
    display: block;
@@ -164,9 +178,9 @@
  
  .history-tag {
    padding: 4px 12px;
-   background: #000000;
-   color: #ffffff;
-   border: 1px solid #ffffff;
+   background: var(--bg-primary);
+   color: var(--text-primary);
+   border: 1px solid var(--text-primary);
    border-radius: 20px;
    cursor: pointer;
    font-size: 0.75rem;
@@ -175,9 +189,9 @@
  }
  
  .history-tag:hover {
-   background: #ffffff;
-   color: #000000;
-   border-color: #000000;
+   background: var(--text-primary);
+   color: var(--bg-primary);
+   border-color: var(--bg-primary);
  }
 
 /* 검색 결과 */

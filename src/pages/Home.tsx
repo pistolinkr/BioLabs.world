@@ -22,9 +22,11 @@ import {
   Home as HomeIcon
 } from '@mui/icons-material';
 import { useAuth } from '../contexts/AuthContext';
+import { useTheme } from '../contexts/ThemeContext';
 
 const Home: React.FC = () => {
   const { userProfile } = useAuth();
+  const { isDark } = useTheme();
   const navigate = useNavigate();
 
   const services = [
@@ -32,40 +34,40 @@ const Home: React.FC = () => {
       id: 'protein-simulation',
       title: '단백질 시뮬레이션',
       description: '3D 단백질 구조 시뮬레이션 및 분석',
-      icon: <ScienceIcon sx={{ fontSize: 40, color: '#ffffff' }} />,
-      color: '#ffffff',
+      icon: <ScienceIcon sx={{ fontSize: 40, color: 'var(--text-primary)' }} />,
+      color: 'var(--text-primary)',
       path: '/protein-simulation'
     },
     {
       id: 'diagnosis-ai',
       title: 'AI 진단',
       description: '인공지능 기반 질병 진단 및 분석',
-      icon: <PsychologyIcon sx={{ fontSize: 40, color: '#ffffff' }} />,
-      color: '#ffffff',
+      icon: <PsychologyIcon sx={{ fontSize: 40, color: 'var(--text-primary)' }} />,
+      color: 'var(--text-primary)',
       path: '/diagnosis-ai'
     },
     {
       id: 'interaction-network',
       title: '상호작용 네트워크',
       description: '분자 상호작용 네트워크 분석',
-      icon: <ShareIcon sx={{ fontSize: 40, color: '#ffffff' }} />,
-      color: '#ffffff',
+      icon: <ShareIcon sx={{ fontSize: 40, color: 'var(--text-primary)' }} />,
+      color: 'var(--text-primary)',
       path: '/interaction-network'
     },
     {
       id: 'drug-screening',
       title: '약물 스크리닝',
       description: '약물 스크리닝 및 효과 분석',
-      icon: <MedicationIcon sx={{ fontSize: 40, color: '#ffffff' }} />,
-      color: '#ffffff',
+      icon: <MedicationIcon sx={{ fontSize: 40, color: 'var(--text-primary)' }} />,
+      color: 'var(--text-primary)',
       path: '/drug-screening'
     },
     {
       id: 'epidemiology-model',
       title: '역학 모델링',
       description: '역학 모델링 및 예측 분석',
-      icon: <TimelineIcon sx={{ fontSize: 40, color: '#ffffff' }} />,
-      color: '#ffffff',
+      icon: <TimelineIcon sx={{ fontSize: 40, color: 'var(--text-primary)' }} />,
+      color: 'var(--text-primary)',
       path: '/epidemiology-model'
     }
   ];
@@ -74,8 +76,8 @@ const Home: React.FC = () => {
     <Box
       sx={{
         minHeight: '100vh',
-        backgroundColor: '#000000',
-        color: '#ffffff',
+        backgroundColor: 'var(--bg-primary)',
+        color: 'var(--text-primary)',
         paddingTop: '80px',
         paddingBottom: '40px'
       }}
@@ -84,14 +86,14 @@ const Home: React.FC = () => {
         {/* 헤더 섹션 */}
         <Fade in timeout={800}>
           <Box sx={{ textAlign: 'center', marginBottom: 6 }}>
-            <HomeIcon sx={{ fontSize: 60, color: '#ffffff', marginBottom: 2 }} />
+            <HomeIcon sx={{ fontSize: 60, color: 'var(--text-primary)', marginBottom: 2 }} />
             <Typography
               variant="h3"
               component="h1"
               sx={{
                 fontWeight: 700,
                 marginBottom: 2,
-                color: '#ffffff'
+                color: 'var(--text-primary)'
               }}
             >
               BioLabs 생명학 시뮬레이션 도구

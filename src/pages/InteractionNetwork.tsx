@@ -1,206 +1,125 @@
 import React, { useState } from 'react';
 import {
   Box,
-  Card,
-  CardContent,
+  Container,
   Typography,
   Grid,
+  Card,
+  CardContent,
   Button,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Chip,
-  Slider,
-  FormControlLabel,
-  Switch,
-  Divider,
+  TextField,
+  Alert,
+  Fade,
+  Grow,
+  Paper
 } from '@mui/material';
 import {
-  Hub as HubIcon,
-  ZoomIn as ZoomInIcon,
-  ZoomOut as ZoomOutIcon,
-  FilterList as FilterIcon,
-  Download as DownloadIcon,
+  Share as ShareIcon,
+  NetworkCheck as NetworkCheckIcon,
+  Timeline as TimelineIcon,
+  Assessment as AssessmentIcon
 } from '@mui/icons-material';
+import { useAuth } from '../contexts/AuthContext';
+import { useTheme } from '../contexts/ThemeContext';
 
 const InteractionNetwork: React.FC = () => {
-  const [networkType, setNetworkType] = useState('protein-protein');
-  const [interactionThreshold, setInteractionThreshold] = useState(0.5);
-  const [showLabels, setShowLabels] = useState(true);
-  const [showWeights, setShowWeights] = useState(true);
+  const { userProfile } = useAuth();
+  const { isDark } = useTheme();
+  const [molecule, setMolecule] = useState('');
+  const [network, setNetwork] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [showResult, setShowResult] = useState(false);
+
+  const handleNetworkAnalysis = async () => {
+    if (!molecule.trim()) return;
+    
+    setLoading(true);
+    // 네트워크 분석 로직 시뮬레이션
+    setTimeout(() => {
+      setNetwork('입력된 분자에 대한 상호작용 네트워크 분석 결과가 여기에 표시됩니다.');
+      setShowResult(true);
+      setLoading(false);
+    }, 2000);
+  };
 
   return (
-    <Box sx={{ p: 3 }}>
-      <Typography variant="h3" gutterBottom sx={{ mb: 4, color: '#ffffff' }}>
-        단백질 상호작용 네트워크 분석
-      </Typography>
+    <Box
+      sx={{
+        minHeight: '100vh',
+        backgroundColor: 'var(--bg-primary)',
+        color: 'var(--text-primary)',
+        paddingTop: '80px',
+        paddingBottom: '40px'
+      }}
+    >
+      <Container maxWidth="lg">
+        <Typography variant="h3" gutterBottom sx={{ mb: 4, color: 'var(--text-primary)' }}>
+          상호작용 네트워크
+        </Typography>
 
-      <Grid container spacing={3}>
-        {/* 네트워크 시각화 */}
-        <Grid item xs={12} lg={8}>
-          <Card sx={{ backgroundColor: '#000000', border: '1px solid #ffffff', height: '600px' }}>
-            <CardContent sx={{ height: '100%', p: 0 }}>
-              <Box
-                sx={{
-                  width: '100%',
-                  height: '100%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backgroundColor: '#000000',
-                  color: '#ffffff',
-                  fontSize: '1.2rem',
-                }}
-              >
-                <Box sx={{ textAlign: 'center' }}>
-                  <HubIcon sx={{ fontSize: 64, color: '#ffffff', mb: 2 }} />
-                  <Typography variant="h6" sx={{ color: '#ffffff', mb: 1 }}>
-                    단백질 상호작용 네트워크
-                  </Typography>
-                  <Typography variant="body2" sx={{ color: '#b0b0b0' }}>
-                    네트워크 시각화가 여기에 표시됩니다
-                  </Typography>
-                </Box>
-              </Box>
-            </CardContent>
-          </Card>
-        </Grid>
-
-        {/* 제어 패널 */}
-        <Grid item xs={12} lg={4}>
-          <Card sx={{ backgroundColor: '#000000', border: '1px solid #ffffff', mb: 3 }}>
-            <CardContent>
-              <Typography variant="h6" gutterBottom sx={{ color: '#ffffff', mb: 2 }}>
-                네트워크 제어
-              </Typography>
-              
-              <Box sx={{ mb: 3 }}>
+        <Grid container spacing={3}>
+          {/* 입력 폼 */}
+          <Grid item xs={12} lg={6}>
+            <Card sx={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border-primary)', mb: 3 }}>
+              <CardContent>
+                <Typography variant="h6" gutterBottom sx={{ color: 'var(--text-primary)', mb: 3 }}>
+                  분자 상호작용 분석
+                </Typography>
+                
+                <TextField
+                  fullWidth
+                  label="분자명"
+                  value={molecule}
+                  onChange={(e) => setMolecule(e.target.value)}
+                  sx={{ mb: 3 }}
+                  InputProps={{
+                    style: { color: 'var(--text-primary)' }
+                  }}
+                  InputLabelProps={{
+                    style: { color: 'var(--text-secondary)' }
+                  }}
+                />
+                
                 <Button
                   variant="contained"
-                  startIcon={<ZoomInIcon />}
-                  sx={{ mr: 1, mb: 1 }}
+                  onClick={handleNetworkAnalysis}
+                  disabled={loading || !molecule.trim()}
+                  fullWidth
+                  sx={{ mb: 2 }}
                 >
-                  확대
+                  {loading ? '분석 중...' : '네트워크 분석 시작'}
                 </Button>
-                <Button
-                  variant="outlined"
-                  startIcon={<ZoomOutIcon />}
-                  sx={{ mb: 1 }}
-                >
-                  축소
-                </Button>
-              </Box>
+              </CardContent>
+            </Card>
+          </Grid>
 
-              <Divider sx={{ backgroundColor: '#ffffff', my: 2 }} />
-
-              <FormControl fullWidth sx={{ mb: 3 }}>
-                <InputLabel sx={{ color: '#b0b0b0' }}>네트워크 유형</InputLabel>
-                <Select
-                  value={networkType}
-                  onChange={(e) => setNetworkType(e.target.value)}
-                  sx={{ color: '#ffffff' }}
-                >
-                  <MenuItem value="protein-protein">단백질-단백질</MenuItem>
-                  <MenuItem value="protein-dna">단백질-DNA</MenuItem>
-                  <MenuItem value="protein-ligand">단백질-리간드</MenuItem>
-                  <MenuItem value="metabolic">대사 경로</MenuItem>
-                </Select>
-              </FormControl>
-
-              <Typography variant="subtitle2" sx={{ color: '#ffffff', mb: 1 }}>
-                상호작용 임계값: {interactionThreshold}
-              </Typography>
-              <Slider
-                value={interactionThreshold}
-                onChange={(_, value) => setInteractionThreshold(value as number)}
-                min={0}
-                max={1}
-                step={0.1}
-                sx={{ mb: 3 }}
-              />
-
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={showLabels}
-                    onChange={(e) => setShowLabels(e.target.checked)}
-                  />
-                }
-                label="라벨 표시"
-                sx={{ color: '#ffffff', mb: 1 }}
-              />
-              
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={showWeights}
-                    onChange={(e) => setShowWeights(e.target.checked)}
-                  />
-                }
-                label="가중치 표시"
-                sx={{ color: '#ffffff' }}
-              />
-            </CardContent>
-          </Card>
-
-          {/* 네트워크 통계 */}
-          <Card sx={{ backgroundColor: '#000000', border: '1px solid #ffffff', mb: 3 }}>
-            <CardContent>
-              <Typography variant="h6" gutterBottom sx={{ color: '#ffffff', mb: 2 }}>
-                네트워크 통계
-              </Typography>
-              
-              <Box sx={{ mb: 2 }}>
-                <Typography variant="body2" sx={{ color: '#b0b0b0' }}>
-                  노드: 1,247
+          {/* 결과 표시 */}
+          <Grid item xs={12} lg={6}>
+            <Card sx={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border-primary)', mb: 3 }}>
+              <CardContent>
+                <Typography variant="h6" gutterBottom sx={{ color: 'var(--text-primary)', mb: 3 }}>
+                  네트워크 분석 결과
                 </Typography>
-                <Typography variant="body2" sx={{ color: '#b0b0b0' }}>
-                  엣지: 3,891
-                </Typography>
-                <Typography variant="body2" sx={{ color: '#b0b0b0' }}>
-                  밀도: 0.0025
-                </Typography>
-                <Typography variant="body2" sx={{ color: '#b0b0b0' }}>
-                  클러스터링 계수: 0.187
-                </Typography>
-              </Box>
-            </CardContent>
-          </Card>
-
-          {/* 핵심 노드 */}
-          <Card sx={{ backgroundColor: '#000000', border: '1px solid #ffffff' }}>
-            <CardContent>
-              <Typography variant="h6" gutterBottom sx={{ color: '#ffffff', mb: 2 }}>
-                핵심 단백질
-              </Typography>
-              
-              <Box sx={{ mb: 2 }}>
-                <Chip
-                  label="PrP^C"
-                  size="small"
-                  sx={{ mr: 1, mb: 1, backgroundColor: '#000000', color: '#ffffff', border: '1px solid #ffffff' }}
-                />
-                <Chip
-                  label="PrP^Sc"
-                  size="small"
-                  sx={{ mr: 1, mb: 1, backgroundColor: '#000000', color: '#ffffff', border: '1px solid #ffffff' }}
-                />
-                <Chip
-                  label="14-3-3"
-                  size="small"
-                  sx={{ mr: 1, mb: 1, backgroundColor: '#000000', color: '#ffffff', border: '1px solid #ffffff' }}
-                />
-                <Chip
-                  label="Tau"
-                  size="small"
-                  sx={{ mr: 1, mb: 1, backgroundColor: '#000000', color: '#ffffff', border: '1px solid #ffffff' }}
-                />
-              </Box>
-            </CardContent>
-          </Card>
+                
+                {showResult && network && (
+                  <Alert severity="success" sx={{ mb: 2 }}>
+                    {network}
+                  </Alert>
+                )}
+                
+                {!showResult && (
+                  <Box sx={{ textAlign: 'center', py: 4 }}>
+                    <ShareIcon sx={{ fontSize: 64, color: 'var(--text-secondary)', mb: 2 }} />
+                    <Typography variant="body1" sx={{ color: 'var(--text-secondary)' }}>
+                      분자명을 입력하고 네트워크 분석을 시작하세요
+                    </Typography>
+                  </Box>
+                )}
+              </CardContent>
+            </Card>
+          </Grid>
         </Grid>
-      </Grid>
+      </Container>
     </Box>
   );
 };

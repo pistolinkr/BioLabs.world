@@ -131,7 +131,7 @@ const Login: React.FC = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#000000',
+        backgroundColor: 'var(--bg-primary)',
         padding: 2
       }}
     >
@@ -140,8 +140,8 @@ const Login: React.FC = () => {
           sx={{
             maxWidth: 350,
             width: '100%',
-            backgroundColor: '#000000',
-            border: '1px solid #ffffff',
+            backgroundColor: 'var(--bg-primary)',
+            border: '1px solid var(--border-secondary)',
             borderRadius: 0,
             boxShadow: 'none',
             overflow: 'hidden'
@@ -150,8 +150,8 @@ const Login: React.FC = () => {
           {/* 헤더 */}
           <Box
             sx={{
-              backgroundColor: '#000000',
-              borderBottom: '1px solid #ffffff',
+              backgroundColor: 'var(--bg-primary)',
+              borderBottom: '1px solid var(--border-secondary)',
               padding: 2,
               textAlign: 'center'
             }}
@@ -161,7 +161,7 @@ const Login: React.FC = () => {
               component="h1"
               sx={{
                 fontWeight: 400,
-                color: '#ffffff',
+                color: 'var(--text-primary)',
                 fontSize: '1.25rem'
               }}
             >
@@ -170,7 +170,7 @@ const Login: React.FC = () => {
             <Typography
               variant="body2"
               sx={{
-                color: '#ffffff',
+                color: 'var(--text-primary)',
                 marginTop: 1,
                 fontSize: '0.75rem'
               }}
@@ -185,7 +185,7 @@ const Login: React.FC = () => {
               <Typography
                 variant="body2"
                 sx={{
-                  color: '#ffffff',
+                  color: 'var(--text-primary)',
                   textAlign: 'center',
                   marginBottom: 1,
                   fontSize: '0.75rem'
