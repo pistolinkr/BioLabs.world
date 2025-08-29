@@ -49,32 +49,11 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   const applyTheme = (dark: boolean) => {
     const root = document.documentElement;
     
-    // data-theme 속성 설정
+    // data-theme 속성 설정 - 이것이 CSS 변수를 제어합니다
     root.setAttribute('data-theme', dark ? 'dark' : 'light');
     
-    if (dark) {
-      root.style.setProperty('--bg-primary', '#000000');
-      root.style.setProperty('--bg-secondary', '#121212');
-      root.style.setProperty('--bg-tertiary', '#1a1a1a');
-      root.style.setProperty('--text-primary', '#ffffff');
-      root.style.setProperty('--text-secondary', '#cccccc');
-      root.style.setProperty('--text-muted', '#888888');
-      root.style.setProperty('--border-primary', '#333333');
-      root.style.setProperty('--border-secondary', '#ffffff');
-      root.style.setProperty('--accent-primary', '#4CAF50');
-      root.style.setProperty('--accent-secondary', '#2196F3');
-    } else {
-      root.style.setProperty('--bg-primary', '#ffffff');
-      root.style.setProperty('--bg-secondary', '#f5f5f5');
-      root.style.setProperty('--bg-tertiary', '#e0e0e0');
-      root.style.setProperty('--text-primary', '#000000');
-      root.style.setProperty('--text-secondary', '#333333');
-      root.style.setProperty('--text-muted', '#666666');
-      root.style.setProperty('--border-primary', '#e0e0e0');
-      root.style.setProperty('--border-secondary', '#000000');
-      root.style.setProperty('--accent-primary', '#4CAF50');
-      root.style.setProperty('--accent-secondary', '#2196F3');
-    }
+    // CSS 변수 직접 설정은 제거 - index.css의 변수들이 자동으로 적용됩니다
+    console.log(`Theme applied: ${dark ? 'dark' : 'light'}`);
   };
 
   // 시스템 테마 변경 감지
