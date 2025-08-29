@@ -1,8 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider as MuiThemeProvider, createTheme } from '@mui/material/styles';
 import { CssBaseline, Box } from '@mui/material';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { ThemeProvider } from './contexts/ThemeContext';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import Login from './pages/Login';
@@ -228,86 +229,88 @@ const darkTheme = createTheme({
 
 function App() {
   return (
-    <ThemeProvider theme={darkTheme}>
-      <CssBaseline />
-      <AuthProvider>
-        <Router>
-          <Routes>
-            <Route path="/login" element={<LoginRoute />} />
-            <Route
-              path="/home"
-              element={
-                <ProtectedRoute>
-                  <MainLayout>
-                    <Home />
-                  </MainLayout>
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/protein-simulation"
-              element={
-                <ProtectedRoute>
-                  <MainLayout>
-                    <ProteinSimulation />
-                  </MainLayout>
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/diagnosis-ai"
-              element={
-                <ProtectedRoute>
-                  <MainLayout>
-                    <DiagnosisAI />
-                  </MainLayout>
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/interaction-network"
-              element={
-                <ProtectedRoute>
-                  <MainLayout>
-                    <InteractionNetwork />
-                  </MainLayout>
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/drug-screening"
-              element={
-                <ProtectedRoute>
-                  <MainLayout>
-                    <DrugScreening />
-                  </MainLayout>
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/epidemiology-model"
-              element={
-                <ProtectedRoute>
-                  <MainLayout>
-                    <EpidemiologyModel />
-                  </MainLayout>
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/user-profile"
-              element={
-                <ProtectedRoute>
-                  <MainLayout>
-                    <UserProfile />
-                  </MainLayout>
-                </ProtectedRoute>
-              }
-            />
-            <Route path="/" element={<Navigate to="/home" replace />} />
-          </Routes>
-        </Router>
-      </AuthProvider>
+    <ThemeProvider>
+      <MuiThemeProvider theme={darkTheme}>
+        <CssBaseline />
+        <AuthProvider>
+          <Router>
+            <Routes>
+              <Route path="/login" element={<LoginRoute />} />
+              <Route
+                path="/home"
+                element={
+                  <ProtectedRoute>
+                    <MainLayout>
+                      <Home />
+                    </MainLayout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/protein-simulation"
+                element={
+                  <ProtectedRoute>
+                    <MainLayout>
+                      <ProteinSimulation />
+                    </MainLayout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/diagnosis-ai"
+                element={
+                  <ProtectedRoute>
+                    <MainLayout>
+                      <DiagnosisAI />
+                    </MainLayout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/interaction-network"
+                element={
+                  <ProtectedRoute>
+                    <MainLayout>
+                      <InteractionNetwork />
+                    </MainLayout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/drug-screening"
+                element={
+                  <ProtectedRoute>
+                    <MainLayout>
+                      <DrugScreening />
+                    </MainLayout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/epidemiology-model"
+                element={
+                  <ProtectedRoute>
+                    <MainLayout>
+                      <EpidemiologyModel />
+                    </MainLayout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/user-profile"
+                element={
+                  <ProtectedRoute>
+                    <MainLayout>
+                      <UserProfile />
+                    </MainLayout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="/" element={<Navigate to="/home" replace />} />
+            </Routes>
+          </Router>
+        </AuthProvider>
+      </MuiThemeProvider>
     </ThemeProvider>
   );
 }

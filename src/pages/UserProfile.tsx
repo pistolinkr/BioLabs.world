@@ -16,7 +16,11 @@ import {
   Fade,
   Grow,
   IconButton,
-  Tooltip
+  Tooltip,
+  RadioGroup,
+  Radio,
+  FormControl,
+  FormLabel
 } from '@mui/material';
 import {
   Edit as EditIcon,
@@ -28,12 +32,17 @@ import {
   Assessment as AssessmentIcon,
   NetworkCheck as NetworkCheckIcon,
   Medication as MedicationIcon,
-  Public as PublicIcon
+  Public as PublicIcon,
+  LightMode as LightModeIcon,
+  DarkMode as DarkModeIcon,
+  Computer as ComputerIcon
 } from '@mui/icons-material';
 import { useAuth, LabData } from '../contexts/AuthContext';
+import { useTheme, ThemeMode } from '../contexts/ThemeContext';
 
 const UserProfile: React.FC = () => {
   const { currentUser, userProfile, updateLabSettings, signOut } = useAuth();
+  const { themeMode, setThemeMode } = useTheme();
   
   const [isEditing, setIsEditing] = useState(false);
   const [displayName, setDisplayName] = useState('');
@@ -77,6 +86,14 @@ const UserProfile: React.FC = () => {
     }
     setIsEditing(false);
     setMessage(null);
+  };
+
+  const handleThemeChange = (newTheme: ThemeMode) => {
+    setThemeMode(newTheme);
+    setLabSettings(prev => ({
+      ...prev,
+      theme: newTheme === 'system' ? 'dark' : newTheme
+    }));
   };
 
   const getLabDataCount = (dataType: keyof LabData) => {
@@ -263,28 +280,52 @@ const UserProfile: React.FC = () => {
                   )}
 
                   <Grid container spacing={3}>
-                    <Grid item xs={12} sm={6}>
-                      <FormControlLabel
-                        control={
-                          <Switch
-                            checked={labSettings.theme === 'dark'}
-                            onChange={(e) => setLabSettings({
-                              ...labSettings,
-                              theme: e.target.checked ? 'dark' : 'light'
-                            })}
-                            disabled={!isEditing}
-                            sx={{
-                              '& .MuiSwitch-switchBase.Mui-checked': {
-                                color: '#ffffff'
-                              },
-                              '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
-                                backgroundColor: '#ffffff'
-                              }
-                            }}
+                    {/* 테마 설정 */}
+                    <Grid item xs={12}>
+                      <FormControl component="fieldset" sx={{ width: '100%' }}>
+                        <FormLabel component="legend" sx={{ color: 'var(--text-primary)', marginBottom: 2 }}>
+                          테마 설정
+                        </FormLabel>
+                        <RadioGroup
+                          value={themeMode}
+                          onChange={(e) => handleThemeChange(e.target.value as ThemeMode)}
+                          sx={{ flexDirection: 'row', gap: 2 }}
+                        >
+                          <FormControlLabel
+                            value="light"
+                            control={<Radio />}
+                            label={
+                              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                <LightModeIcon sx={{ fontSize: '1.2rem' }} />
+                                <Typography>라이트 모드</Typography>
+                              </Box>
+                            }
+                            sx={{ color: 'var(--text-primary)' }}
                           />
-                        }
-                        label="다크 테마"
-                      />
+                          <FormControlLabel
+                            value="dark"
+                            control={<Radio />}
+                            label={
+                              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                <DarkModeIcon sx={{ fontSize: '1.2rem' }} />
+                                <Typography>다크 모드</Typography>
+                              </Box>
+                            }
+                            sx={{ color: 'var(--text-primary)' }}
+                          />
+                          <FormControlLabel
+                            value="system"
+                            control={<Radio />}
+                            label={
+                              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                <ComputerIcon sx={{ fontSize: '1.2rem' }} />
+                                <Typography>시스템 설정</Typography>
+                              </Box>
+                            }
+                            sx={{ color: 'var(--text-primary)' }}
+                          />
+                        </RadioGroup>
+                      </FormControl>
                     </Grid>
 
                     <Grid item xs={12} sm={6}>
@@ -299,10 +340,10 @@ const UserProfile: React.FC = () => {
                             disabled={!isEditing}
                             sx={{
                               '& .MuiSwitch-switchBase.Mui-checked': {
-                                color: '#ffffff'
+                                color: 'var(--accent-primary)'
                               },
                               '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
-                                backgroundColor: '#ffffff'
+                                backgroundColor: 'var(--accent-primary)'
                               }
                             }}
                           />
@@ -314,17 +355,17 @@ const UserProfile: React.FC = () => {
                     <Grid item xs={12} sm={6}>
                       <Box sx={{ 
                         padding: 2, 
-                        backgroundColor: 'rgba(255, 255, 255, 0.05)', 
-                        border: '1px solid rgba(255, 255, 255, 0.2)',
+                        backgroundColor: 'var(--bg-secondary)', 
+                        border: '1px solid var(--border-primary)',
                         borderRadius: 1
                       }}>
-                        <Typography variant="subtitle2" sx={{ color: '#ffffff', marginBottom: 1 }}>
+                        <Typography variant="subtitle2" sx={{ color: 'var(--text-primary)', marginBottom: 1 }}>
                           언어
                         </Typography>
-                        <Typography variant="body2" sx={{ color: '#b0b0b0' }}>
+                        <Typography variant="body2" sx={{ color: 'var(--text-secondary)' }}>
                           한국어 (고정)
                         </Typography>
-                        <Typography variant="caption" sx={{ color: '#888888', fontStyle: 'italic' }}>
+                        <Typography variant="caption" sx={{ color: 'var(--text-muted)', fontStyle: 'italic' }}>
                           영어 버전 출시 예정
                         </Typography>
                       </Box>
