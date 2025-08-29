@@ -134,7 +134,15 @@ const UserProfile: React.FC = () => {
   }
 
   return (
-    <Box sx={{ padding: 3, maxWidth: 1200, margin: '0 auto' }}>
+    <Box sx={{ 
+      padding: 3, 
+      maxWidth: 1200, 
+      margin: '0 auto',
+      backgroundColor: 'var(--bg-primary)',
+      color: 'var(--text-primary)',
+      minHeight: '100vh',
+      transition: 'background-color 0.3s ease, color 0.3s ease'
+    }}>
       <Grow in={true} timeout={600}>
         <Box>
           {/* 헤더 */}
@@ -143,7 +151,7 @@ const UserProfile: React.FC = () => {
               variant="h3"
               sx={{
                 fontWeight: 700,
-                background: 'linear-gradient(45deg, #ffffff 30%, #ffffff 90%)',
+                background: 'linear-gradient(45deg, var(--text-primary) 30%, var(--accent-primary) 90%)',
                 backgroundClip: 'text',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
@@ -152,7 +160,7 @@ const UserProfile: React.FC = () => {
             >
               내 연구실 프로필
             </Typography>
-            <Typography variant="h6" sx={{ color: '#ffffff' }}>
+            <Typography variant="h6" sx={{ color: 'var(--text-secondary)' }}>
               당신만의 BioLabs를 관리하세요
             </Typography>
           </Box>
@@ -162,10 +170,11 @@ const UserProfile: React.FC = () => {
             <Grid item xs={12} md={4}>
                               <Card
                   sx={{
-                    backgroundColor: '#000000',
-                    border: '1px solid #ffffff',
+                    backgroundColor: 'var(--bg-secondary)',
+                    border: '1px solid var(--border-primary)',
                     borderRadius: 3,
-                    height: 'fit-content'
+                    height: 'fit-content',
+                    transition: 'all 0.3s ease'
                   }}
                 >
                 <CardContent sx={{ padding: 3, textAlign: 'center' }}>
@@ -175,18 +184,18 @@ const UserProfile: React.FC = () => {
                       width: 120,
                       height: 120,
                       margin: '0 auto 2rem',
-                      border: '4px solid #ffffff',
+                      border: '4px solid var(--border-primary)',
                       fontSize: '3rem'
                     }}
                   >
                     {userProfile.displayName?.charAt(0) || 'U'}
                   </Avatar>
 
-                  <Typography variant="h5" sx={{ fontWeight: 600, marginBottom: 1 }}>
+                  <Typography variant="h5" sx={{ fontWeight: 600, marginBottom: 1, color: 'var(--text-primary)' }}>
                     {userProfile.displayName}
                   </Typography>
 
-                  <Typography variant="body2" sx={{ color: '#ffffff', marginBottom: 2 }}>
+                  <Typography variant="body2" sx={{ color: 'var(--text-secondary)', marginBottom: 2 }}>
                     {userProfile.email}
                   </Typography>
 
@@ -198,10 +207,10 @@ const UserProfile: React.FC = () => {
                   />
 
                   <Box sx={{ marginTop: 2 }}>
-                    <Typography variant="body2" sx={{ color: '#ffffff' }}>
+                    <Typography variant="body2" sx={{ color: 'var(--text-secondary)' }}>
                       가입일: {userProfile.createdAt?.toDate?.()?.toLocaleDateString('ko-KR') || 'N/A'}
                     </Typography>
-                    <Typography variant="body2" sx={{ color: '#ffffff' }}>
+                    <Typography variant="body2" sx={{ color: 'var(--text-secondary)' }}>
                       마지막 로그인: {userProfile.lastLoginAt?.toDate?.()?.toDate?.()?.toLocaleDateString('ko-KR') || 'N/A'}
                     </Typography>
                   </Box>
@@ -222,15 +231,16 @@ const UserProfile: React.FC = () => {
             <Grid item xs={12} md={8}>
                               <Card
                   sx={{
-                    backgroundColor: '#000000',
-                    border: '1px solid #ffffff',
-                    borderRadius: 3
+                    backgroundColor: 'var(--bg-secondary)',
+                    border: '1px solid var(--border-primary)',
+                    borderRadius: 3,
+                    transition: 'all 0.3s ease'
                   }}
                 >
                 <CardContent sx={{ padding: 3 }}>
                   <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: 3 }}>
-                    <SettingsIcon sx={{ color: '#ffffff', marginRight: 1 }} />
-                    <Typography variant="h5" sx={{ fontWeight: 600 }}>
+                    <SettingsIcon sx={{ color: 'var(--text-primary)', marginRight: 1 }} />
+                    <Typography variant="h5" sx={{ fontWeight: 600, color: 'var(--text-primary)' }}>
                       Lab 설정
                     </Typography>
                     <Box sx={{ marginLeft: 'auto' }}>
@@ -293,33 +303,42 @@ const UserProfile: React.FC = () => {
                         >
                           <FormControlLabel
                             value="light"
-                            control={<Radio />}
+                            control={<Radio sx={{ 
+                              color: 'var(--text-secondary)',
+                              '&.Mui-checked': { color: 'var(--accent-primary)' }
+                            }} />}
                             label={
                               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                                <LightModeIcon sx={{ fontSize: '1.2rem' }} />
-                                <Typography>라이트 모드</Typography>
+                                <LightModeIcon sx={{ fontSize: '1.2rem', color: 'var(--text-primary)' }} />
+                                <Typography sx={{ color: 'var(--text-primary)' }}>라이트 모드</Typography>
                               </Box>
                             }
                             sx={{ color: 'var(--text-primary)' }}
                           />
                           <FormControlLabel
                             value="dark"
-                            control={<Radio />}
+                            control={<Radio sx={{ 
+                              color: 'var(--text-secondary)',
+                              '&.Mui-checked': { color: 'var(--accent-primary)' }
+                            }} />}
                             label={
                               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                                <DarkModeIcon sx={{ fontSize: '1.2rem' }} />
-                                <Typography>다크 모드</Typography>
+                                <DarkModeIcon sx={{ fontSize: '1.2rem', color: 'var(--text-primary)' }} />
+                                <Typography sx={{ color: 'var(--text-primary)' }}>다크 모드</Typography>
                               </Box>
                             }
                             sx={{ color: 'var(--text-primary)' }}
                           />
                           <FormControlLabel
                             value="system"
-                            control={<Radio />}
+                            control={<Radio sx={{ 
+                              color: 'var(--text-secondary)',
+                              '&.Mui-checked': { color: 'var(--accent-primary)' }
+                            }} />}
                             label={
                               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                                <ComputerIcon sx={{ fontSize: '1.2rem' }} />
-                                <Typography>시스템 설정</Typography>
+                                <ComputerIcon sx={{ fontSize: '1.2rem', color: 'var(--text-primary)' }} />
+                                <Typography sx={{ color: 'var(--text-primary)' }}>시스템 설정</Typography>
                               </Box>
                             }
                             sx={{ color: 'var(--text-primary)' }}
@@ -377,16 +396,17 @@ const UserProfile: React.FC = () => {
               {/* Lab 데이터 통계 */}
               <Card
                 sx={{
-                  backgroundColor: '#000000',
-                  border: '1px solid #ffffff',
+                  backgroundColor: 'var(--bg-secondary)',
+                  border: '1px solid var(--border-primary)',
                   borderRadius: 3,
-                  marginTop: 3
+                  marginTop: 3,
+                  transition: 'all 0.3s ease'
                 }}
               >
                 <CardContent sx={{ padding: 3 }}>
                   <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: 3 }}>
-                    <TimelineIcon sx={{ color: '#ffffff', marginRight: 1 }} />
-                    <Typography variant="h5" sx={{ fontWeight: 600 }}>
+                    <TimelineIcon sx={{ color: 'var(--text-primary)', marginRight: 1 }} />
+                    <Typography variant="h5" sx={{ fontWeight: 600, color: 'var(--text-primary)' }}>
                       Lab 데이터 통계
                     </Typography>
                   </Box>
@@ -396,25 +416,26 @@ const UserProfile: React.FC = () => {
                       <Grid item xs={12} sm={6} md={4} key={dataType}>
                         <Card
                           sx={{
-                            backgroundColor: '#000000',
-                            border: '1px solid #ffffff',
+                            backgroundColor: 'var(--bg-tertiary)',
+                            border: '1px solid var(--border-primary)',
                             borderRadius: 2,
                             textAlign: 'center',
                             padding: 2,
+                            transition: 'all 0.3s ease',
                             '&:hover': {
-                              borderColor: '#ffffff',
+                              borderColor: 'var(--accent-primary)',
                               transform: 'translateY(-2px)',
-                              transition: 'all 0.3s ease'
+                              boxShadow: '0 4px 12px var(--shadow-medium)'
                             }
                           }}
                         >
-                          <Box sx={{ color: '#ffffff', marginBottom: 1 }}>
+                          <Box sx={{ color: 'var(--text-primary)', marginBottom: 1 }}>
                             {getLabDataIcon(dataType)}
                           </Box>
-                          <Typography variant="h4" sx={{ fontWeight: 700, marginBottom: 1 }}>
+                          <Typography variant="h4" sx={{ fontWeight: 700, marginBottom: 1, color: 'var(--text-primary)' }}>
                             {getLabDataCount(dataType)}
                           </Typography>
-                          <Typography variant="body2" sx={{ color: '#ffffff' }}>
+                          <Typography variant="body2" sx={{ color: 'var(--text-secondary)' }}>
                             {getLabDataLabel(dataType)}
                           </Typography>
                         </Card>
@@ -427,6 +448,41 @@ const UserProfile: React.FC = () => {
           </Grid>
         </Box>
       </Grow>
+
+      {/* 공통 푸터 */}
+      <Box
+        component="footer"
+        sx={{
+          backgroundColor: 'var(--bg-primary)',
+          borderTop: '1px solid var(--border-primary)',
+          padding: 3,
+          marginTop: 4,
+          textAlign: 'center'
+        }}
+      >
+        <Typography
+          variant="caption"
+          sx={{
+            color: 'var(--text-secondary)',
+            opacity: 0.6,
+            fontSize: '0.7rem',
+            display: 'block',
+            marginBottom: 1
+          }}
+        >
+          BioLabs v1.0.0
+        </Typography>
+        <Typography
+          variant="caption"
+          sx={{
+            color: 'var(--text-secondary)',
+            opacity: 0.4,
+            fontSize: '0.65rem'
+          }}
+        >
+          © 2025 Pistolinkr
+        </Typography>
+      </Box>
     </Box>
   );
 };

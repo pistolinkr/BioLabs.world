@@ -202,15 +202,15 @@ const Login: React.FC = () => {
                   onClick={() => handleOAuthSignIn('google')}
                   disabled={loading}
                   sx={{
-                    borderColor: '#ffffff',
-                    color: '#ffffff',
-                    backgroundColor: '#000000',
+                    borderColor: 'var(--text-primary)',
+                    color: 'var(--text-primary)',
+                    backgroundColor: 'var(--bg-primary)',
                     borderRadius: 0,
                     fontSize: '0.75rem',
                     padding: '6px 12px',
                     '&:hover': {
-                      borderColor: '#ffffff',
-                      backgroundColor: '#000000'
+                      borderColor: 'var(--text-primary)',
+                      backgroundColor: 'var(--bg-primary)'
                     }
                   }}
                 >
@@ -223,15 +223,15 @@ const Login: React.FC = () => {
                   onClick={() => handleOAuthSignIn('github')}
                   disabled={loading}
                   sx={{
-                    borderColor: '#ffffff',
-                    color: '#ffffff',
-                    backgroundColor: '#000000',
+                    borderColor: 'var(--text-primary)',
+                    color: 'var(--text-primary)',
+                    backgroundColor: 'var(--bg-primary)',
                     borderRadius: 0,
                     fontSize: '0.75rem',
                     padding: '6px 12px',
                     '&:hover': {
-                      borderColor: '#ffffff',
-                      backgroundColor: '#000000'
+                      borderColor: 'var(--text-primary)',
+                      backgroundColor: 'var(--bg-primary)'
                     }
                   }}
                 >
@@ -241,8 +241,8 @@ const Login: React.FC = () => {
 
             </Box>
 
-            <Divider sx={{ marginY: 2, borderColor: '#ffffff' }}>
-              <Typography variant="body2" sx={{ color: '#ffffff', fontSize: '0.75rem' }}>
+            <Divider sx={{ marginY: 2, borderColor: 'var(--text-primary)' }}>
+              <Typography variant="body2" sx={{ color: 'var(--text-primary)', fontSize: '0.75rem' }}>
                 또는
               </Typography>
             </Divider>
@@ -261,15 +261,15 @@ const Login: React.FC = () => {
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <PersonIcon sx={{ color: '#ffffff', fontSize: '1rem' }} />
+                        <PersonIcon sx={{ color: 'var(--text-primary)', fontSize: '1rem' }} />
                       </InputAdornment>
                     )
                   }}
                   sx={{
                     '& .MuiOutlinedInput-root': {
                       borderRadius: 0,
-                      '&:hover fieldset': { borderColor: '#ffffff' },
-                      '&.Mui-focused fieldset': { borderColor: '#ffffff', borderWidth: 1 }
+                      '&:hover fieldset': { borderColor: 'var(--text-primary)' },
+                      '&.Mui-focused fieldset': { borderColor: 'var(--text-primary)', borderWidth: 1 }
                     },
                     '& .MuiInputLabel-root': {
                       fontSize: '0.75rem'
@@ -290,7 +290,7 @@ const Login: React.FC = () => {
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <EmailIcon sx={{ color: '#ffffff', fontSize: '1rem' }} />
+                      <EmailIcon sx={{ color: 'var(--text-primary)', fontSize: '1rem' }} />
                     </InputAdornment>
                   )
                 }}
@@ -318,7 +318,7 @@ const Login: React.FC = () => {
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <LockIcon sx={{ color: '#ffffff', fontSize: '1rem' }} />
+                      <LockIcon sx={{ color: 'var(--text-primary)', fontSize: '1rem' }} />
                     </InputAdornment>
                   ),
                   endAdornment: (

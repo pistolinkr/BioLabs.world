@@ -8,8 +8,8 @@ body, html {
   margin: 0;
   padding: 0;
   overscroll-behavior: none;
-  background-color: #000000;
-  color: #ffffff;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
   font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
 }
 
@@ -20,17 +20,17 @@ body, html {
 }
 
 ::-webkit-scrollbar-track {
-  background: #000000;
-  border: 1px solid #ffffff;
+  background: var(--bg-primary);
+  border: 1px solid var(--text-primary);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #ffffff;
+  background: var(--text-primary);
   border-radius: 0;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #ffffff;
+  background: var(--text-primary);
 }
 
 /* 애니메이션 */
@@ -80,8 +80,8 @@ body, html {
 
 /* 카드 스타일 */
 .card {
-  background-color: #000000;
-  border: 1px solid #ffffff;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--text-primary);
   border-radius: 0;
   transition: none;
 }
@@ -89,59 +89,59 @@ body, html {
 .card:hover {
   transform: none;
   box-shadow: none;
-  border-color: #ffffff;
+  border-color: var(--text-primary);
 }
 
 /* 버튼 스타일 */
 .btn {
-  background-color: #ffffff;
-  color: #000000;
-  border: 1px solid #ffffff;
+  background-color: var(--text-primary);
+  color: var(--bg-primary);
+  border: 1px solid var(--text-primary);
   border-radius: 0;
   transition: none;
 }
 
 .btn:hover {
-  background-color: #ffffff;
-  color: #000000;
+  background-color: var(--text-primary);
+  color: var(--bg-primary);
   transform: none;
   box-shadow: none;
 }
 
 /* 입력 필드 스타일 */
 .input {
-  background-color: #000000;
-  color: #ffffff;
-  border: 1px solid #ffffff;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--text-primary);
   border-radius: 0;
 }
 
 .input:focus {
-  border-color: #ffffff;
+  border-color: var(--text-primary);
   border-width: 1px;
   outline: none;
 }
 
 /* 링크 스타일 */
 .link {
-  color: #ffffff;
+  color: var(--text-primary);
   text-decoration: none;
 }
 
 .link:hover {
-  color: #ffffff;
+  color: var(--text-primary);
   text-decoration: underline;
   background-color: transparent;
 }
 
 /* 아이콘 스타일 */
 .icon {
-  color: #ffffff;
+  color: var(--text-primary);
   transition: none;
 }
 
 .icon:hover {
-  color: #ffffff;
+  color: var(--text-primary);
   transform: none;
 }
 
@@ -153,16 +153,16 @@ body, html {
 
 .table th,
 .table td {
-  border: 1px solid #ffffff;
+  border: 1px solid var(--text-primary);
   padding: 8px;
   text-align: left;
-  background-color: #000000;
-  color: #ffffff;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
 }
 
 .table th {
-  background-color: #000000;
-  color: #ffffff;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
   font-weight: 400;
 }
 
@@ -172,7 +172,7 @@ body, html {
 }
 
 .form-label {
-  color: #ffffff;
+  color: var(--text-primary);
   font-size: 0.875rem;
   margin-bottom: 4px;
   display: block;
@@ -181,16 +181,16 @@ body, html {
 .form-control {
   width: 100%;
   padding: 8px 12px;
-  background-color: #000000;
-  color: #ffffff;
-  border: 1px solid #ffffff;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--text-primary);
   border-radius: 0;
   font-size: 0.875rem;
 }
 
 .form-control:focus {
   outline: none;
-  border-color: #ffffff;
+  border-color: var(--text-primary);
   border-width: 1px;
 }
 

@@ -5,7 +5,7 @@ import { CssBaseline, Box } from '@mui/material';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import Navbar from './components/Navbar';
-import Sidebar from './components/Sidebar';
+
 import Login from './pages/Login';
 import Home from './pages/Home';
 import ProteinSimulation from './pages/ProteinSimulation';
@@ -81,20 +81,17 @@ const LoginRoute: React.FC = () => {
 // 메인 레이아웃 컴포넌트
 const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
-    <Box sx={{ display: 'flex', minHeight: '100vh', backgroundColor: '#000000' }}>
-      <Sidebar />
-      <Box sx={{ flexGrow: 1, marginLeft: '280px' }}>
-        <Navbar />
-        <Box
-          component="main"
-          sx={{
-            paddingTop: '64px', // Navbar 높이만큼 상단 패딩 추가
-            minHeight: 'calc(100vh - 64px)',
-            backgroundColor: '#000000'
-          }}
-        >
-          {children}
-        </Box>
+    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: '#000000' }}>
+      <Navbar />
+      <Box
+        component="main"
+        sx={{
+          paddingTop: '64px', // Navbar 높이만큼 상단 패딩 추가
+          flexGrow: 1,
+          backgroundColor: '#000000'
+        }}
+      >
+        {children}
       </Box>
     </Box>
   );

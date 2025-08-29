@@ -18,8 +18,7 @@ import {
   Psychology as PsychologyIcon,
   Share as ShareIcon,
   Medication as MedicationIcon,
-  Timeline as TimelineIcon,
-  Home as HomeIcon
+  Timeline as TimelineIcon
 } from '@mui/icons-material';
 import { useAuth } from '../contexts/AuthContext';
 import { useTheme } from '../contexts/ThemeContext';
@@ -86,7 +85,16 @@ const Home: React.FC = () => {
         {/* 헤더 섹션 */}
         <Fade in timeout={800}>
           <Box sx={{ textAlign: 'center', marginBottom: 6 }}>
-            <HomeIcon sx={{ fontSize: 60, color: 'var(--text-primary)', marginBottom: 2 }} />
+            <img
+              src="/logo512.png"
+              alt="BioLabs Logo"
+              style={{
+                width: '60px',
+                height: '60px',
+                objectFit: 'contain',
+                marginBottom: '16px'
+              }}
+            />
             <Typography
               variant="h3"
               component="h1"
@@ -101,7 +109,7 @@ const Home: React.FC = () => {
             <Typography
               variant="h6"
               sx={{
-                color: '#b0b0b0',
+                color: 'var(--text-secondary)',
                 maxWidth: '800px',
                 margin: '0 auto',
                 lineHeight: 1.6
@@ -113,7 +121,7 @@ const Home: React.FC = () => {
               <Typography
                 variant="body1"
                 sx={{
-                  color: '#ffffff',
+                  color: 'var(--text-primary)',
                   marginTop: 2,
                   fontSize: '1.1rem'
                 }}
@@ -134,7 +142,7 @@ const Home: React.FC = () => {
                 textAlign: 'center',
                 marginBottom: 4,
                 fontWeight: 600,
-                color: '#ffffff'
+                color: 'var(--text-primary)'
               }}
             >
               사용 가능한 시뮬레이션 도구
@@ -145,16 +153,16 @@ const Home: React.FC = () => {
                   <Grow in timeout={1200 + index * 200}>
                     <Card
                       sx={{
-                        backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                        border: `1px solid ${service.color}`,
+                        backgroundColor: 'var(--bg-secondary)',
+                        border: `1px solid var(--border-primary)`,
                         borderRadius: 2,
                         height: '100%',
                         transition: 'all 0.3s ease',
                         '&:hover': {
                           transform: 'translateY(-8px)',
-                          boxShadow: `0 8px 25px ${service.color}40`,
-                          borderColor: service.color,
-                          backgroundColor: 'rgba(255, 255, 255, 0.08)'
+                          boxShadow: '0 8px 25px var(--shadow-medium)',
+                          borderColor: 'var(--accent-primary)',
+                          backgroundColor: 'var(--bg-tertiary)'
                         }
                       }}
                     >
@@ -168,7 +176,7 @@ const Home: React.FC = () => {
                           sx={{
                             fontWeight: 600,
                             marginBottom: 1,
-                            color: '#ffffff'
+                            color: 'var(--text-primary)'
                           }}
                         >
                           {service.title}
@@ -176,7 +184,7 @@ const Home: React.FC = () => {
                         <Typography
                           variant="body2"
                           sx={{
-                            color: '#b0b0b0',
+                            color: 'var(--text-secondary)',
                             lineHeight: 1.6,
                             marginBottom: 2
                           }}
@@ -189,13 +197,15 @@ const Home: React.FC = () => {
                           variant="outlined"
                           onClick={() => navigate(service.path)}
                           sx={{
-                            borderColor: service.color,
-                            color: service.color,
+                            borderColor: 'var(--accent-primary)',
+                            color: 'var(--accent-primary)',
                             borderRadius: 0,
+                            transition: 'all 0.3s ease',
                             '&:hover': {
-                              backgroundColor: service.color,
-                              color: '#000000',
-                              borderColor: service.color
+                              backgroundColor: 'var(--accent-primary)',
+                              color: 'var(--bg-primary)',
+                              borderColor: 'var(--accent-primary)',
+                              transform: 'translateY(-2px)'
                             }
                           }}
                         >
@@ -214,11 +224,12 @@ const Home: React.FC = () => {
         <Fade in timeout={1400}>
           <Paper
             sx={{
-              backgroundColor: 'rgba(255, 255, 255, 0.05)',
-              border: '1px solid rgba(255, 255, 255, 0.3)',
+              backgroundColor: 'var(--bg-secondary)',
+              border: '1px solid var(--border-primary)',
               borderRadius: 2,
               padding: 4,
-              textAlign: 'center'
+              textAlign: 'center',
+              transition: 'all 0.3s ease'
             }}
           >
             <Typography
@@ -227,39 +238,74 @@ const Home: React.FC = () => {
               sx={{
                 fontWeight: 600,
                 marginBottom: 2,
-                color: '#ffffff'
+                color: 'var(--text-primary)'
               }}
             >
               BioLabs 도구의 특징
             </Typography>
             <Grid container spacing={3}>
               <Grid item xs={12} md={4}>
-                <Typography variant="h6" sx={{ color: '#ffffff', marginBottom: 1 }}>
+                <Typography variant="h6" sx={{ color: 'var(--text-primary)', marginBottom: 1 }}>
                   🔬 정확한 분석
                 </Typography>
-                <Typography variant="body2" sx={{ color: '#b0b0b0' }}>
+                <Typography variant="body2" sx={{ color: 'var(--text-secondary)' }}>
                   최신 생물학 연구 방법론을 활용한 정확한 데이터 분석
                 </Typography>
               </Grid>
               <Grid item xs={12} md={4}>
-                <Typography variant="h6" sx={{ color: '#ffffff', marginBottom: 1 }}>
+                <Typography variant="h6" sx={{ color: 'var(--text-primary)', marginBottom: 1 }}>
                   🚀 빠른 처리
                 </Typography>
-                <Typography variant="body2" sx={{ color: '#b0b0b0' }}>
+                <Typography variant="body2" sx={{ color: 'var(--text-secondary)' }}>
                   고성능 컴퓨팅을 통한 빠른 데이터 처리 및 결과 도출
                 </Typography>
               </Grid>
               <Grid item xs={12} md={4}>
-                <Typography variant="h6" sx={{ color: '#ffffff', marginBottom: 1 }}>
+                <Typography variant="h6" sx={{ color: 'var(--text-primary)', marginBottom: 1 }}>
                   📊 직관적 시각화
                 </Typography>
-                <Typography variant="body2" sx={{ color: '#b0b0b0' }}>
+                <Typography variant="body2" sx={{ color: 'var(--text-secondary)' }}>
                   복잡한 데이터를 이해하기 쉽게 시각화하여 제공
                 </Typography>
               </Grid>
             </Grid>
           </Paper>
         </Fade>
+
+        {/* 공통 푸터 */}
+        <Box
+          component="footer"
+          sx={{
+            backgroundColor: 'var(--bg-primary)',
+            borderTop: '1px solid var(--border-primary)',
+            padding: 3,
+            marginTop: 4,
+            textAlign: 'center'
+          }}
+        >
+          <Typography
+            variant="caption"
+            sx={{
+              color: 'var(--text-secondary)',
+              opacity: 0.6,
+              fontSize: '0.7rem',
+              display: 'block',
+              marginBottom: 1
+            }}
+          >
+            BioLabs v1.0.0
+          </Typography>
+          <Typography
+            variant="caption"
+            sx={{
+              color: 'var(--text-secondary)',
+              opacity: 0.4,
+              fontSize: '0.65rem'
+            }}
+          >
+            © 2025 Pistolinkr
+          </Typography>
+        </Box>
       </Container>
     </Box>
   );

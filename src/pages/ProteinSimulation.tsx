@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
+import { Box, Typography } from '@mui/material';
 import './ProteinSimulation.css';
 import { NGLStage, NGLComponent } from '../types/ngl';
 
@@ -92,7 +93,7 @@ const ProteinSimulation: React.FC = () => {
             // protein-viewer.html과 동일한 모달 스테이지 생성
             modalStageInstanceRef.current = new window.NGL.Stage(modalStageRef.current);
             modalStageInstanceRef.current.setParameters({
-              backgroundColor: '#000000', // protein-viewer.html과 동일한 검은 배경
+              backgroundColor: 'var(--bg-primary)', // protein-viewer.html과 동일한 검은 배경
               quality: 'high',
               sampleLevel: 0
             });
@@ -371,7 +372,7 @@ const ProteinSimulation: React.FC = () => {
             
             // protein-viewer.html과 동일한 파라미터 설정
             stageInstanceRef.current.setParameters({
-              backgroundColor: '#000000', // protein-viewer.html과 동일한 검은 배경
+              backgroundColor: 'var(--bg-primary)', // protein-viewer.html과 동일한 검은 배경
               quality: 'high',
               sampleLevel: 0
             });
@@ -402,7 +403,7 @@ const ProteinSimulation: React.FC = () => {
                 if (window.NGL) {
                   stageInstanceRef.current = new window.NGL.Stage(stageContainerRef.current!);
                   stageInstanceRef.current.setParameters({
-                    backgroundColor: '#000000',
+                    backgroundColor: 'var(--bg-primary)',
                     quality: 'high',
                     sampleLevel: 0
                   });
@@ -1072,15 +1073,15 @@ const ProteinSimulation: React.FC = () => {
                </button>
              </div>
              <div className="search-help">
-               <small>💡 <strong>자율 검색:</strong> PDB ID, 단백질 이름, 기능, 생물학적 특성 등으로 자유롭게 검색하세요!</small>
-               <small>🔍 <strong>검색 예시:</strong> "1UBQ", "7VCF", "hemoglobin", "oxygen", "enzyme", "covid", "fluorescent"</small>
-               <small>📊 <strong>로컬 DB:</strong> 1UBQ, 1CRN, 1HHB, 1GFL, 6LU7, 7VCF 등 15개 구조 즉시 사용 가능</small>
+               <small><strong>자율 검색:</strong> PDB ID, 단백질 이름, 기능, 생물학적 특성 등으로 자유롭게 검색하세요!</small>
+               <small><strong>검색 예시:</strong> "1UBQ", "7VCF", "hemoglobin", "oxygen", "enzyme", "covid", "fluorescent"</small>
+               <small><strong>로컬 DB:</strong> 1UBQ, 1CRN, 1HHB, 1GFL, 6LU7, 7VCF 등 15개 구조 즉시 사용 가능</small>
              </div>
              
              {/* 검색 히스토리 */}
              {searchHistory.length > 0 && (
                <div className="search-history">
-                 <small>📚 <strong>최근 검색:</strong></small>
+                 <small><strong>최근 검색:</strong></small>
                  <div className="history-tags">
                    {searchHistory.map((term, index) => (
                      <button
@@ -1471,38 +1472,40 @@ const ProteinSimulation: React.FC = () => {
         </div>
       )}
 
-      {/* 푸터 */}
-      <footer className="page-footer">
-        <div className="footer-content">
-          <div className="footer-section">
-            <h4>프로젝트 정보</h4>
-            <a 
-              href="https://github.com/pistolinkr/alphafold2-viewer/tree/main" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="github-link"
-            >
-              <i className="fab fa-github"></i>
-              <span>GitHub 프로젝트</span>
-            </a>
-          </div>
-          
-          <div className="footer-section">
-            <h4>사용법</h4>
-            <ul>
-              <li>PDB ID를 입력하여 단백질 구조 검색</li>
-              <li>로컬 구조 파일 업로드하여 시각화</li>
-              <li>마우스로 구조 회전, 확대/축소, 이동</li>
-              <li>클릭하여 원자/잔기 정보 확인</li>
-            </ul>
-          </div>
-          
-          <div className="footer-section">
-            <h4>라이선스</h4>
-            <p>MIT 라이선스 - 자유롭게 사용, 수정, 배포 가능</p>
-          </div>
-        </div>
-      </footer>
+      {/* 공통 푸터 */}
+      <Box
+        component="footer"
+        sx={{
+          backgroundColor: 'var(--bg-primary)',
+          borderTop: '1px solid var(--border-primary)',
+          padding: 3,
+          marginTop: 4,
+          textAlign: 'center'
+        }}
+      >
+        <Typography
+          variant="caption"
+          sx={{
+            color: 'var(--text-secondary)',
+            opacity: 0.6,
+            fontSize: '0.7rem',
+            display: 'block',
+            marginBottom: 1
+          }}
+        >
+          BioLabs v1.0.0
+        </Typography>
+        <Typography
+          variant="caption"
+          sx={{
+            color: 'var(--text-secondary)',
+            opacity: 0.4,
+            fontSize: '0.65rem'
+          }}
+        >
+          © 2025 Pistolinkr
+        </Typography>
+      </Box>
     </div>
   );
 };

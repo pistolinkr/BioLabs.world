@@ -9,12 +9,12 @@
   --text-muted: #888888;
   --border-primary: #333333;
   --border-secondary: #ffffff;
-  --accent-primary: #4CAF50;
+  --accent-primary: #2196F3;
   --accent-secondary: #2196F3;
   --shadow-light: rgba(255, 255, 255, 0.1);
   --shadow-medium: rgba(255, 255, 255, 0.2);
   --shadow-heavy: rgba(255, 255, 255, 0.3);
-  --success-color: #4CAF50;
+  --success-color: #2196F3;
   --warning-color: #FF9800;
   --error-color: #F44336;
   --info-color: #2196F3;
@@ -30,12 +30,12 @@
   --text-muted: #6c757d;
   --border-primary: #dee2e6;
   --border-secondary: #1a1a1a;
-  --accent-primary: #28a745;
+  --accent-primary: #2196F3;
   --accent-secondary: #007bff;
   --shadow-light: rgba(0, 0, 0, 0.05);
   --shadow-medium: rgba(0, 0, 0, 0.1);
   --shadow-heavy: rgba(0, 0, 0, 0.15);
-  --success-color: #28a745;
+  --success-color: #2196F3;
   --warning-color: #ffc107;
   --error-color: #dc3545;
   --info-color: #17a2b8;
@@ -65,9 +65,9 @@ html {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-  background-color: #000000;
-  color: #ffffff;
-  border: 1px solid #ffffff;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--text-primary);
   padding: 2px 4px;
   border-radius: 0;
 }
@@ -79,43 +79,43 @@ code {
 
 /* 링크 스타일 */
 a {
-  color: #ffffff;
+  color: var(--text-primary);
   text-decoration: none;
 }
 
 a:hover {
-  color: #ffffff;
+  color: var(--text-primary);
   text-decoration: underline;
   background-color: transparent;
 }
 
 /* 버튼 스타일 */
 button {
-  background-color: #ffffff;
-  color: #000000;
-  border: 1px solid #ffffff;
+  background-color: var(--text-primary);
+  color: var(--bg-primary);
+  border: 1px solid var(--text-primary);
   border-radius: 0;
   cursor: pointer;
   transition: none;
 }
 
 button:hover {
-  background-color: #ffffff;
-  color: #000000;
+  background-color: var(--text-primary);
+  color: var(--bg-primary);
   transform: none;
   box-shadow: none;
 }
 
 button:focus {
-  outline: 1px solid #ffffff;
+  outline: 1px solid var(--text-primary);
   outline-offset: 2px;
 }
 
 /* 입력 필드 스타일 */
 input, textarea, select {
-  background-color: #000000;
-  color: #ffffff;
-  border: 1px solid #ffffff;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--text-primary);
   border-radius: 0;
   padding: 8px 12px;
   font-size: 0.875rem;
@@ -123,7 +123,7 @@ input, textarea, select {
 
 input:focus, textarea:focus, select:focus {
   outline: none;
-  border-color: #ffffff;
+  border-color: var(--text-primary);
   border-width: 1px;
 }
 
@@ -134,16 +134,16 @@ table {
 }
 
 th, td {
-  border: 1px solid #ffffff;
+  border: 1px solid var(--text-primary);
   padding: 8px;
   text-align: left;
-  background-color: #000000;
-  color: #ffffff;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
 }
 
 th {
-  background-color: #000000;
-  color: #ffffff;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
   font-weight: 400;
 }
 
@@ -154,33 +154,33 @@ th {
 }
 
 ::-webkit-scrollbar-track {
-  background: #000000;
-  border: 1px solid #ffffff;
+  background: var(--bg-primary);
+  border: 1px solid var(--text-primary);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #ffffff;
+  background: var(--text-primary);
   border-radius: 0;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #ffffff;
+  background: var(--text-primary);
 }
 
 /* 선택된 텍스트 */
 ::selection {
-  background-color: #ffffff;
-  color: #000000;
+  background-color: var(--text-primary);
+  color: var(--bg-primary);
 }
 
 ::-moz-selection {
-  background-color: #ffffff;
-  color: #000000;
+  background-color: var(--text-primary);
+  color: var(--bg-primary);
 }
 
 /* 포커스 표시 */
 *:focus {
-  outline: 1px solid #ffffff;
+  outline: 1px solid var(--text-primary);
   outline-offset: 2px;
 }
 
@@ -257,7 +257,7 @@ input, textarea, select {
   
   input:focus, textarea:focus, select:focus, .MuiTextField-root input:focus {
     border-color: var(--accent-secondary);
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
     outline: none;
   }
   
@@ -347,7 +347,7 @@ input, textarea, select {
   }
   
   .alert-success, .MuiAlert-standardSuccess {
-    background-color: rgba(40, 167, 69, 0.1);
+    background-color: rgba(33, 150, 243, 0.1);
     border-color: var(--success-color);
     color: var(--success-color);
   }
