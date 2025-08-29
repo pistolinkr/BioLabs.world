@@ -1215,41 +1215,7 @@ const ProteinSimulation: React.FC = () => {
               style={{ width: '100%', height: '100%' }}
             />
 
-            {/* 3D 뷰어 상태 표시 */}
-            <div className="viewer-status-overlay">
-              <div className="status-indicator">
-                <div className={`status-dot ${isStageReady ? 'ready' : 'loading'}`}></div>
-                <span className="status-text">
-                  {isStageReady ? '3D 뷰어 준비됨' : '3D 뷰어 초기화 중...'}
-                </span>
-                  </div>
 
-              {isStageReady && !hasStructure && (
-                <div className="quick-actions">
-                    <button 
-                    className="quick-load-btn primary"
-                    onClick={() => loadSampleStructure('1ubq')}
-                  >
-                    🧬 유비퀴틴 로드
-                    <span className="btn-hint">+ 텍스트 복사</span>
-                  </button>
-                  <button 
-                    className="quick-load-btn secondary"
-                    onClick={() => loadSampleStructure('1crn')}
-                  >
-                    🌱 크람빈 로드
-                    <span className="btn-hint">+ 텍스트 복사</span>
-                  </button>
-                  <button 
-                    className="quick-load-btn secondary"
-                    onClick={() => loadSampleStructure('1pdb')}
-                  >
-                    💪 미오글로빈 로드
-                    <span className="btn-hint">+ 텍스트 복사</span>
-                    </button>
-                  </div>
-                )}
-            </div>
  
                  {/* 캔버스 내부 상태 정보 */}
                  <div className="canvas-status-info">
