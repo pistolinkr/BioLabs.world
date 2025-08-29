@@ -52,3 +52,78 @@ const DiagnosisAI: React.FC = () => {
         paddingBottom: '40px'
       }}
     >
+      <Container maxWidth="lg">
+        <Typography variant="h3" gutterBottom sx={{ mb: 4, color: 'var(--text-primary)' }}>
+          AI 진단
+        </Typography>
+
+        <Grid container spacing={3}>
+          {/* 입력 폼 */}
+          <Grid item xs={12} lg={6}>
+            <Card sx={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border-primary)', mb: 3 }}>
+              <CardContent>
+                <Typography variant="h6" gutterBottom sx={{ color: 'var(--text-primary)', mb: 3 }}>
+                  증상 입력
+                </Typography>
+                
+                <TextField
+                  fullWidth
+                  multiline
+                  rows={4}
+                  label="증상을 자세히 설명해주세요"
+                  value={symptoms}
+                  onChange={(e) => setSymptoms(e.target.value)}
+                  sx={{ mb: 3 }}
+                  InputProps={{
+                    style: { color: 'var(--text-primary)' }
+                  }}
+                  InputLabelProps={{
+                    style: { color: 'var(--text-secondary)' }
+                  }}
+                />
+                
+                <Button
+                  variant="contained"
+                  onClick={handleDiagnosis}
+                  disabled={loading || !symptoms.trim()}
+                  fullWidth
+                  sx={{ mb: 2 }}
+                >
+                  {loading ? '진단 중...' : 'AI 진단 시작'}
+                </Button>
+              </CardContent>
+            </Card>
+          </Grid>
+
+          {/* 결과 표시 */}
+          <Grid item xs={12} lg={6}>
+            <Card sx={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border-primary)', mb: 3 }}>
+              <CardContent>
+                <Typography variant="h6" gutterBottom sx={{ color: 'var(--text-primary)', mb: 3 }}>
+                  진단 결과
+                </Typography>
+                
+                {showResult && diagnosis && (
+                  <Alert severity="success" sx={{ mb: 2 }}>
+                    {diagnosis}
+                  </Alert>
+                )}
+                
+                {!showResult && (
+                  <Box sx={{ textAlign: 'center', py: 4 }}>
+                    <PsychologyIcon sx={{ fontSize: 64, color: 'var(--text-secondary)', mb: 2 }} />
+                    <Typography variant="body1" sx={{ color: 'var(--text-secondary)' }}>
+                      증상을 입력하고 AI 진단을 시작하세요
+                    </Typography>
+                  </Box>
+                )}
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+      </Container>
+    </Box>
+  );
+};
+
+export default DiagnosisAI;
