@@ -49,6 +49,7 @@ interface AuthContextType {
   currentUser: User | null;
   userProfile: UserProfile | null;
   loading: boolean;
+  isInitialized: boolean;
   signIn: (email: string, password: string) => Promise<{ success: boolean; user?: User; error?: string }>;
   signUp: (email: string, password: string, displayName: string) => Promise<{ success: boolean; user?: User; error?: string }>;
   signOut: () => Promise<{ success: boolean; error?: string }>;
@@ -70,6 +71,58 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  // 로컬 스토리지에서 사용자 정보 복원
+  const restoreUserFromStorage = () => {
+    try {
+      const storedUser = localStorage.getItem('biolabs_user');
+      const storedProfile = localStorage.getItem('biolabs_profile');
+      
+      if (storedUser && storedProfile) {
+        const user = JSON.parse(storedUser);
+        const profile = JSON.parse(storedProfile);
+        
+        // 저장된 시간이 7일 이내인지 확인
+        const storedTime = localStorage.getItem('biolabs_timestamp');
+        if (storedTime) {
+          const timeDiff = Date.now() - parseInt(storedTime);
+          const sevenDays = 7 * 24 * 60 * 60 * 1000;
+          
+          if (timeDiff < sevenDays) {
+            setCurrentUser(user);
+            setUserProfile(profile);
+            return true;
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Error restoring user from storage:', error);
+    }
+    return false;
+  };
+
+  // 사용자 정보를 로컬 스토리지에 저장
+  const saveUserToStorage = (user: User, profile: UserProfile) => {
+    try {
+      localStorage.setItem('biolabs_user', JSON.stringify(user));
+      localStorage.setItem('biolabs_profile', JSON.stringify(profile));
+      localStorage.setItem('biolabs_timestamp', Date.now().toString());
+    } catch (error) {
+      console.error('Error saving user to storage:', error);
+    }
+  };
+
+  // 로컬 스토리지에서 사용자 정보 제거
+  const removeUserFromStorage = () => {
+    try {
+      localStorage.removeItem('biolabs_user');
+      localStorage.removeItem('biolabs_profile');
+      localStorage.removeItem('biolabs_timestamp');
+    } catch (error) {
+      console.error('Error removing user from storage:', error);
+    }
+  };
 
   // 사용자 프로필 로드
   const loadUserProfile = async (user: User) => {
@@ -80,9 +133,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         const userDocRef = doc(db, 'users', user.uid);
         const userDocSnap = await getDoc(userDocRef);
         
+        let profile: UserProfile;
+        
         if (userDocSnap.exists()) {
           const userData = userDocSnap.data();
-          setUserProfile({
+          profile = {
             uid: user.uid,
             email: user.email,
             displayName: user.displayName,
@@ -98,10 +153,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
               drugScreenings: [],
               epidemiologyModels: []
             }
-          });
+          };
         } else {
           // 사용자 문서가 없으면 기본 프로필 생성
-          setUserProfile({
+          profile = {
             uid: user.uid,
             email: user.email,
             displayName: user.displayName,
@@ -117,25 +172,45 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
               drugScreenings: [],
               epidemiologyModels: []
             }
-          });
+          };
         }
+        
+        setUserProfile(profile);
+        saveUserToStorage(user, profile);
+        return profile;
       }
     } catch (error) {
       console.error('Failed to load user profile:', error);
     }
+    return null;
   };
 
   // 인증 상태 변경 감지
   useEffect(() => {
-    const unsubscribe = onAuthChange((user) => {
-      setCurrentUser(user);
+    // 먼저 로컬 스토리지에서 복원 시도
+    const restored = restoreUserFromStorage();
+    
+    const unsubscribe = onAuthChange(async (user) => {
       if (user) {
-        loadUserProfile(user);
+        // Firebase에서 인증된 사용자가 있는 경우
+        setCurrentUser(user);
+        await loadUserProfile(user);
       } else {
+        // Firebase에서 로그아웃된 경우
+        setCurrentUser(null);
         setUserProfile(null);
+        removeUserFromStorage();
       }
+      
       setLoading(false);
+      setIsInitialized(true);
     });
+
+    // 로컬 스토리지에서 복원된 경우 로딩 상태 해제
+    if (restored) {
+      setLoading(false);
+      setIsInitialized(true);
+    }
 
     return unsubscribe;
   }, []);
@@ -181,6 +256,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const result = await signOutUser();
     if (result.success) {
       setUserProfile(null);
+      removeUserFromStorage();
     }
     return result;
   };
@@ -194,10 +270,14 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     try {
       const result = await updateUserLabSettings(currentUser.uid, settings);
       if (result.success && userProfile) {
-        setUserProfile({
+        const updatedProfile = {
           ...userProfile,
           labSettings: { ...userProfile.labSettings, ...settings }
-        });
+        };
+        setUserProfile(updatedProfile);
+        if (currentUser) {
+          saveUserToStorage(currentUser, updatedProfile);
+        }
       }
       return result;
     } catch (error: any) {
@@ -223,13 +303,17 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     try {
       const result = await saveUserLabData(currentUser.uid, dataType, data);
       if (result.success && userProfile) {
-        setUserProfile({
+        const updatedProfile = {
           ...userProfile,
           labData: {
             ...userProfile.labData,
             [dataType]: result.data
           }
-        });
+        };
+        setUserProfile(updatedProfile);
+        if (currentUser) {
+          saveUserToStorage(currentUser, updatedProfile);
+        }
       }
       return result;
     } catch (error: any) {
@@ -246,13 +330,17 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     try {
       const result = await updateUserLabData(currentUser.uid, dataType, dataId, updates);
       if (result.success && userProfile) {
-        setUserProfile({
+        const updatedProfile = {
           ...userProfile,
           labData: {
             ...userProfile.labData,
             [dataType]: result.data
           }
-        });
+        };
+        setUserProfile(updatedProfile);
+        if (currentUser) {
+          saveUserToStorage(currentUser, updatedProfile);
+        }
       }
       return result;
     } catch (error: any) {
@@ -269,13 +357,17 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     try {
       const result = await deleteUserLabData(currentUser.uid, dataType, dataId);
       if (result.success && userProfile) {
-        setUserProfile({
+        const updatedProfile = {
           ...userProfile,
           labData: {
             ...userProfile.labData,
             [dataType]: result.data
           }
-        });
+        };
+        setUserProfile(updatedProfile);
+        if (currentUser) {
+          saveUserToStorage(currentUser, updatedProfile);
+        }
       }
       return result;
     } catch (error: any) {
@@ -297,6 +389,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     currentUser,
     userProfile,
     loading,
+    isInitialized,
     signIn: handleSignIn,
     signUp: handleSignUp,
     signOut: handleSignOut,

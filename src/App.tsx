@@ -17,8 +17,64 @@ import './App.css';
 
 // 보호된 라우트 컴포넌트
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { currentUser } = useAuth();
-  return currentUser ? <>{children}</> : <Navigate to="/login" replace />;
+  const { currentUser, loading, isInitialized } = useAuth();
+  
+  // 인증 상태가 초기화되지 않았거나 로딩 중인 경우
+  if (!isInitialized || loading) {
+    return (
+      <Box 
+        sx={{ 
+          display: 'flex', 
+          justifyContent: 'center', 
+          alignItems: 'center', 
+          minHeight: '100vh',
+          backgroundColor: '#000000',
+          color: '#ffffff'
+        }}
+      >
+        <div>로딩 중...</div>
+      </Box>
+    );
+  }
+  
+  // 인증된 사용자가 있는 경우
+  if (currentUser) {
+    return <>{children}</>;
+  }
+  
+  // 인증되지 않은 경우 로그인 페이지로 리다이렉트
+  return <Navigate to="/login" replace />;
+};
+
+// 로그인 페이지에서 이미 로그인된 사용자 처리
+const LoginRoute: React.FC = () => {
+  const { currentUser, loading, isInitialized } = useAuth();
+  
+  // 인증 상태가 초기화되지 않았거나 로딩 중인 경우
+  if (!isInitialized || loading) {
+    return (
+      <Box 
+        sx={{ 
+          display: 'flex', 
+          justifyContent: 'center', 
+          alignItems: 'center', 
+          minHeight: '100vh',
+          backgroundColor: '#000000',
+          color: '#ffffff'
+        }}
+      >
+        <div>로딩 중...</div>
+      </Box>
+    );
+  }
+  
+  // 이미 로그인된 사용자는 홈으로 리다이렉트
+  if (currentUser) {
+    return <Navigate to="/home" replace />;
+  }
+  
+  // 로그인되지 않은 사용자는 로그인 페이지 표시
+  return <Login />;
 };
 
 // 메인 레이아웃 컴포넌트
@@ -177,7 +233,7 @@ function App() {
       <AuthProvider>
         <Router>
           <Routes>
-            <Route path="/login" element={<Login />} />
+            <Route path="/login" element={<LoginRoute />} />
             <Route
               path="/home"
               element={

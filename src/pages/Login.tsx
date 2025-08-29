@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import {
   Box,
@@ -41,6 +41,17 @@ const Login: React.FC = () => {
   const { signIn, signUp, signInWithGoogle, signInWithGithub } = useAuth();
   const navigate = useNavigate();
 
+  // 컴포넌트 마운트 시 저장된 로그인 정보 복원
+  useEffect(() => {
+    const savedRememberMe = localStorage.getItem('biolabs_remember_me');
+    const savedEmail = localStorage.getItem('biolabs_remember_email');
+    
+    if (savedRememberMe === 'true' && savedEmail) {
+      setRememberMe(true);
+      setEmail(savedEmail);
+    }
+  }, []);
+
   const handleEmailAuth = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -59,6 +70,15 @@ const Login: React.FC = () => {
       } else {
         const result = await signIn(email, password);
         if (result.success) {
+          // 로그인 상태 유지 설정 저장
+          if (rememberMe) {
+            localStorage.setItem('biolabs_remember_me', 'true');
+            localStorage.setItem('biolabs_remember_email', email);
+          } else {
+            localStorage.removeItem('biolabs_remember_me');
+            localStorage.removeItem('biolabs_remember_email');
+          }
+          
           setSuccess('로그인이 완료되었습니다!');
           setTimeout(() => navigate('/home'), 1500);
         } else {
