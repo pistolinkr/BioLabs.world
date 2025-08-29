@@ -11,20 +11,34 @@
   --border-secondary: #ffffff;
   --accent-primary: #4CAF50;
   --accent-secondary: #2196F3;
+  --shadow-light: rgba(255, 255, 255, 0.1);
+  --shadow-medium: rgba(255, 255, 255, 0.2);
+  --shadow-heavy: rgba(255, 255, 255, 0.3);
+  --success-color: #4CAF50;
+  --warning-color: #FF9800;
+  --error-color: #F44336;
+  --info-color: #2196F3;
 }
 
-/* 라이트 테마 */
+/* 라이트 테마 (최적화됨) */
 [data-theme="light"] {
   --bg-primary: #ffffff;
-  --bg-secondary: #f5f5f5;
-  --bg-tertiary: #e0e0e0;
-  --text-primary: #000000;
-  --text-secondary: #333333;
-  --text-muted: #666666;
-  --border-primary: #e0e0e0;
-  --border-secondary: #000000;
-  --accent-primary: #4CAF50;
-  --accent-secondary: #2196F3;
+  --bg-secondary: #f8f9fa;
+  --bg-tertiary: #e9ecef;
+  --text-primary: #1a1a1a;
+  --text-secondary: #495057;
+  --text-muted: #6c757d;
+  --border-primary: #dee2e6;
+  --border-secondary: #1a1a1a;
+  --accent-primary: #28a745;
+  --accent-secondary: #007bff;
+  --shadow-light: rgba(0, 0, 0, 0.05);
+  --shadow-medium: rgba(0, 0, 0, 0.1);
+  --shadow-heavy: rgba(0, 0, 0, 0.15);
+  --success-color: #28a745;
+  --warning-color: #ffc107;
+  --error-color: #dc3545;
+  --info-color: #17a2b8;
 }
 
 body {
@@ -206,4 +220,171 @@ button {
 /* 전역 입력 필드 기본 스타일 */
 input, textarea, select {
   font-family: inherit;
+}
+
+/* 라이트 테마 전용 스타일 */
+[data-theme="light"] {
+  /* 카드 그림자 효과 */
+  .card, .MuiCard-root {
+    box-shadow: 0 2px 8px var(--shadow-light);
+    border: 1px solid var(--border-primary);
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+  }
+  
+  .card:hover, .MuiCard-root:hover {
+    box-shadow: 0 4px 16px var(--shadow-medium);
+    transform: translateY(-2px);
+  }
+  
+  /* 버튼 스타일 개선 */
+  button, .MuiButton-root {
+    box-shadow: 0 2px 4px var(--shadow-light);
+    transition: all 0.3s ease;
+  }
+  
+  button:hover, .MuiButton-root:hover {
+    box-shadow: 0 4px 8px var(--shadow-medium);
+    transform: translateY(-1px);
+  }
+  
+  /* 입력 필드 스타일 개선 */
+  input, textarea, select, .MuiTextField-root input {
+    border: 1px solid var(--border-primary);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  input:focus, textarea:focus, select:focus, .MuiTextField-root input:focus {
+    border-color: var(--accent-secondary);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+    outline: none;
+  }
+  
+  /* 테이블 스타일 */
+  table, .MuiTable-root {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-primary);
+  }
+  
+  th, td, .MuiTableCell-root {
+    border: 1px solid var(--border-primary);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+  }
+  
+  th, .MuiTableCell-head {
+    background-color: var(--bg-secondary);
+    font-weight: 600;
+  }
+  
+  /* 스크롤바 스타일 */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-primary);
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: var(--text-muted);
+    border-radius: 5px;
+    border: 1px solid var(--border-primary);
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
+  }
+  
+  /* 선택된 텍스트 */
+  ::selection {
+    background-color: var(--accent-secondary);
+    color: var(--bg-primary);
+  }
+  
+  ::-moz-selection {
+    background-color: var(--accent-secondary);
+    color: var(--bg-primary);
+  }
+  
+  /* 포커스 표시 */
+  *:focus {
+    outline: 2px solid var(--accent-secondary);
+    outline-offset: 2px;
+  }
+  
+  /* 링크 스타일 */
+  a {
+    color: var(--accent-secondary);
+    transition: color 0.3s ease;
+  }
+  
+  a:hover {
+    color: var(--accent-primary);
+    text-decoration: underline;
+  }
+  
+  /* 코드 블록 */
+  code {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-primary);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+  }
+  
+  /* 알림 스타일 */
+  .alert, .MuiAlert-root {
+    border: 1px solid var(--border-primary);
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin: 8px 0;
+    box-shadow: 0 2px 4px var(--shadow-light);
+  }
+  
+  .alert-success, .MuiAlert-standardSuccess {
+    background-color: rgba(40, 167, 69, 0.1);
+    border-color: var(--success-color);
+    color: var(--success-color);
+  }
+  
+  .alert-warning, .MuiAlert-standardWarning {
+    background-color: rgba(255, 193, 7, 0.1);
+    border-color: var(--warning-color);
+    color: var(--warning-color);
+  }
+  
+  .alert-error, .MuiAlert-standardError {
+    background-color: rgba(220, 53, 69, 0.1);
+    border-color: var(--error-color);
+    color: var(--error-color);
+  }
+  
+  .alert-info, .MuiAlert-standardInfo {
+    background-color: rgba(23, 162, 184, 0.1);
+    border-color: var(--info-color);
+    color: var(--info-color);
+  }
+  
+  /* 호버 효과 활성화 */
+  *:hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+  
+  /* 카드 호버 효과 */
+  .card:hover, .MuiCard-root:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 16px var(--shadow-medium) !important;
+  }
+  
+  /* 버튼 호버 효과 */
+  button:hover, .MuiButton-root:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 8px var(--shadow-medium) !important;
+  }
 }
