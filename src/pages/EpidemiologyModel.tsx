@@ -21,10 +21,12 @@ import {
 } from '@mui/icons-material';
 import { useAuth } from '../contexts/AuthContext';
 import { useTheme } from '../contexts/ThemeContext';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const EpidemiologyModel: React.FC = () => {
   const { userProfile } = useAuth();
   const { isDark } = useTheme();
+  const { t } = useLanguage();
   const [disease, setDisease] = useState('');
   const [region, setRegion] = useState('');
   const [modeling, setModeling] = useState('');
@@ -37,7 +39,7 @@ const EpidemiologyModel: React.FC = () => {
     setLoading(true);
     // 역학 모델링 로직 시뮬레이션
     setTimeout(() => {
-      setModeling('입력된 질병과 지역에 대한 역학 모델링 결과가 여기에 표시됩니다.');
+      setModeling(t('epidemiologyModel.results') || '입력된 질병과 지역에 대한 역학 모델링 결과가 여기에 표시됩니다.');
       setShowResult(true);
       setLoading(false);
     }, 2000);
@@ -55,8 +57,8 @@ const EpidemiologyModel: React.FC = () => {
     >
       <Container maxWidth="lg">
         <Typography variant="h3" gutterBottom sx={{ mb: 4, color: 'var(--text-primary)' }}>
-        역학 모델링
-      </Typography>
+          {t('epidemiologyModel.title')}
+        </Typography>
 
       <Grid container spacing={3}>
           {/* 입력 폼 */}
@@ -64,12 +66,12 @@ const EpidemiologyModel: React.FC = () => {
             <Card sx={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border-primary)', mb: 3 }}>
             <CardContent>
                 <Typography variant="h6" gutterBottom sx={{ color: 'var(--text-primary)', mb: 3 }}>
-                  역학 모델링 입력
-              </Typography>
+                  {t('epidemiologyModel.model.title')}
+                </Typography>
               
                 <TextField
                   fullWidth
-                  label="질병명"
+                  label={t('common.diseaseModel')}
                   value={disease}
                   onChange={(e) => setDisease(e.target.value)}
                   sx={{ mb: 3 }}
@@ -83,7 +85,7 @@ const EpidemiologyModel: React.FC = () => {
                 
                 <TextField
                   fullWidth
-                  label="지역"
+                  label={t('common.region')}
                   value={region}
                   onChange={(e) => setRegion(e.target.value)}
                   sx={{ mb: 3 }}
@@ -102,7 +104,7 @@ const EpidemiologyModel: React.FC = () => {
                   fullWidth
                   sx={{ mb: 2 }}
                 >
-                  {loading ? '모델링 중...' : '역학 모델링 시작'}
+                  {loading ? t('epidemiologyModel.simulation.loading') : t('common.runSimulation')}
                 </Button>
             </CardContent>
           </Card>
@@ -113,8 +115,8 @@ const EpidemiologyModel: React.FC = () => {
             <Card sx={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border-primary)', mb: 3 }}>
             <CardContent>
                 <Typography variant="h6" gutterBottom sx={{ color: 'var(--text-primary)', mb: 3 }}>
-                  모델링 결과
-              </Typography>
+                  {t('epidemiologyModel.results.title')}
+                </Typography>
 
                 {showResult && modeling && (
                   <Alert severity="success" sx={{ mb: 2 }}>
@@ -126,7 +128,7 @@ const EpidemiologyModel: React.FC = () => {
                   <Box sx={{ textAlign: 'center', py: 4 }}>
                     <TimelineIcon sx={{ fontSize: 64, color: 'var(--text-secondary)', mb: 2 }} />
                     <Typography variant="body1" sx={{ color: 'var(--text-secondary)' }}>
-                      질병과 지역을 입력하고 모델링을 시작하세요
+                      {t('epidemiologyModel.results.instructions')}
                     </Typography>
                   </Box>
                 )}

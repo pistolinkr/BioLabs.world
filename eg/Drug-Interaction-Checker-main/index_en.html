@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Drug interaction checker service to help ensure safe medication usage">
+    
+    <!-- Security Headers -->
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self' 'unsafe-inline';
+        style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net;
+        font-src 'self' https://cdn.jsdelivr.net;
+        connect-src 'self' https://api.fda.gov https://api.openai.com https://api.anthropic.com https://api.perplexity.ai https://generativelanguage.googleapis.com;
+        img-src 'self' data:;
+        object-src 'none';
+        frame-src 'none';
+        base-uri 'self';
+        form-action 'self';
+        upgrade-insecure-requests;
+    ">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=()">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" integrity="sha384-..." crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    <title>Drug Interaction Checker - Safe Medication Guide</title>
+</head>
+<body class="preload">
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <p id="loadingText" style="margin-top: 1rem;">Processing...</p>
+        </div>
+    </div>
+
+    <!-- Drug Detail Information Modal -->
+    <div id="drugDetailModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="drugDetailTitle"></h3>
+                <button class="modal-close" onclick="closeDrugDetail()" aria-label="Close">×</button>
+            </div>
+            <div class="modal-body" id="drugDetailBody"></div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="settings-modal">
+        <div class="settings-content">
+            <div class="settings-header">
+                <h3 class="settings-title">
+                    🤖 AI Analysis Settings
+                </h3>
+                <button class="modal-close" onclick="closeSettings()" aria-label="Close">×</button>
+            </div>
+            <div class="settings-body">
+                <!-- AI Service Selection -->
+                <div class="form-group">
+                    <label for="aiProvider" class="form-label">🎯 AI Service to Use</label>
+                    <select id="aiProvider" class="form-select">
+                        <option value="openai">OpenAI (GPT-4o-mini)</option>
+                        <option value="claude">Anthropic Claude</option>
+                        <option value="perplexity">Perplexity AI</option>
+                        <option value="gemini">Google Gemini</option>
+                        <option value="auto">🎲 Auto Select (Available)</option>
+                    </select>
+                    <div class="form-help">
+                        Select the desired AI service. When auto-selected, it will automatically select from the configured keys.
+                    </div>
+                </div>
+
+
+                <div class="form-group ai-config" data-provider="openai">
+                    <label for="openaiApiKey" class="form-label">
+                        <span class="provider-icon" alt="OpenAI"> 
+                        OpenAI API Key
+                    </label>
+                    <input type="password" 
+                           id="openaiApiKey" 
+                           class="form-input" 
+                           placeholder="sk-..."
+                           aria-label="OpenAI API Key">
+                    <div class="form-help">
+                        <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener" style="color: var(--primary);">
+                            Get OpenAI API Key from OpenAI Site →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Claude Settings -->
+                <div class="form-group ai-config" data-provider="claude">
+                    <label for="claudeApiKey" class="form-label">
+                        Anthropic Claude API Key
+                    </label>
+                    <input type="password" 
+                           id="claudeApiKey" 
+                           class="form-input" 
+                           placeholder="sk-ant-..."
+                           aria-label="Claude API Key">
+                    <div class="form-help">
+                        <a href="https://console.anthropic.com/" target="_blank" rel="noopener" style="color: var(--primary);">
+                            Get Anthropic API Key from Anthropic Console →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Perplexity Settings -->
+                <div class="form-group ai-config" data-provider="perplexity">
+                    <label for="perplexityApiKey" class="form-label">
+                        Perplexity API Key
+                    </label>
+                    <input type="password" 
+                           id="perplexityApiKey" 
+                           class="form-input" 
+                           placeholder="pplx-..."
+                           aria-label="Perplexity API Key">
+                    <div class="form-help">
+                        <a href="https://www.perplexity.ai/settings/api" target="_blank" rel="noopener" style="color: var(--primary);">
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Gemini Settings -->
+                <div class="form-group ai-config" data-provider="gemini">
+                    <label for="geminiApiKey" class="form-label">
+                        Google Gemini API Key
+                    </label>
+                    <input type="password" 
+                           id="geminiApiKey" 
+                           class="form-input" 
+                           placeholder="AI..."
+                           aria-label="Gemini API Key">
+                    <div class="form-help">
+                        <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener" style="color: var(--primary);">
+                            Get Gemini API Key from Google AI Studio →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Status Display -->
+                <div class="api-status">
+                    <h4>🔑 API Key Status</h4>
+                    <div class="status-grid">
+                        <div class="status-item" id="openai-status">
+                            <span class="status-icon">⚪</span>
+                            <span>OpenAI</span>
+                        </div>
+                        <div class="status-item" id="claude-status">
+                            <span class="status-icon">⚪</span>
+                            <span>Claude</span>
+                        </div>
+                        <div class="status-item" id="perplexity-status">
+                            <span class="status-icon">⚪</span>
+                            <span>Perplexity</span>
+                        </div>
+                        <div class="status-item" id="gemini-status">
+                            <span class="status-icon">⚪</span>
+                            <span>Gemini</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="settings-actions">
+                <button class="btn btn-secondary" onclick="closeSettings()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveSettings()">Save</button>
+                <button class="btn btn-secondary" onclick="testAllAPIs()">🧪 API Test</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <header class="header scroll-fade">
+            <h1>Drug Interaction Checker</h1>
+            <p>Check the interaction between drugs for safe medication</p>
+        </header>
+
+        <!-- Drug Search Section -->
+        <section class="card scroll-hidden scroll-delay-1">
+            <h2 class="sr-only">Drug Search</h2>
+            <div class="search-box">
+                <input type="text" 
+                       id="drugSearch" 
+                       class="input-field" 
+                       placeholder="Search for a drug (e.g. Aspirin, Aspirin)"
+                       autocomplete="off"
+                       aria-label="Drug Search">
+                <button class="btn btn-primary" onclick="searchDrug()" aria-label="Search">
+                </button>
+            </div>
+            
+            <div id="searchResults" class="search-results scroll-fade">
+                <div id="searchResultsContent" class="search-results-content"></div>
+            </div>
+            
+            <div class="recent-searches" style="margin-top: 1rem;">
+                <div style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Recent Searches</div>
+                <div id="recentSearchesList" style="display: flex; flex-wrap: wrap; gap: 0.5rem;"></div>
+            </div>
+        </section>
+
+        <!-- Example Drugs Section -->
+        <section class="example-drugs scroll-slide-left scroll-delay-2">
+            <h3>💊 Frequently Searched Drugs</h3>
+            <ul>
+                <li onclick="useExampleDrug('Aspirin')">Aspirin</li>
+                <li onclick="useExampleDrug('Warfarin')">Warfarin</li>
+                <li onclick="useExampleDrug('Ibuprofen')">Ibuprofen</li>
+                <li onclick="useExampleDrug('Acetaminophen')">Acetaminophen</li>
+                <li onclick="useExampleDrug('Methotrexate')">Methotrexate</li>
+                <li onclick="useExampleDrug('Simvastatin')">Simvastatin</li>
+            </ul>
+        </section>
+
+        <!-- Drug Selection Section -->
+        <section class="card scroll-hidden scroll-delay-3">
+            <h2 class="sr-only">Drug Selection</h2>
+            <div class="drug-select-section">
+                <div class="drug-select-container">
+                    <div class="input-wrapper">
+                        <input type="text" 
+                               id="drug1" 
+                               class="input-field" 
+                               placeholder="First Drug"
+                               autocomplete="off"
+                               aria-label="First Drug">
+                    </div>
+                    <div class="drug-list" id="drug1List">
+                        <div class="drug-items"></div>
+                    </div>
+                </div>
+                
+                <div class="drug-select-container">
+                    <div class="input-wrapper">
+                        <input type="text" 
+                               id="drug2" 
+                               class="input-field" 
+                               placeholder="Second Drug"
+                               autocomplete="off"
+                               aria-label="Second Drug">
+                    </div>
+                    <div class="drug-list" id="drug2List">
+                        <div class="drug-items"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="btn btn-primary btn-block" onclick="checkInteraction()">
+                Check Interaction
+            </button>
+        </section>
+
+        <!-- Result Section -->
+        <section id="resultSection" class="result-section scroll-scale">
+            <div id="result"></div>
+        </section>
+    </div>
+
+    <!-- Floating Action Button -->
+    <button class="fab" onclick="scrollToTop()" title="Scroll to Top" aria-label="Scroll to Top">
+        ↑
+    </button>
+
+    <!-- Settings Button -->
+    <button class="settings-fab" title="AI Settings" aria-label="AI Settings">
+        ⚙️
+    </button>
+
+    <!-- Notify Message -->
+    <span id="alertMessage" class="alert" role="alert"></span>
+    
+    <!-- Footer -->
+    <footer class="footer" style="margin-top: 200px;">
+        <div class="footer-container">
+            <!-- Main Footer Content -->
+            <div class="footer-content">
+                <!-- About Section -->
+                <div class="footer-section footer-about">
+                    <h3>💊 Drug Interaction Checker</h3>
+                    <p>A comprehensive tool for checking drug interactions to help ensure safe medication usage. Always consult healthcare professionals for medical advice.</p>
+                    <div class="footer-badges">
+                        <span class="badge">FDA Database</span>
+                        <span class="badge">AI-Powered</span>
+                        <span class="badge">Free Tool</span>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="footer-section footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#" onclick="scrollToTop()">🔝 Back to Top</a></li>
+                        <li><a href="#" onclick="openSettings()">⚙️ AI Settings</a></li>
+                        <li><a href="#" onclick="utils.checkDeveloperCode('dev_2024')">🔧 Developer Mode</a></li>
+                        <li><a href="https://api.fda.gov/drug/label.json" target="_blank" rel="noopener">📊 FDA API</a></li>
+                    </ul>
+                    </div>
+
+                <!-- Medical Resources -->
+                <div class="footer-section footer-resources">
+                    <h4>Medical Resources</h4>
+                    <ul>
+                        <li><a href="https://www.fda.gov" target="_blank" rel="noopener">🏛️ FDA Official</a></li>
+                        <li><a href="https://www.drugs.com/drug_interactions.php" target="_blank" rel="noopener">💊 Drugs.com</a></li>
+                        <li><a href="https://www.webmd.com" target="_blank" rel="noopener">🩺 WebMD</a></li>
+                        <li><a href="https://medlineplus.gov" target="_blank" rel="noopener">📚 MedlinePlus</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact & Social -->
+                <div class="footer-section footer-contact">
+                    <h4>Contact us</h4>
+                    <style>
+                        h4 {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            align-items: center;
+                            text-align: center;
+                            font-size: 1rem;
+                            font-weight: 600;
+                            margin-bottom: 0.2rem;
+                        }
+                        a {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            align-items: center;
+                            text-align: center;
+                            font-size: 0.8rem;
+                            font-weight: 600;
+                            margin-bottom: 0.2rem;
+                            color: var(--text-secondary);
+                        }
+                    </style>
+                    <div class="social-links">
+                        <a href="mailto:pisotlinkr@icloud.com" title="Email">
+                            <span>Email</span>
+                        </a>
+                        <a href="https://github.com" target="_blank" rel="noopener" title="GitHub">
+                            <span>GitHub</span>
+                        </a>
+                    </div>
+                    <div class="footer-stats">
+                        <div class="stat">
+                            <span class="stat-number" id="footerSearchCount">0</span>
+                            <span class="stat-label">Searches Today</span>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+
+            <!-- Medical Disclaimer -->
+            <div class="footer-disclaimer">
+                <div class="disclaimer-content">
+                    <h4>⚠️ Important Medical Disclaimer</h4>
+                    <p>
+                        This tool is for educational and informational purposes only. It is not intended as medical advice, diagnosis, or treatment. 
+                        Always consult qualified healthcare professionals before making any decisions about medications or medical treatments. 
+                        Drug interactions can be complex and individualized.
+                    </p>
+                        </div>
+                                </div>
+
+            <!-- Bottom Bar -->
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <div class="footer-copyright">
+                        <p>&copy; 2025 Drug Interaction Checker. All rights reserved.</p>
+                    </div>
+                    <div class="footer-legal">
+                        <a href="#" onclick="showPrivacyPolicy()">Privacy Policy</a>
+                        <a href="#" onclick="showTermsOfService()">Terms of Service</a>
+                        <a href="#" onclick="showDataSources()">Data Sources</a>
+                            </div>
+                    <div class="footer-language">
+                        <a href="/약물상호작용검사기/index.html" title="한국어 버전으로 전환">🇰🇷 한국어</a>
+                    </div>
+                    <div class="footer-version">
+                        <span>Beta v2.1 | G.gear® Pistol™ GongSaeng™</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts_en.js"></script>
+</body>
+</html> 

@@ -30,7 +30,7 @@ import {
   Science as ScienceIcon,
   Timeline as TimelineIcon,
   Assessment as AssessmentIcon,
-  NetworkCheck as NetworkCheckIcon,
+
   Medication as MedicationIcon,
   Public as PublicIcon,
   LightMode as LightModeIcon,
@@ -39,10 +39,12 @@ import {
 } from '@mui/icons-material';
 import { useAuth, LabData } from '../contexts/AuthContext';
 import { useTheme, ThemeMode } from '../contexts/ThemeContext';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const UserProfile: React.FC = () => {
   const { currentUser, userProfile, updateLabSettings, signOut } = useAuth();
   const { themeMode, setThemeMode } = useTheme();
+  const { language, setLanguage, t, getLanguageLabel, supportedLanguages } = useLanguage();
   
   const [isEditing, setIsEditing] = useState(false);
   const [displayName, setDisplayName] = useState('');
@@ -105,7 +107,7 @@ const UserProfile: React.FC = () => {
     const icons = {
       proteinSimulations: <ScienceIcon />,
       diagnosisResults: <AssessmentIcon />,
-      interactionNetworks: <NetworkCheckIcon />,
+
       drugScreenings: <MedicationIcon />,
       epidemiologyModels: <PublicIcon />
     };
@@ -116,7 +118,7 @@ const UserProfile: React.FC = () => {
     const labels = {
       proteinSimulations: '단백질 시뮬레이션',
       diagnosisResults: '진단 결과',
-      interactionNetworks: '상호작용 네트워크',
+
       drugScreenings: '약물 스크리닝',
       epidemiologyModels: '역학 모델'
     };
@@ -378,14 +380,45 @@ const UserProfile: React.FC = () => {
                         border: '1px solid var(--border-primary)',
                         borderRadius: 1
                       }}>
-                        <Typography variant="subtitle2" sx={{ color: 'var(--text-primary)', marginBottom: 1 }}>
-                          언어
+                        <Typography variant="subtitle2" sx={{ color: 'var(--text-primary)', marginBottom: 2 }}>
+                          {t('profile.language')}
                         </Typography>
-                        <Typography variant="body2" sx={{ color: 'var(--text-secondary)' }}>
-                          한국어 (고정)
-                        </Typography>
-                        <Typography variant="caption" sx={{ color: 'var(--text-muted)', fontStyle: 'italic' }}>
-                          영어 버전 출시 예정
+                        
+                        <FormControl component="fieldset" sx={{ width: '100%' }}>
+                          <RadioGroup
+                            value={language}
+                            onChange={(e) => setLanguage(e.target.value as 'ko' | 'en')}
+                            sx={{ gap: 1 }}
+                          >
+                            {supportedLanguages.map((lang) => (
+                              <FormControlLabel
+                                key={lang}
+                                value={lang}
+                                control={<Radio sx={{ color: 'var(--accent-primary)' }} />}
+                                label={
+                                  <Typography variant="body2" sx={{ color: 'var(--text-primary)' }}>
+                                    {getLanguageLabel(lang as 'ko' | 'en')}
+                                  </Typography>
+                                }
+                                sx={{
+                                  margin: 0,
+                                  padding: '8px 12px',
+                                  borderRadius: 1,
+                                  backgroundColor: language === lang ? 'var(--bg-tertiary)' : 'transparent',
+                                  border: language === lang ? '1px solid var(--accent-primary)' : '1px solid transparent',
+                                  transition: 'all 0.3s ease',
+                                  '&:hover': {
+                                    backgroundColor: 'var(--bg-tertiary)',
+                                    border: '1px solid var(--accent-primary)'
+                                  }
+                                }}
+                              />
+                            ))}
+                          </RadioGroup>
+                        </FormControl>
+                        
+                        <Typography variant="caption" sx={{ color: 'var(--text-muted)', fontStyle: 'italic', mt: 1, display: 'block' }}>
+                          {language === 'ko' ? '언어 설정이 즉시 적용됩니다' : 'Language settings are applied immediately'}
                         </Typography>
                       </Box>
                     </Grid>
@@ -412,7 +445,7 @@ const UserProfile: React.FC = () => {
                   </Box>
 
                   <Grid container spacing={2}>
-                    {(['proteinSimulations', 'diagnosisResults', 'interactionNetworks', 'drugScreenings', 'epidemiologyModels'] as const).map((dataType) => (
+                    {(['proteinSimulations', 'diagnosisResults', 'drugScreenings', 'epidemiologyModels'] as const).map((dataType) => (
                       <Grid item xs={12} sm={6} md={4} key={dataType}>
                         <Card
                           sx={{

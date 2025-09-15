@@ -21,10 +21,12 @@ import {
 } from '@mui/icons-material';
 import { useAuth } from '../contexts/AuthContext';
 import { useTheme } from '../contexts/ThemeContext';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const DrugScreening: React.FC = () => {
   const { userProfile } = useAuth();
   const { isDark } = useTheme();
+  const { t } = useLanguage();
   const [drugName, setDrugName] = useState('');
   const [target, setTarget] = useState('');
   const [screening, setScreening] = useState('');
@@ -37,7 +39,7 @@ const DrugScreening: React.FC = () => {
     setLoading(true);
     // 약물 스크리닝 로직 시뮬레이션
     setTimeout(() => {
-      setScreening('입력된 약물과 타겟에 대한 스크리닝 결과가 여기에 표시됩니다.');
+      setScreening(t('drugScreening.results') || '입력된 약물과 타겟에 대한 스크리닝 결과가 여기에 표시됩니다.');
       setShowResult(true);
       setLoading(false);
     }, 2000);
@@ -55,7 +57,7 @@ const DrugScreening: React.FC = () => {
     >
       <Container maxWidth="lg">
         <Typography variant="h3" gutterBottom sx={{ mb: 4, color: 'var(--text-primary)' }}>
-          약물 스크리닝
+          {t('drugScreening.title')}
         </Typography>
 
         <Grid container spacing={3}>
@@ -64,12 +66,12 @@ const DrugScreening: React.FC = () => {
             <Card sx={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border-primary)', mb: 3 }}>
               <CardContent>
                 <Typography variant="h6" gutterBottom sx={{ color: 'var(--text-primary)', mb: 3 }}>
-                  약물 스크리닝 입력
+                  {t('drugScreening.screening.title')}
                 </Typography>
                 
                 <TextField
                   fullWidth
-                  label="약물명"
+                  label={t('common.drugName')}
                   value={drugName}
                   onChange={(e) => setDrugName(e.target.value)}
                   sx={{ mb: 3 }}
@@ -83,7 +85,7 @@ const DrugScreening: React.FC = () => {
                 
                 <TextField
                   fullWidth
-                  label="타겟 단백질/유전자"
+                  label={t('common.targetProtein')}
                   value={target}
                   onChange={(e) => setTarget(e.target.value)}
                   sx={{ mb: 3 }}
@@ -102,7 +104,7 @@ const DrugScreening: React.FC = () => {
                   fullWidth
                   sx={{ mb: 2 }}
                 >
-                  {loading ? '스크리닝 중...' : '약물 스크리닝 시작'}
+                  {loading ? t('drugScreening.results.loading') : t('common.startScreening')}
                 </Button>
               </CardContent>
             </Card>
@@ -113,7 +115,7 @@ const DrugScreening: React.FC = () => {
             <Card sx={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border-primary)', mb: 3 }}>
               <CardContent>
                 <Typography variant="h6" gutterBottom sx={{ color: 'var(--text-primary)', mb: 3 }}>
-                  스크리닝 결과
+                  {t('drugScreening.results.title')}
                 </Typography>
                 
                 {showResult && screening && (
@@ -126,7 +128,7 @@ const DrugScreening: React.FC = () => {
                   <Box sx={{ textAlign: 'center', py: 4 }}>
                     <MedicationIcon sx={{ fontSize: 64, color: 'var(--text-secondary)', mb: 2 }} />
                     <Typography variant="body1" sx={{ color: 'var(--text-secondary)' }}>
-                      약물명과 타겟을 입력하고 스크리닝을 시작하세요
+                      {t('drugScreening.results.instructions')}
                     </Typography>
                   </Box>
                 )}

@@ -1,0 +1,645 @@
+{
+  "common": {
+    "loading": "로딩 중...",
+    "error": "오류가 발생했습니다",
+    "success": "성공",
+    "cancel": "취소",
+    "confirm": "확인",
+    "save": "저장",
+    "delete": "삭제",
+    "edit": "편집",
+    "close": "닫기",
+    "back": "뒤로",
+    "next": "다음",
+    "previous": "이전",
+    "submit": "제출",
+    "reset": "초기화",
+    "search": "검색",
+    "filter": "필터",
+    "sort": "정렬",
+    "export": "내보내기",
+    "import": "가져오기",
+    "download": "다운로드",
+    "upload": "업로드",
+    "input": "입력",
+    "drugName": "약물명",
+    "targetProtein": "표적 단백질",
+    "diseaseModel": "질병 모델",
+    "region": "지역",
+    "runSimulation": "시뮬레이션 실행",
+    "instructions": "지시사항",
+    "startScreening": "스크리닝 시작",
+    "learnMore": "자세히 보기"
+  },
+  "navigation": {
+    "home": "홈",
+    "proteinSimulation": "단백질 시뮬레이션",
+    "molecularInteraction": "분자 간 상호작용 분석",
+    "diagnosisAI": "AI 진단",
+    "drugScreening": "약물 스크리닝",
+    "epidemiologyModel": "역학 모델링",
+    "userProfile": "프로필 설정",
+    "login": "로그인",
+    "logout": "로그아웃",
+    "language": "언어",
+    "theme": "테마"
+  },
+  "home": {
+    "urgencyBanner": "🚀 빠르게 시작하세요, 지금 바로!",
+    "mainHeadline": "BioLabs 생명과학 연구 플랫폼",
+    "subHeadline": "차세대 생명과학 연구를 위한 통합 솔루션",
+    "description": "복잡한 생물학적 데이터를 이해하기 쉽게 분석하고, AI 기반 진단과 시뮬레이션을 통해 연구의 새로운 차원을 경험하세요.",
+    "ctaText": "무료 체험 시작하기",
+    "rating": {
+      "count": "500+",
+      "text": "연구자들이 선택"
+    },
+    "navigation": {
+      "about": "소개",
+      "services": "서비스",
+      "plans": "요금제",
+      "contact": "문의",
+      "startNow": "지금 시작하기"
+    },
+    "features": {
+      "title": "BioLabs 플랫폼의 무제한 혜택",
+      "unlimitedAnalysis": {
+        "title": "무제한 분석",
+        "description": "모든 생물학적 데이터를 제한 없이 분석하고 처리할 수 있습니다."
+      },
+      "fastProcessing": {
+        "title": "빠른 처리",
+        "description": "고성능 컴퓨팅을 통해 빠른 결과를 얻으세요."
+      },
+      "noContracts": {
+        "title": "계약 없음",
+        "description": "장기 계약 없이 필요할 때만 사용하세요."
+      },
+      "noExtraCharges": {
+        "title": "추가 요금 없음",
+        "description": "숨겨진 비용 없이 투명한 가격으로 이용하세요."
+      },
+      "worldClassQuality": {
+        "title": "최고 품질",
+        "description": "세계 수준의 생명과학 연구 도구를 경험하세요."
+      },
+      "satisfactionGuarantee": {
+        "title": "만족 보장",
+        "description": "100% 만족하지 못하면 전액 환불해드립니다."
+      }
+    },
+    "introduction": {
+      "title": "무제한 생명과학 분석으로 더 이상 필요한 것이 없습니다",
+      "subtitle": "우리는 한계를 재정의하고, 생명과학 혁신의 새로운 기준을 제시합니다.",
+      "steps": {
+        "start": {
+          "title": "시작하기",
+          "description": "지금 가입하여 전문적인 생명과학 분석 도구를 경험해보세요."
+        },
+        "request": {
+          "title": "분석 요청",
+          "description": "원하는 데이터나 시뮬레이션을 요청하고 우리에게 알려주세요."
+        },
+        "review": {
+          "title": "결과 확인",
+          "description": "제공된 분석 결과와 시각화를 검토하고 활용하세요."
+        }
+      }
+    },
+    "platformFeatures": {
+      "title": "플랫폼 기능 소개",
+      "subtitle": "BioLabs의 강력한 연구 도구들을 살펴보세요",
+      "proteinSimulation": {
+        "title": "단백질 구조 시뮬레이션",
+        "description": "3D 단백질 구조를 실시간으로 시각화하고 분석",
+        "features": ["PDB 파일 지원", "3D 구조 시각화", "분자 동역학 시뮬레이션", "구조 최적화"],
+        "icon": "🧬"
+      },
+      "molecularInteraction": {
+        "title": "분자 간 상호작용 분석",
+        "description": "분자 간 결합과 상호작용을 정밀하게 분석",
+        "features": ["SMILES 구조 분석", "분자 데이터베이스 연동", "상호작용 네트워크", "결합 강도 예측"],
+        "icon": "🔬"
+      },
+      "diagnosisAI": {
+        "title": "AI 기반 의학 진단",
+        "description": "인공지능을 활용한 정확한 의료 영상 진단",
+        "features": ["MRI/CT/초음파 분석", "AI 패턴 인식", "진단 정확도 향상", "환자 정보 통합"],
+        "icon": "🤖"
+      },
+      "drugScreening": {
+        "title": "약물 스크리닝",
+        "description": "효과적인 약물 후보를 빠르게 발견",
+        "features": ["대규모 약물 데이터베이스", "표적 단백질 매칭", "부작용 예측", "약물 효능 평가"],
+        "icon": "💊"
+      },
+      "epidemiologyModel": {
+        "title": "역학 모델링",
+        "description": "질병 전파와 역학 패턴을 예측하고 분석",
+        "features": ["질병 전파 시뮬레이션", "지역별 역학 분석", "예측 모델링", "정책 효과 평가"],
+        "icon": "📊"
+      }
+    },
+    "faq": {
+      "title": "자주 묻는 질문",
+      "subtitle": "BioLabs 플랫폼 서비스를 더 잘 이해할 수 있도록 자주 묻는 질문들을 정리했습니다.",
+      "questions": {
+        "whatIsPlatform": {
+          "question": "BioLabs 플랫폼이란 무엇인가요?",
+          "answer": "BioLabs는 생명과학 연구를 위한 통합 플랫폼으로, 단백질 시뮬레이션, AI 진단, 분자 상호작용 분석 등 다양한 도구를 제공합니다."
+        },
+        "availableTools": {
+          "question": "어떤 분석 도구들을 사용할 수 있나요?",
+          "answer": "단백질 3D 시뮬레이션, AI 기반 질병 진단, 분자 간 상호작용 분석, 약물 스크리닝, 역학 모델링 등 다양한 도구를 제공합니다."
+        },
+        "freeUsage": {
+          "question": "무료로 사용할 수 있나요?",
+          "answer": "네, 기본 기능들은 무료로 사용할 수 있으며, 고급 기능은 유료 플랜에서 제공됩니다."
+        },
+        "dataSecurity": {
+          "question": "데이터 보안은 어떻게 되나요?",
+          "answer": "모든 데이터는 암호화되어 저장되며, 엄격한 보안 프로토콜을 통해 보호됩니다."
+        },
+        "cancellation": {
+          "question": "언제든지 취소할 수 있나요?",
+          "answer": "네, 언제든지 서비스를 취소할 수 있으며, 남은 기간에 대한 환불도 가능합니다."
+        }
+      }
+    }
+  },
+  "auth": {
+    "signIn": "로그인",
+    "signUp": "회원가입",
+    "signOut": "로그아웃",
+    "email": "이메일",
+    "password": "비밀번호",
+    "confirmPassword": "비밀번호 확인",
+    "displayName": "표시 이름",
+    "forgotPassword": "비밀번호를 잊으셨나요?",
+    "rememberMe": "로그인 상태 유지",
+    "googleSignIn": "Google로 로그인",
+    "githubSignIn": "GitHub로 로그인",
+    "appleSignIn": "Apple로 로그인",
+    "welcome": "환영합니다",
+    "signInSuccess": "로그인에 성공했습니다",
+    "signOutSuccess": "로그아웃되었습니다",
+    "authError": "인증 중 오류가 발생했습니다"
+  },
+  "profile": {
+    "title": "프로필 설정",
+    "personalInfo": "개인 정보",
+    "labSettings": "연구실 설정",
+    "preferences": "환경 설정",
+    "dataStatistics": "데이터 통계",
+    "language": "언어",
+    "languageFixed": "한국어 (고정)",
+    "englishComingSoon": "영어 버전 출시 예정"
+  },
+  "themes": {
+    "light": "라이트 모드",
+    "dark": "다크 모드",
+    "system": "시스템 설정"
+  },
+  "login": {
+    "title": "BioLabs 로그인",
+    "welcome": "BioLabs에 오신 것을 환영합니다",
+    "subtitle": "생명과학 연구를 위한 통합 플랫폼",
+    "email": "이메일",
+    "password": "비밀번호",
+    "rememberMe": "로그인 상태 유지",
+    "forgotPassword": "비밀번호를 잊으셨나요?",
+    "signIn": "로그인",
+    "signUp": "회원가입",
+    "googleSignIn": "Google로 로그인",
+    "githubSignIn": "GitHub로 로그인",
+    "appleSignIn": "Apple로 로그인",
+    "noAccount": "계정이 없으신가요?",
+    "hasAccount": "이미 계정이 있으신가요?",
+    "createAccount": "계정 만들기",
+    "loginError": "로그인 중 오류가 발생했습니다",
+    "invalidCredentials": "이메일 또는 비밀번호가 올바르지 않습니다",
+    "loading": "로그인 중..."
+  },
+  "proteinSimulation": {
+    "title": "단백질 시뮬레이션",
+    "subtitle": "3D 단백질 구조 시각화 및 분석",
+    "uploadPDB": "PDB 파일 업로드",
+    "selectFile": "파일 선택",
+    "dragDrop": "파일을 여기에 끌어다 놓거나 클릭하여 선택하세요",
+    "supportedFormats": "지원 형식: PDB, CIF",
+    "maxSize": "최대 파일 크기: 10MB",
+    "analyze": "분석 시작",
+    "reset": "초기화",
+    "download": "다운로드",
+    "view3D": "3D 보기",
+    "structureInfo": "구조 정보",
+    "loading": "로딩 중...",
+    "error": "오류가 발생했습니다",
+    "success": "분석이 완료되었습니다"
+  },
+  "diagnosisAI": {
+    "title": "AI 진단",
+    "subtitle": "인공지능 기반 질병 진단 및 분석",
+    "uploadImage": "의료 영상 업로드",
+    "selectImage": "이미지 선택",
+    "dragDropImage": "의료 영상을 여기에 끌어다 놓거나 클릭하여 선택하세요",
+    "supportedImageFormats": "지원 형식: JPG, PNG, DICOM",
+    "analyzeImage": "AI 분석 시작",
+    "diagnosisResult": "진단 결과",
+    "confidence": "신뢰도",
+    "recommendations": "권장사항",
+    "loading": "AI 분석 중...",
+    "error": "분석 중 오류가 발생했습니다",
+    "success": "분석이 완료되었습니다"
+  },
+    "drugScreening": {
+      "title": "약물 스크리닝",
+      "subtitle": "약물 스크리닝 및 효과 분석",
+      "targetProtein": "표적 단백질",
+      "compoundLibrary": "화합물 라이브러리",
+      "screeningMethod": "스크리닝 방법",
+      "startScreening": "스크리닝 시작",
+      "results": "스크리닝 결과",
+      "bindingAffinity": "결합 친화도",
+      "druglikeness": "약물 유사성",
+      "toxicity": "독성",
+      "loading": "스크리닝 중...",
+      "error": "스크리닝 중 오류가 발생했습니다",
+      "success": "스크리닝이 완료되었습니다",
+      "instructions": "약물명과 타겟을 입력하고 스크리닝을 시작하세요"
+    },
+  "epidemiologyModel": {
+    "title": "역학 모델링",
+    "subtitle": "역학 모델링 및 예측 분석",
+    "diseaseModel": "질병명",
+    "region": "지역",
+    "populationData": "인구 데이터",
+    "transmissionRate": "전파율",
+    "recoveryRate": "회복율",
+    "mortalityRate": "치사율",
+    "runSimulation": "역학 모델링 시작",
+    "results": "모델링 결과",
+    "epidemicCurve": "유행 곡선",
+    "peakInfection": "감염 정점",
+    "totalCases": "총 사례수",
+    "loading": "모델링 중...",
+    "error": "모델링 중 오류가 발생했습니다",
+    "success": "모델링이 완료되었습니다",
+    "instructions": "질병과 지역을 입력하고 모델링을 시작하세요"
+  },
+  "molecularInteraction": {
+    "title": "분자 간 상호작용 분석",
+    "subtitle": "PubChem과 KEGG 데이터베이스를 활용한 분자 상호작용 분석",
+    "molecule1": "분자 1",
+    "molecule2": "분자 2",
+    "interactionType": "상호작용 유형",
+    "analyzeInteraction": "상호작용 분석",
+    "results": "분석 결과",
+    "bindingEnergy": "결합 에너지",
+    "interactionStrength": "상호작용 강도",
+    "networkView": "네트워크 보기",
+    "loading": "분석 중...",
+    "error": "분석 중 오류가 발생했습니다",
+    "success": "분석이 완료되었습니다"
+  },
+  "molecularSolutionHelper": {
+    "title": "분자 분석 도우미",
+    "subtitle": "일반인을 위한 분자 상호작용 분석 가이드",
+    "searchMolecule": "분자 검색",
+    "moleculeName": "분자명",
+    "search": "검색",
+    "results": "검색 결과",
+    "moleculeInfo": "분자 정보",
+    "properties": "물리화학적 특성",
+    "uses": "용도",
+    "safety": "안전성",
+    "loading": "검색 중...",
+    "error": "검색 중 오류가 발생했습니다",
+    "success": "검색이 완료되었습니다"
+  },
+  "moleculeViewer": {
+    "title": "분자 뷰어",
+    "subtitle": "3D 분자 구조 시각화",
+    "uploadFile": "파일 업로드",
+    "view3D": "3D 보기",
+    "rotate": "회전",
+    "zoom": "확대/축소",
+    "reset": "초기화",
+    "export": "내보내기",
+    "loading": "로딩 중...",
+    "error": "오류가 발생했습니다"
+  },
+  "common": {
+    "loading": "로딩 중...",
+    "error": "오류가 발생했습니다",
+    "success": "성공",
+    "cancel": "취소",
+    "confirm": "확인",
+    "save": "저장",
+    "delete": "삭제",
+    "edit": "편집",
+    "close": "닫기",
+    "back": "뒤로",
+    "next": "다음",
+    "previous": "이전",
+    "submit": "제출",
+    "reset": "초기화",
+    "search": "검색",
+    "filter": "필터",
+    "sort": "정렬",
+    "export": "내보내기",
+    "import": "가져오기",
+    "download": "다운로드",
+    "upload": "업로드",
+    "input": "입력",
+    "drugName": "약물명",
+    "with": "로",
+    "socialAccount": "소셜 계정",
+    "start": "시작",
+    "stop": "중지",
+    "pause": "일시정지",
+    "resume": "재개",
+    "refresh": "새로고침",
+    "copy": "복사",
+    "paste": "붙여넣기",
+    "cut": "잘라내기",
+    "undo": "실행 취소",
+    "redo": "다시 실행",
+    "help": "도움말",
+    "about": "정보",
+    "settings": "설정",
+    "preferences": "환경설정",
+    "account": "계정",
+    "profile": "프로필",
+    "logout": "로그아웃",
+    "login": "로그인",
+    "register": "회원가입",
+    "forgotPassword": "비밀번호 찾기",
+    "changePassword": "비밀번호 변경",
+    "updateProfile": "프로필 업데이트",
+    "deleteAccount": "계정 삭제",
+    "privacyPolicy": "개인정보처리방침",
+    "termsOfService": "서비스 약관",
+    "contactUs": "문의하기",
+    "feedback": "피드백",
+    "reportBug": "버그 신고",
+    "featureRequest": "기능 요청",
+    "documentation": "문서",
+    "tutorial": "튜토리얼",
+    "faq": "자주 묻는 질문",
+    "changelog": "변경사항",
+    "version": "버전",
+    "license": "라이선스",
+    "copyright": "저작권",
+    "allRightsReserved": "모든 권리 보유"
+  },
+  "proteinSimulation": {
+    "title": "단백질 구조 시뮬레이션",
+    "subtitle": "3D 단백질 구조 시각화 및 분석",
+    "search": {
+      "title": "단백질 검색",
+      "placeholder": "PDB ID 또는 단백질명 입력 (예: 1CRN, insulin)",
+      "button": "검색",
+      "history": "검색 기록",
+      "help": {
+        "autonomous": "자율 검색",
+        "autonomousDesc": "PDB ID, 단백질 이름, 기능, 생물학적 특성 등으로 자유롭게 검색하세요!",
+        "examples": "검색 예시",
+        "examplesList": "\"1UBQ\", \"7VCF\", \"hemoglobin\", \"oxygen\", \"enzyme\", \"covid\", \"fluorescent\"",
+        "localDB": "로컬 DB",
+        "localDBDesc": "1UBQ, 1CRN, 1HHB, 1GFL, 6LU7, 7VCF 등 15개 구조 즉시 사용 가능"
+      }
+    },
+    "pdbInput": {
+      "title": "PDB 텍스트 입력",
+      "placeholder": "PDB 파일의 내용을 여기에 붙여넣으세요..."
+    },
+    "results": {
+      "title": "검색 결과",
+      "noResults": "검색 결과가 없습니다",
+      "loading": "검색 중...",
+      "structure": "구조",
+      "organism": "생물체",
+      "method": "방법",
+      "resolution": "해상도",
+      "download": "다운로드",
+      "load": "로드"
+    },
+    "viewer": {
+      "title": "3D 구조 뷰어",
+      "loading": "구조를 로딩 중입니다...",
+      "error": "구조를 로딩할 수 없습니다",
+      "noStructure": "로드된 구조가 없습니다"
+    },
+    "controls": {
+      "title": "시각화 제어",
+      "representation": "표현 방식",
+      "colorScheme": "색상 체계",
+      "background": "배경",
+      "reset": "초기화",
+      "screenshot": "스크린샷"
+    },
+    "information": {
+      "title": "구조 정보",
+      "pdbId": "PDB ID",
+      "structureTitle": "제목",
+      "organism": "생물체",
+      "method": "방법",
+      "resolution": "해상도",
+      "depositionDate": "입고일",
+      "lastModified": "최종 수정일"
+    },
+    "analysis": {
+      "title": "구조 분석",
+      "secondaryStructure": "2차 구조",
+      "hydrogenBonds": "수소 결합",
+      "saltBridges": "염 브리지",
+      "hydrophobicContacts": "소수성 접촉",
+      "surfaceArea": "표면적"
+    }
+  },
+  "molecularInteractionAnalysis": {
+    "title": "분자 간 상호작용 분석",
+    "subtitle": "분자 간 결합 및 상호작용 분석",
+    "searchEngine": {
+      "title": "통합 분자 검색 엔진",
+      "placeholder": "분자명, SMILES, 분자식, 또는 PubChem ID 검색",
+      "databases": "검색 대상 데이터베이스"
+    },
+    "selectedMolecules": {
+      "title": "선택된 분자",
+      "instructions": "검색 결과에서 분자를 선택하세요"
+    },
+    "input": {
+      "title": "입력 데이터",
+      "placeholder": "분자 ID 또는 SMILES 입력",
+      "button": "분석 시작",
+      "examples": "예시 분자들"
+    },
+    "analysis": {
+      "title": "상호작용 분석",
+      "loading": "분석 중...",
+      "error": "분석 중 오류가 발생했습니다",
+      "results": "분석 결과"
+    },
+    "visualization": {
+      "title": "시각화",
+      "network": "상호작용 네트워크",
+      "heatmap": "상호작용 히트맵",
+      "graph": "상호작용 그래프"
+    },
+    "results": {
+      "title": "결과",
+      "interactions": "상호작용",
+      "strength": "강도",
+      "type": "유형",
+      "confidence": "신뢰도"
+    }
+  },
+  "diagnosisAI": {
+    "title": "AI 의학 진단 시스템",
+    "subtitle": "인공지능 기반 의학 진단 및 분석",
+    "tabs": {
+      "mri": "MRI 진단",
+      "ct": "CT 진단",
+      "ultrasound": "초음파 진단",
+      "general": "일반 진단"
+    },
+    "mri": {
+      "title": "MRI 이미지 업로드 및 진단",
+      "uploadTitle": "MRI 이미지 업로드"
+    },
+    "upload": {
+      "title": "진단 데이터 업로드",
+      "description": "의학 영상 또는 진단 데이터를 업로드하세요",
+      "selectFile": "파일 선택",
+      "dragDrop": "이미지를 드래그하여 놓거나 클릭하여 선택하세요",
+      "dropHere": "여기에 이미지를 놓으세요!",
+      "supportedFormats": "지원 형식: DICOM, JPG, PNG, PDF"
+    },
+    "patientInfo": {
+      "title": "환자 정보 입력",
+      "age": "나이",
+      "gender": "성별",
+      "medicalHistory": "과거 병력"
+    },
+    "analysis": {
+      "title": "AI 분석",
+      "loading": "AI 진단 중...",
+      "start": "AI 진단 시작",
+      "processing": "처리 중...",
+      "complete": "분석 완료"
+    },
+    "results": {
+      "title": "진단 결과",
+      "diagnosis": "진단",
+      "confidence": "신뢰도",
+      "recommendations": "권장사항",
+      "details": "상세 정보"
+    },
+    "history": {
+      "title": "진단 기록",
+      "date": "날짜",
+      "type": "유형",
+      "status": "상태",
+      "view": "보기"
+    }
+  },
+  "drugScreening": {
+    "title": "약물 스크리닝",
+    "subtitle": "고처리량 약물 스크리닝 및 분석",
+    "screening": {
+      "title": "약물 스크리닝 입력",
+      "target": "표적 단백질",
+      "library": "화합물 라이브러리",
+      "method": "스크리닝 방법",
+      "button": "스크리닝 시작"
+    },
+    "results": {
+      "title": "스크리닝 결과",
+      "loading": "스크리닝 중...",
+      "hits": "히트",
+      "score": "점수",
+      "activity": "활성도",
+      "selectivity": "선택성",
+      "instructions": "약물명과 표적 단백질을 입력하고 스크리닝을 시작하세요"
+    },
+    "analysis": {
+      "title": "결과 분석",
+      "topHits": "상위 히트",
+      "structure": "구조",
+      "properties": "특성",
+      "similarity": "유사성"
+    }
+  },
+  "epidemiologyModel": {
+    "title": "역학 모델링",
+    "subtitle": "전염병 확산 모델링 및 예측",
+    "model": {
+      "title": "역학 모델링 입력",
+      "disease": "질병",
+      "population": "인구",
+      "parameters": "매개변수",
+      "button": "모델 실행"
+    },
+    "simulation": {
+      "title": "시뮬레이션",
+      "loading": "시뮬레이션 실행 중...",
+      "progress": "진행률",
+      "status": "상태"
+    },
+    "results": {
+      "title": "모델링 결과",
+      "prediction": "예측",
+      "timeline": "시간대별 변화",
+      "peak": "피크",
+      "duration": "지속기간",
+      "instructions": "질병과 지역을 입력하고 모델링을 시작하세요"
+    },
+    "visualization": {
+      "title": "시각화",
+      "chart": "차트",
+      "map": "지도",
+      "animation": "애니메이션"
+    }
+  },
+  "userProfile": {
+    "title": "프로필 설정",
+    "subtitle": "계정 정보 및 설정 관리",
+    "personalInfo": {
+      "title": "개인 정보",
+      "displayName": "표시 이름",
+      "email": "이메일",
+      "institution": "소속 기관",
+      "department": "부서",
+      "phone": "전화번호",
+      "bio": "자기소개"
+    },
+    "labSettings": {
+      "title": "연구실 설정",
+      "labName": "연구실 이름",
+      "researchArea": "연구 분야",
+      "equipment": "장비",
+      "collaborators": "협력자"
+    },
+    "preferences": {
+      "title": "환경 설정",
+      "theme": "테마",
+      "language": "언어",
+      "notifications": "알림",
+      "privacy": "개인정보"
+    },
+    "security": {
+      "title": "보안",
+      "changePassword": "비밀번호 변경",
+      "twoFactor": "2단계 인증",
+      "sessions": "활성 세션"
+    },
+    "actions": {
+      "save": "저장",
+      "cancel": "취소",
+      "delete": "계정 삭제",
+      "export": "데이터 내보내기"
+    }
+  }
+}

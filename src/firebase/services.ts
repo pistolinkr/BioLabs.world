@@ -118,7 +118,7 @@ const saveUserData = async (user: User, provider: string) => {
       labData: {
         proteinSimulations: [],
         diagnosisResults: [],
-        interactionNetworks: [],
+
         drugScreenings: [],
         epidemiologyModels: []
       }
@@ -393,10 +393,7 @@ export const saveDiagnosisResult = async (userId: string, diagnosisData: any) =>
   return await saveUserLabData(userId, 'diagnosisResults', diagnosisData);
 };
 
-// 사용자별 Interaction Network 저장
-export const saveInteractionNetwork = async (userId: string, networkData: any) => {
-  return await saveUserLabData(userId, 'interactionNetworks', networkData);
-};
+
 
 // 사용자별 Drug Screening 결과 저장
 export const saveDrugScreening = async (userId: string, screeningData: any) => {

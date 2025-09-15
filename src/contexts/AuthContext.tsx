@@ -21,7 +21,6 @@ import {
 export interface LabData {
   proteinSimulations: any[];
   diagnosisResults: any[];
-  interactionNetworks: any[];
   drugScreenings: any[];
   epidemiologyModels: any[];
 }
@@ -149,7 +148,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             labData: userData.labData || {
               proteinSimulations: [],
               diagnosisResults: [],
-              interactionNetworks: [],
               drugScreenings: [],
               epidemiologyModels: []
             }
@@ -168,7 +166,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             labData: {
               proteinSimulations: [],
               diagnosisResults: [],
-              interactionNetworks: [],
               drugScreenings: [],
               epidemiologyModels: []
             }

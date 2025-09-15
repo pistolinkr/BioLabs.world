@@ -1,28 +1,22 @@
 /* 전역 테마 변수 정의 */
 :root {
-  /* 다크 테마 (기본값) */
-  --bg-primary: #000000;
-  --bg-secondary: #121212;
-  --bg-tertiary: #1a1a1a;
-  --text-primary: #ffffff;
-  --text-secondary: #cccccc;
-  --text-muted: #888888;
-  --border-primary: #333333;
-  --border-secondary: #ffffff;
-  --accent-primary: #2196F3;
-  --accent-secondary: #2196F3;
-  --shadow-light: rgba(255, 255, 255, 0.1);
-  --shadow-medium: rgba(255, 255, 255, 0.2);
-  --shadow-heavy: rgba(255, 255, 255, 0.3);
-  --success-color: #2196F3;
-  --warning-color: #FF9800;
-  --error-color: #F44336;
-  --info-color: #2196F3;
+  --bg-primary: #f5f5f5;
+  --bg-secondary: #f8f9fa;
+  --bg-hover: #e9ecef;
+  --text-primary: #212529;
+  --text-secondary: #6c757d;
+  --border-primary: #dee2e6;
+  --primary-main: #1976d2;
+  --primary-dark: #1565c0;
+  --primary-light: #42a5f5;
+  --success-main: #2e7d32;
+  --warning-main: #ed6c02;
+  --error-main: #d32f2f;
 }
 
 /* 라이트 테마 (최적화됨) */
 [data-theme="light"] {
-  --bg-primary: #ffffff;
+  --bg-primary: #f5f5f5;
   --bg-secondary: #f8f9fa;
   --bg-tertiary: #e9ecef;
   --text-primary: #1a1a1a;
@@ -39,6 +33,19 @@
   --warning-color: #ffc107;
   --error-color: #dc3545;
   --info-color: #17a2b8;
+}
+
+/* 다크 테마 */
+[data-theme="dark"] {
+  --bg-primary: #121212;
+  --bg-secondary: #1e1e1e;
+  --bg-hover: #2d2d2d;
+  --text-primary: #ffffff;
+  --text-secondary: #b0b0b0;
+  --border-primary: #333333;
+  --primary-main: #90caf9;
+  --primary-dark: #42a5f5;
+  --primary-light: #e3f2fd;
 }
 
 body {
@@ -391,6 +398,89 @@ input, textarea, select {
   button:hover, .MuiButton-root:hover {
     transform: translateY(-1px) !important;
     box-shadow: 0 4px 8px var(--shadow-medium) !important;
+  }
+}
+
+/* 전역 카드 스타일 */
+.card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+/* 전역 섹션 스타일 */
+.section {
+  margin-bottom: 32px;
+}
+
+.section-title {
+  color: var(--text-primary);
+  margin-bottom: 16px;
+}
+
+/* 전역 그리드 스타일 */
+.grid {
+  display: grid;
+  gap: 16px;
+}
+
+.grid-2 {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.grid-3 {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.grid-4 {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+/* 반응형 유틸리티 */
+@media (max-width: 768px) {
+  .grid-2,
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
+  
+  .card {
+    padding: 12px;
+  }
+  
+  .section {
+    margin-bottom: 24px;
+  }
+}
+
+/* 애니메이션 유틸리티 */
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+.slide-up {
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
   }
 }
 

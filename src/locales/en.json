@@ -1,0 +1,645 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "success": "Success",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Submit",
+    "reset": "Reset",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "export": "Export",
+    "import": "Import",
+    "download": "Download",
+    "upload": "Upload",
+    "input": "Input",
+    "drugName": "Drug Name",
+    "targetProtein": "Target Protein",
+    "diseaseModel": "Disease Model",
+    "region": "Region",
+    "runSimulation": "Run Simulation",
+    "instructions": "Instructions",
+    "startScreening": "Start Screening",
+    "learnMore": "Learn More"
+  },
+  "navigation": {
+    "home": "Home",
+    "proteinSimulation": "Protein Simulation",
+    "molecularInteraction": "Molecular Interaction Analysis",
+    "diagnosisAI": "AI Diagnosis",
+    "drugScreening": "Drug Screening",
+    "epidemiologyModel": "Epidemiology Modeling",
+    "userProfile": "Profile Settings",
+    "login": "Login",
+    "logout": "Logout",
+    "language": "Language",
+    "theme": "Theme"
+  },
+  "home": {
+    "urgencyBanner": "🚀 Get started quickly, right now!",
+    "mainHeadline": "BioLabs Life Sciences Research Platform",
+    "subHeadline": "Integrated Solutions for Next-Generation Life Sciences Research",
+    "description": "Analyze complex biological data in an understandable way and experience new dimensions of research through AI-based diagnosis and simulation.",
+    "ctaText": "Start Free Trial",
+    "rating": {
+      "count": "500+",
+      "text": "researchers choose"
+    },
+    "navigation": {
+      "about": "About",
+      "services": "Services",
+      "plans": "Plans",
+      "contact": "Contact",
+      "startNow": "Start Now"
+    },
+    "features": {
+      "title": "Unlimited Benefits with BioLabs Platform",
+      "unlimitedAnalysis": {
+        "title": "Unlimited Analysis",
+        "description": "Analyze and process all biological data without any limitations."
+      },
+      "fastProcessing": {
+        "title": "Fast Processing",
+        "description": "Get fast results through high-performance computing."
+      },
+      "noContracts": {
+        "title": "No Contracts",
+        "description": "Use only when needed without long-term contracts."
+      },
+      "noExtraCharges": {
+        "title": "No Extra Charges",
+        "description": "Use with transparent pricing without hidden costs."
+      },
+      "worldClassQuality": {
+        "title": "World-Class Quality",
+        "description": "Experience world-class life sciences research tools."
+      },
+      "satisfactionGuarantee": {
+        "title": "Satisfaction Guarantee",
+        "description": "100% money-back guarantee if not satisfied."
+      }
+    },
+    "introduction": {
+      "title": "Unlimited life sciences analysis ensures you won't need anything else",
+      "subtitle": "We're redefining the limits and setting new standards in life sciences innovation.",
+      "steps": {
+        "start": {
+          "title": "Get Started",
+          "description": "Join now to experience professional life sciences analysis tools."
+        },
+        "request": {
+          "title": "Request Analysis",
+          "description": "Submit your analysis requests and let us know your needs."
+        },
+        "review": {
+          "title": "Review Results",
+          "description": "Review and utilize the provided analysis results and visualizations."
+        }
+      }
+    },
+    "platformFeatures": {
+      "title": "Platform Features",
+      "subtitle": "Explore BioLabs' powerful research tools",
+      "proteinSimulation": {
+        "title": "Protein Structure Simulation",
+        "description": "Visualize and analyze 3D protein structures in real-time",
+        "features": ["PDB file support", "3D structure visualization", "Molecular dynamics simulation", "Structure optimization"],
+        "icon": "🧬"
+      },
+      "molecularInteraction": {
+        "title": "Molecular Interaction Analysis",
+        "description": "Precisely analyze molecular binding and interactions",
+        "features": ["SMILES structure analysis", "Molecular database integration", "Interaction networks", "Binding affinity prediction"],
+        "icon": "🔬"
+      },
+      "diagnosisAI": {
+        "title": "AI-Based Medical Diagnosis",
+        "description": "Accurate medical image diagnosis using artificial intelligence",
+        "features": ["MRI/CT/Ultrasound analysis", "AI pattern recognition", "Enhanced diagnostic accuracy", "Patient information integration"],
+        "icon": "🤖"
+      },
+      "drugScreening": {
+        "title": "Drug Screening",
+        "description": "Quickly discover effective drug candidates",
+        "features": ["Large-scale drug database", "Target protein matching", "Side effect prediction", "Drug efficacy assessment"],
+        "icon": "💊"
+      },
+      "epidemiologyModel": {
+        "title": "Epidemiology Modeling",
+        "description": "Predict and analyze disease transmission and epidemiological patterns",
+        "features": ["Disease transmission simulation", "Regional epidemiological analysis", "Predictive modeling", "Policy effect evaluation"],
+        "icon": "📊"
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "subtitle": "To help you better understand BioLabs platform services, we have compiled frequently asked questions.",
+      "questions": {
+        "whatIsPlatform": {
+          "question": "What is BioLabs Platform?",
+          "answer": "BioLabs is an integrated platform for life sciences research, providing various tools including protein simulation, AI diagnosis, molecular interaction analysis, and more."
+        },
+        "availableTools": {
+          "question": "What analysis tools can I use?",
+          "answer": "We provide various tools including protein 3D simulation, AI-based disease diagnosis, molecular interaction analysis, drug screening, and epidemiology modeling."
+        },
+        "freeUsage": {
+          "question": "Can I use it for free?",
+          "answer": "Yes, basic features are available for free, and advanced features are provided in paid plans."
+        },
+        "dataSecurity": {
+          "question": "How is data security handled?",
+          "answer": "All data is encrypted and stored with strict security protocols to ensure protection."
+        },
+        "cancellation": {
+          "question": "Can I cancel anytime?",
+          "answer": "Yes, you can cancel the service anytime, and refunds are available for the remaining period."
+        }
+      }
+    }
+  },
+  "auth": {
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "signOut": "Sign Out",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "displayName": "Display Name",
+    "forgotPassword": "Forgot Password?",
+    "rememberMe": "Remember Me",
+    "googleSignIn": "Sign in with Google",
+    "githubSignIn": "Sign in with GitHub",
+    "appleSignIn": "Sign in with Apple",
+    "welcome": "Welcome",
+    "signInSuccess": "Successfully signed in",
+    "signOutSuccess": "Successfully signed out",
+    "authError": "Authentication error occurred"
+  },
+  "profile": {
+    "title": "Profile Settings",
+    "personalInfo": "Personal Information",
+    "labSettings": "Lab Settings",
+    "preferences": "Preferences",
+    "dataStatistics": "Data Statistics",
+    "language": "Language",
+    "languageFixed": "English (Fixed)",
+    "englishComingSoon": "Korean version coming soon"
+  },
+  "themes": {
+    "light": "Light Mode",
+    "dark": "Dark Mode",
+    "system": "System Settings"
+  },
+  "login": {
+    "title": "BioLabs Login",
+    "welcome": "Welcome to BioLabs",
+    "subtitle": "Integrated platform for life sciences research",
+    "email": "Email",
+    "password": "Password",
+    "rememberMe": "Remember Me",
+    "forgotPassword": "Forgot Password?",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "googleSignIn": "Sign in with Google",
+    "githubSignIn": "Sign in with GitHub",
+    "appleSignIn": "Sign in with Apple",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "createAccount": "Create Account",
+    "loginError": "An error occurred during login",
+    "invalidCredentials": "Invalid email or password",
+    "loading": "Signing in..."
+  },
+  "proteinSimulation": {
+    "title": "Protein Simulation",
+    "subtitle": "3D protein structure visualization and analysis",
+    "uploadPDB": "Upload PDB File",
+    "selectFile": "Select File",
+    "dragDrop": "Drag and drop files here or click to select",
+    "supportedFormats": "Supported formats: PDB, CIF",
+    "maxSize": "Maximum file size: 10MB",
+    "analyze": "Start Analysis",
+    "reset": "Reset",
+    "download": "Download",
+    "view3D": "3D View",
+    "structureInfo": "Structure Information",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "success": "Analysis completed"
+  },
+  "diagnosisAI": {
+    "title": "AI Diagnosis",
+    "subtitle": "AI-based disease diagnosis and analysis",
+    "uploadImage": "Upload Medical Image",
+    "selectImage": "Select Image",
+    "dragDropImage": "Drag and drop medical images here or click to select",
+    "supportedImageFormats": "Supported formats: JPG, PNG, DICOM",
+    "analyzeImage": "Start AI Analysis",
+    "diagnosisResult": "Diagnosis Result",
+    "confidence": "Confidence",
+    "recommendations": "Recommendations",
+    "loading": "AI analyzing...",
+    "error": "An error occurred during analysis",
+    "success": "Analysis completed"
+  },
+    "drugScreening": {
+      "title": "Drug Screening",
+      "subtitle": "Drug screening and efficacy analysis",
+      "targetProtein": "Target Protein",
+      "compoundLibrary": "Compound Library",
+      "screeningMethod": "Screening Method",
+      "startScreening": "Start Screening",
+      "results": "Screening Results",
+      "bindingAffinity": "Binding Affinity",
+      "druglikeness": "Drug-likeness",
+      "toxicity": "Toxicity",
+      "loading": "Screening...",
+      "error": "An error occurred during screening",
+      "success": "Screening completed",
+      "instructions": "Enter drug name and target to start screening"
+    },
+  "epidemiologyModel": {
+    "title": "Epidemiology Modeling",
+    "subtitle": "Epidemiology modeling and predictive analysis",
+    "diseaseModel": "Disease Name",
+    "region": "Region",
+    "populationData": "Population Data",
+    "transmissionRate": "Transmission Rate",
+    "recoveryRate": "Recovery Rate",
+    "mortalityRate": "Mortality Rate",
+    "runSimulation": "Start Epidemiology Modeling",
+    "results": "Modeling Results",
+    "epidemicCurve": "Epidemic Curve",
+    "peakInfection": "Peak Infection",
+    "totalCases": "Total Cases",
+    "loading": "Modeling...",
+    "error": "An error occurred during modeling",
+    "success": "Modeling completed",
+    "instructions": "Enter disease and region to start modeling"
+  },
+  "molecularInteraction": {
+    "title": "Molecular Interaction Analysis",
+    "subtitle": "Molecular interaction analysis using PubChem and KEGG databases",
+    "molecule1": "Molecule 1",
+    "molecule2": "Molecule 2",
+    "interactionType": "Interaction Type",
+    "analyzeInteraction": "Analyze Interaction",
+    "results": "Analysis Results",
+    "bindingEnergy": "Binding Energy",
+    "interactionStrength": "Interaction Strength",
+    "networkView": "Network View",
+    "loading": "Analyzing...",
+    "error": "An error occurred during analysis",
+    "success": "Analysis completed"
+  },
+  "molecularSolutionHelper": {
+    "title": "Molecular Analysis Helper",
+    "subtitle": "Molecular interaction analysis guide for general users",
+    "searchMolecule": "Search Molecule",
+    "moleculeName": "Molecule Name",
+    "search": "Search",
+    "results": "Search Results",
+    "moleculeInfo": "Molecule Information",
+    "properties": "Physicochemical Properties",
+    "uses": "Uses",
+    "safety": "Safety",
+    "loading": "Searching...",
+    "error": "An error occurred during search",
+    "success": "Search completed"
+  },
+  "moleculeViewer": {
+    "title": "Molecule Viewer",
+    "subtitle": "3D molecular structure visualization",
+    "uploadFile": "Upload File",
+    "view3D": "3D View",
+    "rotate": "Rotate",
+    "zoom": "Zoom",
+    "reset": "Reset",
+    "export": "Export",
+    "loading": "Loading...",
+    "error": "An error occurred"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "success": "Success",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Submit",
+    "reset": "Reset",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "export": "Export",
+    "import": "Import",
+    "download": "Download",
+    "upload": "Upload",
+    "input": "Input",
+    "drugName": "Drug Name",
+    "with": "with",
+    "socialAccount": "Social Account",
+    "start": "Start",
+    "stop": "Stop",
+    "pause": "Pause",
+    "resume": "Resume",
+    "refresh": "Refresh",
+    "copy": "Copy",
+    "paste": "Paste",
+    "cut": "Cut",
+    "undo": "Undo",
+    "redo": "Redo",
+    "help": "Help",
+    "about": "About",
+    "settings": "Settings",
+    "preferences": "Preferences",
+    "account": "Account",
+    "profile": "Profile",
+    "logout": "Logout",
+    "login": "Login",
+    "register": "Register",
+    "forgotPassword": "Forgot Password",
+    "changePassword": "Change Password",
+    "updateProfile": "Update Profile",
+    "deleteAccount": "Delete Account",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "contactUs": "Contact Us",
+    "feedback": "Feedback",
+    "reportBug": "Report Bug",
+    "featureRequest": "Feature Request",
+    "documentation": "Documentation",
+    "tutorial": "Tutorial",
+    "faq": "Frequently Asked Questions",
+    "changelog": "Changelog",
+    "version": "Version",
+    "license": "License",
+    "copyright": "Copyright",
+    "allRightsReserved": "All Rights Reserved"
+  },
+  "proteinSimulation": {
+    "title": "Protein Structure Simulation",
+    "subtitle": "3D Protein Structure Visualization and Analysis",
+    "search": {
+      "title": "Protein Search",
+      "placeholder": "Enter PDB ID or protein name (e.g., 1CRN, insulin)",
+      "button": "Search",
+      "history": "Search History",
+      "help": {
+        "autonomous": "Autonomous Search",
+        "autonomousDesc": "Search freely by PDB ID, protein name, function, biological characteristics, etc.!",
+        "examples": "Search Examples",
+        "examplesList": "\"1UBQ\", \"7VCF\", \"hemoglobin\", \"oxygen\", \"enzyme\", \"covid\", \"fluorescent\"",
+        "localDB": "Local DB",
+        "localDBDesc": "15 structures like 1UBQ, 1CRN, 1HHB, 1GFL, 6LU7, 7VCF are immediately available for use"
+      }
+    },
+    "pdbInput": {
+      "title": "PDB Text Input",
+      "placeholder": "Paste the contents of the PDB file here..."
+    },
+    "results": {
+      "title": "Search Results",
+      "noResults": "No search results found",
+      "loading": "Searching...",
+      "structure": "Structure",
+      "organism": "Organism",
+      "method": "Method",
+      "resolution": "Resolution",
+      "download": "Download",
+      "load": "Load"
+    },
+    "viewer": {
+      "title": "3D Structure Viewer",
+      "loading": "Loading structure...",
+      "error": "Unable to load structure",
+      "noStructure": "No structure loaded"
+    },
+    "controls": {
+      "title": "Visualization Controls",
+      "representation": "Representation",
+      "colorScheme": "Color Scheme",
+      "background": "Background",
+      "reset": "Reset",
+      "screenshot": "Screenshot"
+    },
+    "information": {
+      "title": "Structure Information",
+      "pdbId": "PDB ID",
+      "structureTitle": "Title",
+      "organism": "Organism",
+      "method": "Method",
+      "resolution": "Resolution",
+      "depositionDate": "Deposition Date",
+      "lastModified": "Last Modified"
+    },
+    "analysis": {
+      "title": "Structure Analysis",
+      "secondaryStructure": "Secondary Structure",
+      "hydrogenBonds": "Hydrogen Bonds",
+      "saltBridges": "Salt Bridges",
+      "hydrophobicContacts": "Hydrophobic Contacts",
+      "surfaceArea": "Surface Area"
+    }
+  },
+  "molecularInteractionAnalysis": {
+    "title": "Molecular Interaction Analysis",
+    "subtitle": "Molecular Binding and Interaction Analysis",
+    "searchEngine": {
+      "title": "Integrated Molecular Search Engine",
+      "placeholder": "Search by molecular name, SMILES, molecular formula, or PubChem ID",
+      "databases": "Target Databases"
+    },
+    "selectedMolecules": {
+      "title": "Selected Molecules",
+      "instructions": "Select molecules from search results"
+    },
+    "input": {
+      "title": "Input Data",
+      "placeholder": "Enter molecular ID or SMILES",
+      "button": "Start Analysis",
+      "examples": "Example Molecules"
+    },
+    "analysis": {
+      "title": "Interaction Analysis",
+      "loading": "Analyzing...",
+      "error": "Error occurred during analysis",
+      "results": "Analysis Results"
+    },
+    "visualization": {
+      "title": "Visualization",
+      "network": "Interaction Network",
+      "heatmap": "Interaction Heatmap",
+      "graph": "Interaction Graph"
+    },
+    "results": {
+      "title": "Results",
+      "interactions": "Interactions",
+      "strength": "Strength",
+      "type": "Type",
+      "confidence": "Confidence"
+    }
+  },
+  "diagnosisAI": {
+    "title": "AI Medical Diagnosis System",
+    "subtitle": "AI-based Medical Diagnosis and Analysis",
+    "tabs": {
+      "mri": "MRI Diagnosis",
+      "ct": "CT Diagnosis",
+      "ultrasound": "Ultrasound Diagnosis",
+      "general": "General Diagnosis"
+    },
+    "mri": {
+      "title": "MRI Image Upload and Diagnosis",
+      "uploadTitle": "MRI Image Upload"
+    },
+    "upload": {
+      "title": "Upload Diagnosis Data",
+      "description": "Upload medical images or diagnostic data",
+      "selectFile": "Select File",
+      "dragDrop": "Drag and drop images or click to select",
+      "dropHere": "Drop images here!",
+      "supportedFormats": "Supported formats: DICOM, JPG, PNG, PDF"
+    },
+    "patientInfo": {
+      "title": "Patient Information Input",
+      "age": "Age",
+      "gender": "Gender",
+      "medicalHistory": "Past Medical History"
+    },
+    "analysis": {
+      "title": "AI Analysis",
+      "loading": "AI is diagnosing...",
+      "start": "Start AI Diagnosis",
+      "processing": "Processing...",
+      "complete": "Analysis Complete"
+    },
+    "results": {
+      "title": "Diagnosis Results",
+      "diagnosis": "Diagnosis",
+      "confidence": "Confidence",
+      "recommendations": "Recommendations",
+      "details": "Details"
+    },
+    "history": {
+      "title": "Diagnosis History",
+      "date": "Date",
+      "type": "Type",
+      "status": "Status",
+      "view": "View"
+    }
+  },
+  "drugScreening": {
+    "title": "Drug Screening",
+    "subtitle": "High-Throughput Drug Screening and Analysis",
+    "screening": {
+      "title": "Drug Screening Input",
+      "target": "Target Protein",
+      "library": "Compound Library",
+      "method": "Screening Method",
+      "button": "Start Screening"
+    },
+    "results": {
+      "title": "Screening Results",
+      "loading": "Screening...",
+      "hits": "Hits",
+      "score": "Score",
+      "activity": "Activity",
+      "selectivity": "Selectivity",
+      "instructions": "Enter drug name and target protein to start screening"
+    },
+    "analysis": {
+      "title": "Results Analysis",
+      "topHits": "Top Hits",
+      "structure": "Structure",
+      "properties": "Properties",
+      "similarity": "Similarity"
+    }
+  },
+  "epidemiologyModel": {
+    "title": "Epidemiology Modeling",
+    "subtitle": "Disease Spread Modeling and Prediction",
+    "model": {
+      "title": "Epidemiology Modeling Input",
+      "disease": "Disease",
+      "population": "Population",
+      "parameters": "Parameters",
+      "button": "Run Model"
+    },
+    "simulation": {
+      "title": "Simulation",
+      "loading": "Running simulation...",
+      "progress": "Progress",
+      "status": "Status"
+    },
+    "results": {
+      "title": "Modeling Results",
+      "prediction": "Prediction",
+      "timeline": "Timeline Changes",
+      "peak": "Peak",
+      "duration": "Duration",
+      "instructions": "Enter disease and region to start modeling"
+    },
+    "visualization": {
+      "title": "Visualization",
+      "chart": "Chart",
+      "map": "Map",
+      "animation": "Animation"
+    }
+  },
+  "userProfile": {
+    "title": "Profile Settings",
+    "subtitle": "Account Information and Settings Management",
+    "personalInfo": {
+      "title": "Personal Information",
+      "displayName": "Display Name",
+      "email": "Email",
+      "institution": "Institution",
+      "department": "Department",
+      "phone": "Phone",
+      "bio": "Bio"
+    },
+    "labSettings": {
+      "title": "Lab Settings",
+      "labName": "Lab Name",
+      "researchArea": "Research Area",
+      "equipment": "Equipment",
+      "collaborators": "Collaborators"
+    },
+    "preferences": {
+      "title": "Preferences",
+      "theme": "Theme",
+      "language": "Language",
+      "notifications": "Notifications",
+      "privacy": "Privacy"
+    },
+    "security": {
+      "title": "Security",
+      "changePassword": "Change Password",
+      "twoFactor": "Two-Factor Authentication",
+      "sessions": "Active Sessions"
+    },
+    "actions": {
+      "save": "Save",
+      "cancel": "Cancel",
+      "delete": "Delete Account",
+      "export": "Export Data"
+    }
+  }
+}

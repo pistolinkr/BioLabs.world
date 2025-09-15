@@ -2,6 +2,7 @@ import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import './ProteinSimulation.css';
 import { NGLStage, NGLComponent } from '../types/ngl';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface SearchResult {
   id: string;
@@ -27,6 +28,8 @@ interface StructureInfo {
 }
 
 const ProteinSimulation: React.FC = () => {
+  const { t } = useLanguage();
+  
   // 상태 변수들
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [pdbData, setPdbData] = useState<string>('');
@@ -1057,7 +1060,7 @@ const ProteinSimulation: React.FC = () => {
                            <div className="search-input-group">
                <input
                  type="text"
-                 placeholder="PDB ID (예: 1UBQ, 1CRN) 또는 단백질 이름"
+                 placeholder={t('proteinSimulation.search.placeholder')}
                  value={searchTerm}
                  onChange={(e) => setSearchTerm(e.target.value)}
                  className="search-input"
@@ -1069,19 +1072,19 @@ const ProteinSimulation: React.FC = () => {
                  disabled={isSearching || !searchTerm.trim()}
                >
                  <i className="fas fa-search"></i>
-                 {isSearching ? '검색 중...' : '검색'}
+                 {isSearching ? t('proteinSimulation.results.loading') : t('proteinSimulation.search.button')}
                </button>
              </div>
              <div className="search-help">
-               <small><strong>자율 검색:</strong> PDB ID, 단백질 이름, 기능, 생물학적 특성 등으로 자유롭게 검색하세요!</small>
-               <small><strong>검색 예시:</strong> "1UBQ", "7VCF", "hemoglobin", "oxygen", "enzyme", "covid", "fluorescent"</small>
-               <small><strong>로컬 DB:</strong> 1UBQ, 1CRN, 1HHB, 1GFL, 6LU7, 7VCF 등 15개 구조 즉시 사용 가능</small>
+               <small><strong>{t('proteinSimulation.search.help.autonomous')}:</strong> {t('proteinSimulation.search.help.autonomousDesc')}</small>
+               <small><strong>{t('proteinSimulation.search.help.examples')}:</strong> {t('proteinSimulation.search.help.examplesList')}</small>
+               <small><strong>{t('proteinSimulation.search.help.localDB')}:</strong> {t('proteinSimulation.search.help.localDBDesc')}</small>
              </div>
              
              {/* 검색 히스토리 */}
              {searchHistory.length > 0 && (
                <div className="search-history">
-                 <small><strong>최근 검색:</strong></small>
+                 <small><strong>{t('proteinSimulation.search.history')}:</strong></small>
                  <div className="history-tags">
                    {searchHistory.map((term, index) => (
                      <button
@@ -1102,7 +1105,7 @@ const ProteinSimulation: React.FC = () => {
               {/* 검색 결과 */}
               {searchResults.length > 0 && (
                 <div className="search-results">
-                  <h4>검색 결과</h4>
+                  <h4>{t('proteinSimulation.results.title')}</h4>
                   <div className="results-list">
                                          {searchResults.map((result) => (
                        <div 
@@ -1164,7 +1167,7 @@ const ProteinSimulation: React.FC = () => {
 
             {/* PDB 텍스트 입력 섹션 */}
             <div className="pdb-input-section">
-              <h3>PDB 텍스트 입력</h3>
+              <h3>{t('proteinSimulation.pdbInput.title')}</h3>
               <div className="pdb-input-area">
                 {showCopyNotification && (
                   <div className="copy-notification show">
@@ -1174,7 +1177,7 @@ const ProteinSimulation: React.FC = () => {
               <textarea
                 value={pdbData}
                 onChange={(e) => setPdbData(e.target.value)}
-                  placeholder="PDB 파일의 내용을 여기에 붙여넣으세요..."
+                  placeholder={t('proteinSimulation.pdbInput.placeholder')}
                 className="pdb-textarea"
               />
               <button 
@@ -1183,14 +1186,14 @@ const ProteinSimulation: React.FC = () => {
                 disabled={!pdbData.trim() || !isStageReady}
               >
                 <i className="fas fa-upload"></i>
-                구조 로드
+{t('proteinSimulation.results.load')}
               </button>
               </div>
             </div>
 
             {/* 샘플 구조들 */}
             <div className="sample-structures">
-              <h4>샘플 구조</h4>
+              <h4>{t('proteinSimulation.search.history')}</h4>
               <div className="sample-grid">
                 {sampleStructures.map((structure) => (
                   <button
@@ -1218,21 +1221,7 @@ const ProteinSimulation: React.FC = () => {
 
 
  
-                 {/* 캔버스 내부 상태 정보 */}
-                 <div className="canvas-status-info">
-                   <div className="status-line">
-                <span>스테이지: 준비</span>
-                     <span>WebGL: 지원됨</span>
-                   </div>
-                   {currentStructure && (
-                     <div className="status-line">
-                       <span>{currentStructure.name}</span>
-                       {currentStructure.resolution && (
-                         <span>{currentStructure.resolution}Å</span>
-                       )}
-                     </div>
-                   )}
-                 </div>
+
  
                  {/* 하이라이트 정보 오버레이 */}
                  {highlightInfo && highlightInfo.visible && (
@@ -1276,14 +1265,14 @@ const ProteinSimulation: React.FC = () => {
                   <i className="fas fa-times"></i>
                 </button>
               </div>
-              <h3>3D 구조 뷰어</h3>
+              <h3>{t('proteinSimulation.viewer.title')}</h3>
             </div>
             
             <div className="modal-body">
               {isLoading && (
                 <div className="loading-overlay">
                   <div className="loading-spinner"></div>
-                  <p>구조 로딩 중...</p>
+                  <p>{t('proteinSimulation.viewer.loading')}</p>
                 </div>
               )}
               

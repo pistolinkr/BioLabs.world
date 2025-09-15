@@ -26,6 +26,7 @@ import {
   VisibilityOff as VisibilityOffIcon
 } from '@mui/icons-material';
 import { useAuth } from '../contexts/AuthContext';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const Login: React.FC = () => {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -39,6 +40,7 @@ const Login: React.FC = () => {
   const [success, setSuccess] = useState('');
 
   const { signIn, signUp, signInWithGoogle, signInWithGithub } = useAuth();
+  const { t } = useLanguage();
   const navigate = useNavigate();
 
   // 컴포넌트 마운트 시 저장된 로그인 정보 복원
@@ -62,10 +64,10 @@ const Login: React.FC = () => {
       if (isSignUp) {
         const result = await signUp(email, password, displayName);
         if (result.success) {
-          setSuccess('회원가입이 완료되었습니다!');
+          setSuccess(t('login.success') || '회원가입이 완료되었습니다!');
           setTimeout(() => navigate('/home'), 1500);
         } else {
-          setError(result.error || '회원가입 중 오류가 발생했습니다.');
+          setError(result.error || t('login.loginError'));
         }
       } else {
         const result = await signIn(email, password);
@@ -79,14 +81,14 @@ const Login: React.FC = () => {
             localStorage.removeItem('biolabs_remember_email');
           }
           
-          setSuccess('로그인이 완료되었습니다!');
+          setSuccess(t('login.success') || '로그인이 완료되었습니다!');
           setTimeout(() => navigate('/home'), 1500);
         } else {
-          setError(result.error || '로그인 중 오류가 발생했습니다.');
+          setError(result.error || t('login.loginError'));
         }
       }
     } catch (error) {
-      setError('인증 중 오류가 발생했습니다.');
+      setError(t('login.loginError'));
     } finally {
       setLoading(false);
     }
@@ -165,7 +167,7 @@ const Login: React.FC = () => {
                 fontSize: '1.25rem'
               }}
             >
-                              {isSignUp ? 'BioLabs 가입' : 'BioLabs 로그인'}
+                              {isSignUp ? t('login.signUp') : t('login.signIn')}
             </Typography>
             <Typography
               variant="body2"
@@ -191,7 +193,7 @@ const Login: React.FC = () => {
                   fontSize: '0.75rem'
                 }}
               >
-                소셜 계정으로 {isSignUp ? '가입' : '로그인'}
+                {isSignUp ? t('login.createAccount') : t('login.signIn')} {t('common.with') || 'with'} {t('common.socialAccount') || '소셜 계정'}
               </Typography>
               
               <Box sx={{ display: 'flex', gap: 1, marginBottom: 1 }}>
@@ -268,11 +270,13 @@ const Login: React.FC = () => {
                   sx={{
                     '& .MuiOutlinedInput-root': {
                       borderRadius: 0,
-                      '&:hover fieldset': { borderColor: 'var(--text-primary)' },
-                      '&.Mui-focused fieldset': { borderColor: 'var(--text-primary)', borderWidth: 1 }
+                      '& fieldset': { border: '1px solid var(--border-primary)' },
+                      '&:hover fieldset': { border: '1px solid var(--border-primary)' },
+                      '&.Mui-focused fieldset': { border: '1px solid var(--border-primary)', borderWidth: 1 }
                     },
                     '& .MuiInputLabel-root': {
-                      fontSize: '0.75rem'
+                      fontSize: '0.75rem',
+                      color: 'var(--text-secondary)'
                     }
                   }}
                 />
@@ -280,7 +284,7 @@ const Login: React.FC = () => {
 
               <TextField
                 fullWidth
-                label="이메일"
+                    label={t('login.email')}
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -297,18 +301,20 @@ const Login: React.FC = () => {
                 sx={{
                   '& .MuiOutlinedInput-root': {
                     borderRadius: 0,
-                    '&:hover fieldset': { borderColor: '#ffffff' },
-                    '&.Mui-focused fieldset': { borderColor: '#ffffff', borderWidth: 1 }
+                    '& fieldset': { border: '1px solid var(--border-primary)' },
+                    '&:hover fieldset': { border: '1px solid var(--border-primary)' },
+                    '&.Mui-focused fieldset': { border: '1px solid var(--border-primary)', borderWidth: 1 }
                   },
                   '& .MuiInputLabel-root': {
-                    fontSize: '0.75rem'
+                    fontSize: '0.75rem',
+                    color: 'var(--text-secondary)'
                   }
                 }}
               />
 
               <TextField
                 fullWidth
-                label="비밀번호"
+                    label={t('login.password')}
                 type={showPassword ? 'text' : 'password'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -327,6 +333,12 @@ const Login: React.FC = () => {
                         onClick={() => setShowPassword(!showPassword)}
                         edge="end"
                         size="small"
+                        sx={{
+                          color: 'var(--text-primary)',
+                          '&:hover': {
+                            backgroundColor: 'var(--bg-tertiary)'
+                          }
+                        }}
                       >
                         {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
                       </IconButton>
@@ -336,11 +348,13 @@ const Login: React.FC = () => {
                 sx={{
                   '& .MuiOutlinedInput-root': {
                     borderRadius: 0,
-                    '&:hover fieldset': { borderColor: '#ffffff' },
-                    '&.Mui-focused fieldset': { borderColor: '#ffffff', borderWidth: 1 }
+                    '& fieldset': { border: '1px solid var(--border-primary)' },
+                    '&:hover fieldset': { border: '1px solid var(--border-primary)' },
+                    '&.Mui-focused fieldset': { border: '1px solid var(--border-primary)', borderWidth: 1 }
                   },
                   '& .MuiInputLabel-root': {
-                    fontSize: '0.75rem'
+                    fontSize: '0.75rem',
+                    color: 'var(--text-secondary)'
                   }
                 }}
               />
@@ -353,25 +367,26 @@ const Login: React.FC = () => {
                         checked={rememberMe}
                         onChange={(e) => setRememberMe(e.target.checked)}
                         sx={{
-                          color: '#ffffff',
-                          '&.Mui-checked': { color: '#ffffff' },
+                          color: 'var(--text-primary)',
+                          '&.Mui-checked': { color: 'var(--text-primary)' },
                           '& .MuiSvgIcon-root': {
                             fontSize: '1rem'
                           }
                         }}
                       />
                     }
-                    label="로그인 상태 유지"
+                    label={t('login.rememberMe')}
                     sx={{
                       '& .MuiFormControlLabel-label': {
-                        fontSize: '0.75rem'
+                        fontSize: '0.75rem',
+                        color: 'var(--text-primary)'
                       }
                     }}
                   />
                   <Link
                     to="/forgot-password"
                     style={{
-                      color: '#ffffff',
+                      color: 'var(--text-primary)',
                       textDecoration: 'none',
                       fontSize: '0.75rem'
                     }}
@@ -409,26 +424,26 @@ const Login: React.FC = () => {
                   padding: '8px 16px',
                   fontSize: '0.875rem',
                   fontWeight: 400,
-                  backgroundColor: '#ffffff',
-                  color: '#000000',
+                  backgroundColor: 'var(--text-primary)',
+                  color: 'var(--bg-primary)',
                   borderRadius: 0,
                   '&:hover': {
-                    backgroundColor: '#ffffff',
+                    backgroundColor: 'var(--text-primary)',
                     transform: 'none'
                   },
                   '&:disabled': {
-                    backgroundColor: '#666666',
-                    color: '#ffffff'
+                    backgroundColor: 'var(--text-muted)',
+                    color: 'var(--bg-primary)'
                   }
                 }}
               >
-                {loading ? '처리 중...' : (isSignUp ? '회원가입' : '로그인')}
+                {loading ? t('login.loading') : (isSignUp ? t('login.signUp') : t('login.signIn'))}
               </Button>
             </Box>
 
             {/* 모드 전환 */}
             <Box sx={{ textAlign: 'center', marginTop: 2 }}>
-              <Typography variant="body2" sx={{ color: '#ffffff', fontSize: '0.75rem' }}>
+              <Typography variant="body2" sx={{ color: 'var(--text-primary)', fontSize: '0.75rem' }}>
                 {isSignUp ? '이미 계정이 있으신가요?' : '계정이 없으신가요?'}
               </Typography>
               <Button
@@ -438,7 +453,7 @@ const Login: React.FC = () => {
                   setSuccess('');
                 }}
                 sx={{
-                  color: '#ffffff',
+                  color: 'var(--text-primary)',
                   textTransform: 'none',
                   fontSize: '0.75rem',
                   marginTop: 0.5,
@@ -448,7 +463,7 @@ const Login: React.FC = () => {
                   }
                 }}
               >
-                {isSignUp ? '로그인하기' : '회원가입하기'}
+                {isSignUp ? t('login.signIn') : t('login.signUp')}
               </Button>
             </Box>
           </CardContent>

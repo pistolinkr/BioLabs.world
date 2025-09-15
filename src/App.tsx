@@ -4,13 +4,16 @@ import { ThemeProvider as MuiThemeProvider, createTheme } from '@mui/material/st
 import { CssBaseline, Box } from '@mui/material';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { ThemeProvider } from './contexts/ThemeContext';
+import { LanguageProvider } from './contexts/LanguageContext';
 import Navbar from './components/Navbar';
 
 import Login from './pages/Login';
 import Home from './pages/Home';
 import ProteinSimulation from './pages/ProteinSimulation';
+import MolecularInteractionAnalysis from './pages/MolecularInteractionAnalysis';
+import MolecularSolutionHelper from './pages/MolecularSolutionHelper';
+import MoleculeViewer from './pages/MoleculeViewer';
 import DiagnosisAI from './pages/DiagnosisAI';
-import InteractionNetwork from './pages/InteractionNetwork';
 import DrugScreening from './pages/DrugScreening';
 import EpidemiologyModel from './pages/EpidemiologyModel';
 import UserProfile from './pages/UserProfile';
@@ -69,16 +72,16 @@ const LoginRoute: React.FC = () => {
     );
   }
   
-  // 이미 로그인된 사용자는 홈으로 리다이렉트
+  // 이미 로그인된 사용자는 플랫폼으로 리다이렉트
   if (currentUser) {
-    return <Navigate to="/home" replace />;
+    return <Navigate to="/protein-simulation" replace />;
   }
   
   // 로그인되지 않은 사용자는 로그인 페이지 표시
   return <Login />;
 };
 
-// 메인 레이아웃 컴포넌트
+// 메인 레이아웃 컴포넌트 (네비게이션 바 포함)
 const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: 'var(--bg-primary)' }}>
@@ -87,6 +90,24 @@ const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         component="main"
         sx={{
           paddingTop: '64px', // Navbar 높이만큼 상단 패딩 추가
+          paddingBottom: '80px', // 하단 네비게이션 바 높이만큼 하단 패딩 추가
+          flexGrow: 1,
+          backgroundColor: 'var(--bg-primary)'
+        }}
+      >
+        {children}
+      </Box>
+    </Box>
+  );
+};
+
+// 홈 페이지 레이아웃 컴포넌트 (네비게이션 바 없음)
+const HomeLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  return (
+    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: 'var(--bg-primary)' }}>
+      <Box
+        component="main"
+        sx={{
           flexGrow: 1,
           backgroundColor: 'var(--bg-primary)'
         }}
@@ -278,21 +299,20 @@ function App() {
   }, []);
 
   return (
-    <ThemeProvider>
-      <MuiThemeProvider theme={darkTheme}>
-        <CssBaseline />
-        <AuthProvider>
-          <Router>
+    <LanguageProvider>
+      <ThemeProvider>
+        <MuiThemeProvider theme={darkTheme}>
+          <CssBaseline />
+          <AuthProvider>
+            <Router>
             <Routes>
               <Route path="/login" element={<LoginRoute />} />
               <Route
                 path="/home"
                 element={
-                  <ProtectedRoute>
-                    <MainLayout>
-                      <Home />
-                    </MainLayout>
-                  </ProtectedRoute>
+                  <HomeLayout>
+                    <Home />
+                  </HomeLayout>
                 }
               />
               <Route
@@ -301,6 +321,36 @@ function App() {
                   <ProtectedRoute>
                     <MainLayout>
                       <ProteinSimulation />
+                    </MainLayout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/molecular-interaction"
+                element={
+                  <ProtectedRoute>
+                    <MainLayout>
+                      <MolecularInteractionAnalysis />
+                    </MainLayout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/molecular-solution-helper"
+                element={
+                  <ProtectedRoute>
+                    <MainLayout>
+                      <MolecularSolutionHelper />
+                    </MainLayout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/molecule-viewer"
+                element={
+                  <ProtectedRoute>
+                    <MainLayout>
+                      <MoleculeViewer />
                     </MainLayout>
                   </ProtectedRoute>
                 }
@@ -315,16 +365,7 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-              <Route
-                path="/interaction-network"
-                element={
-                  <ProtectedRoute>
-                    <MainLayout>
-                      <InteractionNetwork />
-                    </MainLayout>
-                  </ProtectedRoute>
-                }
-              />
+
               <Route
                 path="/drug-screening"
                 element={
@@ -361,6 +402,7 @@ function App() {
         </AuthProvider>
       </MuiThemeProvider>
     </ThemeProvider>
+    </LanguageProvider>
   );
 }
 
