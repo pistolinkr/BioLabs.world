@@ -105,23 +105,24 @@ const Navbar: React.FC = () => {
             <IconButton
               onClick={() => navigate(item.path)}
               sx={{
-                color: isDark ? '#ffffff' : '#000000',
+                color: location.pathname === item.path ? '#ff6b35' : (isDark ? '#ffffff' : '#000000'),
                 backgroundColor: 'transparent',
                 borderRadius: isMobile ? '12px' : '8px',
                 padding: isMobile ? '12px' : '8px',
                 minWidth: isMobile ? '48px' : '40px',
                 height: isMobile ? '48px' : '40px',
-                border: location.pathname === item.path ? (isDark ? '2px solid #ffffff' : '2px solid #000000') : 'none',
+                border: 'none',
                 transition: 'all 0.3s ease',
                 '&:hover': {
-                  backgroundColor: 'transparent',
-                  color: isDark ? '#ffffff' : '#000000',
-                  transform: isMobile ? 'translateY(-1px)' : 'translateY(-2px)'
+                  backgroundColor: 'rgba(255, 107, 53, 0.1)',
+                  color: '#ff6b35',
+                  transform: 'none',
+                  border: 'none'
                 },
                 '&.Mui-selected': {
                   backgroundColor: 'transparent',
-                  color: isDark ? '#ffffff' : '#000000',
-                  border: isDark ? '2px solid #ffffff' : '2px solid #000000'
+                  color: '#ff6b35',
+                  border: 'none'
                 }
               }}
             >
@@ -135,19 +136,8 @@ const Navbar: React.FC = () => {
         {!isMobile && (
           <Box sx={{ 
             display: 'flex', 
-            alignItems: 'center',
-            marginLeft: 3
+            alignItems: 'center'
           }}>
-            <Typography
-              variant="body2"
-              sx={{
-                color: isDark ? '#ffffff' : '#000000',
-                marginRight: 2,
-                fontSize: '0.8rem'
-              }}
-            >
-              {userProfile?.displayName || userProfile?.email || 'User'}
-            </Typography>
             
             <Tooltip title={t('navigation.userProfile')}>
               <IconButton
@@ -160,6 +150,7 @@ const Navbar: React.FC = () => {
                 }}
               >
                 <Avatar
+                  src={userProfile?.photoURL || ''}
                   sx={{
                     width: 32,
                     height: 32,
@@ -193,6 +184,7 @@ const Navbar: React.FC = () => {
               }}
             >
               <Avatar
+                src={userProfile?.photoURL || ''}
                 sx={{
                   width: 24,
                   height: 24,

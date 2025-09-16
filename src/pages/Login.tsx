@@ -144,7 +144,7 @@ const Login: React.FC = () => {
             width: '100%',
             backgroundColor: 'var(--bg-primary)',
             border: '1px solid var(--border-secondary)',
-            borderRadius: 0,
+            borderRadius: 'var(--border-radius-large)',
             boxShadow: 'none',
             overflow: 'hidden'
           }}
@@ -207,12 +207,14 @@ const Login: React.FC = () => {
                     borderColor: 'var(--text-primary)',
                     color: 'var(--text-primary)',
                     backgroundColor: 'var(--bg-primary)',
-                    borderRadius: 0,
+                    borderRadius: 'var(--border-radius-large)',
                     fontSize: '0.75rem',
                     padding: '6px 12px',
                     '&:hover': {
                       borderColor: 'var(--text-primary)',
-                      backgroundColor: 'var(--bg-primary)'
+                      backgroundColor: 'var(--bg-primary)',
+                      color: 'var(--text-primary)',
+                      transform: 'none'
                     }
                   }}
                 >
@@ -228,12 +230,14 @@ const Login: React.FC = () => {
                     borderColor: 'var(--text-primary)',
                     color: 'var(--text-primary)',
                     backgroundColor: 'var(--bg-primary)',
-                    borderRadius: 0,
+                    borderRadius: 'var(--border-radius-large)',
                     fontSize: '0.75rem',
                     padding: '6px 12px',
                     '&:hover': {
                       borderColor: 'var(--text-primary)',
-                      backgroundColor: 'var(--bg-primary)'
+                      backgroundColor: 'var(--bg-primary)',
+                      color: 'var(--text-primary)',
+                      transform: 'none'
                     }
                   }}
                 >
@@ -269,7 +273,7 @@ const Login: React.FC = () => {
                   }}
                   sx={{
                     '& .MuiOutlinedInput-root': {
-                      borderRadius: 0,
+                      borderRadius: 'var(--border-radius-large)',
                       '& fieldset': { border: '1px solid var(--border-primary)' },
                       '&:hover fieldset': { border: '1px solid var(--border-primary)' },
                       '&.Mui-focused fieldset': { border: '1px solid var(--border-primary)', borderWidth: 1 }
@@ -300,7 +304,7 @@ const Login: React.FC = () => {
                 }}
                 sx={{
                   '& .MuiOutlinedInput-root': {
-                    borderRadius: 0,
+                    borderRadius: 'var(--border-radius-large)',
                     '& fieldset': { border: '1px solid var(--border-primary)' },
                     '&:hover fieldset': { border: '1px solid var(--border-primary)' },
                     '&.Mui-focused fieldset': { border: '1px solid var(--border-primary)', borderWidth: 1 }
@@ -347,7 +351,7 @@ const Login: React.FC = () => {
                 }}
                 sx={{
                   '& .MuiOutlinedInput-root': {
-                    borderRadius: 0,
+                    borderRadius: 'var(--border-radius-large)',
                     '& fieldset': { border: '1px solid var(--border-primary)' },
                     '&:hover fieldset': { border: '1px solid var(--border-primary)' },
                     '&.Mui-focused fieldset': { border: '1px solid var(--border-primary)', borderWidth: 1 }
@@ -426,7 +430,7 @@ const Login: React.FC = () => {
                   fontWeight: 400,
                   backgroundColor: 'var(--text-primary)',
                   color: 'var(--bg-primary)',
-                  borderRadius: 0,
+                  borderRadius: 'var(--border-radius-large)',
                   '&:hover': {
                     backgroundColor: 'var(--text-primary)',
                     transform: 'none'

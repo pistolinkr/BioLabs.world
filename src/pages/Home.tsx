@@ -186,7 +186,7 @@ const Home: React.FC = () => {
             minHeight: '70vh',
             textAlign: 'center', 
             marginBottom: 8,
-            paddingTop: '80px' // 네비게이션 바 높이만큼 패딩 추가
+            paddingTop: '100px' // 네비게이션 바 높이만큼 패딩 추가
           }}>
             {/* Urgency Banner with Language Selector */}
             <Box sx={{ 
@@ -237,7 +237,9 @@ const Home: React.FC = () => {
                     textTransform: 'none',
                     minWidth: 'auto',
                     '&:hover': {
-                      backgroundColor: language === 'ko' ? '#e55a2b' : (isDark ? '#3a3a3a' : '#e8e8e8')
+                      backgroundColor: language === 'ko' ? '#ff6b35' : (isDark ? '#2a2a2a' : '#f0f0f0'),
+                      color: language === 'ko' ? '#ffffff' : (isDark ? '#ffffff' : '#1a1a1a'),
+                      transform: 'none'
                     }
                   }}
                 >
@@ -261,7 +263,9 @@ const Home: React.FC = () => {
                     textTransform: 'none',
                     minWidth: 'auto',
                     '&:hover': {
-                      backgroundColor: language === 'en' ? '#e55a2b' : (isDark ? '#3a3a3a' : '#e8e8e8')
+                      backgroundColor: language === 'en' ? '#ff6b35' : (isDark ? '#2a2a2a' : '#f0f0f0'),
+                      color: language === 'en' ? '#ffffff' : (isDark ? '#ffffff' : '#1a1a1a'),
+                      transform: 'none'
                     }
                   }}
                 >
@@ -561,10 +565,10 @@ const Home: React.FC = () => {
                       cursor: 'pointer',
                       transition: 'all 0.3s ease',
                       '&:hover': {
-                        transform: 'translateY(-8px)',
+                        transform: 'none',
                         boxShadow: isDark 
-                          ? '0 12px 40px rgba(255, 107, 53, 0.2)'
-                          : '0 12px 40px rgba(255, 107, 53, 0.15)',
+                          ? '0 6px 20px rgba(255, 107, 53, 0.1)'
+                          : '0 6px 20px rgba(255, 107, 53, 0.08)',
                         borderColor: '#ff6b35',
                         backgroundColor: isDark ? '#2a2a2a' : '#fafafa'
                       }
@@ -677,7 +681,8 @@ const Home: React.FC = () => {
                 sx={{
                   fontWeight: 700,
                   marginBottom: 2,
-                  fontSize: isMobile ? '2rem' : '2.5rem'
+                  fontSize: isMobile ? '2rem' : '2.5rem',
+                  color: isDark ? '#ffffff' : '#1a1a1a'
                 }}
               >
                 {t('home.introduction.title')}
@@ -709,11 +714,11 @@ const Home: React.FC = () => {
                         textAlign: 'center',
                         transition: 'all 0.3s ease',
                         '&:hover': {
-                          transform: 'translateY(-4px)',
-                          boxShadow: isDark 
-                            ? '0 8px 30px rgba(255, 255, 255, 0.1)'
-                            : '0 8px 30px rgba(0, 0, 0, 0.1)'
-                        }
+                        transform: 'none',
+                        boxShadow: isDark 
+                          ? '0 4px 16px rgba(255, 255, 255, 0.05)'
+                          : '0 4px 16px rgba(0, 0, 0, 0.05)'
+                      }
                       }}
                     >
                       <Box sx={{ 

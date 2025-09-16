@@ -24,7 +24,7 @@
   --text-muted: #6c757d;
   --border-primary: #dee2e6;
   --border-secondary: #1a1a1a;
-  --accent-primary: #2196F3;
+  --accent-primary: #ff6b35;
   --accent-secondary: #007bff;
   --shadow-light: rgba(0, 0, 0, 0.05);
   --shadow-medium: rgba(0, 0, 0, 0.1);
@@ -33,6 +33,10 @@
   --warning-color: #ffc107;
   --error-color: #dc3545;
   --info-color: #17a2b8;
+  --border-radius-small: 8px;
+  --border-radius-medium: 12px;
+  --border-radius-large: 16px;
+  --border-radius-xl: 20px;
 }
 
 /* 다크 테마 */
@@ -46,6 +50,10 @@
   --primary-main: #90caf9;
   --primary-dark: #42a5f5;
   --primary-light: #e3f2fd;
+  --border-radius-small: 8px;
+  --border-radius-medium: 12px;
+  --border-radius-large: 16px;
+  --border-radius-xl: 20px;
 }
 
 body {
@@ -117,8 +125,7 @@ button:hover {
 }
 
 button:focus {
-  outline: 1px solid var(--text-primary);
-  outline-offset: 2px;
+  outline: none;
 }
 
 /* 입력 필드 스타일 */
@@ -190,10 +197,9 @@ th {
   color: var(--bg-primary);
 }
 
-/* 포커스 표시 */
+/* 포커스 표시 제거 */
 *:focus {
-  outline: 1px solid var(--text-primary);
-  outline-offset: 2px;
+  outline: none;
 }
 
 /* 호버 효과 제거 */
@@ -209,13 +215,12 @@ a {
 }
 
 a:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
-/* 전역 포커스 스타일 */
+/* 전역 포커스 스타일 제거 */
 *:focus {
-  outline: 2px solid var(--accent-primary);
-  outline-offset: 2px;
+  outline: none;
 }
 
 /* 전역 선택 스타일 */
@@ -244,8 +249,8 @@ input, textarea, select {
   }
   
   .card:hover, .MuiCard-root:hover {
-    box-shadow: 0 4px 16px var(--shadow-medium);
-    transform: translateY(-2px);
+    box-shadow: 0 2px 8px var(--shadow-light);
+    transform: none;
   }
   
   /* 버튼 스타일 개선 */
@@ -255,8 +260,8 @@ input, textarea, select {
   }
   
   button:hover, .MuiButton-root:hover {
-    box-shadow: 0 4px 8px var(--shadow-medium);
-    transform: translateY(-1px);
+    box-shadow: 0 2px 4px var(--shadow-light);
+    transform: none;
   }
   
   /* 입력 필드 스타일 개선 */
@@ -322,10 +327,9 @@ input, textarea, select {
     color: var(--bg-primary);
   }
   
-  /* 포커스 표시 */
+  /* 포커스 표시 제거 */
   *:focus {
-    outline: 2px solid var(--accent-secondary);
-    outline-offset: 2px;
+    outline: none;
   }
   
   /* 링크 스타일 */
@@ -388,16 +392,16 @@ input, textarea, select {
     box-shadow: none !important;
   }
   
-  /* 카드 호버 효과 */
+  /* 카드 호버 효과 제거 */
   .card:hover, .MuiCard-root:hover {
-    transform: translateY(-2px) !important;
-    box-shadow: 0 4px 16px var(--shadow-medium) !important;
+    transform: none !important;
+    box-shadow: 0 2px 8px var(--shadow-light) !important;
   }
   
-  /* 버튼 호버 효과 */
+  /* 버튼 호버 효과 제거 */
   button:hover, .MuiButton-root:hover {
-    transform: translateY(-1px) !important;
-    box-shadow: 0 4px 8px var(--shadow-medium) !important;
+    transform: none !important;
+    box-shadow: 0 2px 4px var(--shadow-light) !important;
   }
 }
 
@@ -423,7 +427,7 @@ input, textarea, select {
 /* 전역 그리드 스타일 */
 .grid {
   display: grid;
-  gap: 16px;
+  gap: 100px;
 }
 
 .grid-2 {

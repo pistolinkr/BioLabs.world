@@ -22,6 +22,7 @@ export interface Molecule {
     rotatableBonds?: number;
     aromaticRings?: number;
     heavyAtoms?: number;
+    aiRecommended?: boolean; // AI 추천 분자 여부
   };
 }
 

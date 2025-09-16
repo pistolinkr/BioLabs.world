@@ -454,6 +454,155 @@ export class MolecularApiService {
     return `The ${type} interaction between ${mol1.name} and ${mol2.name} represents a potential drug target for treating various diseases.`;
   }
 
+  // AI 기반 스마트 검색
+  async searchMoleculesWithAI(query: string): Promise<SearchResult> {
+    const startTime = Date.now();
+    console.log('🤖 AI-powered search for:', query);
+    
+    // AI 검색 시뮬레이션 - 더 관련성 높은 결과 제공
+    const aiEnhancedQuery = this.enhanceQueryWithAI(query);
+    const baseResults = await this.searchMolecules(aiEnhancedQuery);
+    
+    // AI 추천 분자들 추가
+    const aiRecommendations = this.generateAIRecommendations(query);
+    
+    return {
+      molecules: [...baseResults.molecules, ...aiRecommendations],
+      totalCount: baseResults.molecules.length + aiRecommendations.length,
+      searchTime: Date.now() - startTime,
+      sources: [...baseResults.sources, 'AI Recommendations']
+    };
+  }
+
+  // SMILES 구조 기반 검색
+  async searchBySMILES(smiles: string): Promise<SearchResult> {
+    const startTime = Date.now();
+    console.log('🧬 SMILES search for:', smiles);
+    
+    // SMILES 유효성 검사
+    if (!this.isValidSMILES(smiles)) {
+      throw new Error('Invalid SMILES format');
+    }
+    
+    return await this.searchMolecules(smiles);
+  }
+
+  // InChI 코드 기반 검색
+  async searchByInChI(inchi: string): Promise<SearchResult> {
+    const startTime = Date.now();
+    console.log('🔬 InChI search for:', inchi);
+    
+    // InChI 유효성 검사
+    if (!this.isValidInChI(inchi)) {
+      throw new Error('Invalid InChI format');
+    }
+    
+    return await this.searchMolecules(inchi);
+  }
+
+  // CAS 등록번호 기반 검색
+  async searchByCAS(casNumber: string): Promise<SearchResult> {
+    const startTime = Date.now();
+    console.log('📋 CAS search for:', casNumber);
+    
+    // CAS 번호 유효성 검사
+    if (!this.isValidCAS(casNumber)) {
+      throw new Error('Invalid CAS number format');
+    }
+    
+    // CAS 번호로 검색 (실제로는 CAS 번호를 분자명으로 변환하여 검색)
+    const moleculeName = await this.getMoleculeNameByCAS(casNumber);
+    return await this.searchMolecules(moleculeName);
+  }
+
+  // AI 쿼리 향상
+  private enhanceQueryWithAI(query: string): string {
+    const enhancements: { [key: string]: string } = {
+      'aspirin': 'aspirin acetylsalicylic acid pain relief anti-inflammatory',
+      'caffeine': 'caffeine stimulant coffee tea energy',
+      'glucose': 'glucose sugar carbohydrate energy metabolism',
+      'paracetamol': 'paracetamol acetaminophen pain relief fever',
+      'ibuprofen': 'ibuprofen anti-inflammatory pain relief NSAID'
+    };
+    
+    const lowerQuery = query.toLowerCase();
+    for (const [key, enhanced] of Object.entries(enhancements)) {
+      if (lowerQuery.includes(key)) {
+        return enhanced;
+      }
+    }
+    
+    return query;
+  }
+
+  // AI 추천 분자 생성
+  private generateAIRecommendations(query: string): Molecule[] {
+    const recommendations: Molecule[] = [];
+    const lowerQuery = query.toLowerCase();
+    
+    if (lowerQuery.includes('aspirin') || lowerQuery.includes('pain')) {
+      recommendations.push({
+        id: 'ai_rec_1',
+        name: 'Ibuprofen',
+        smiles: 'CC(C)CC1=CC=C(C=C1)C(C)C(=O)O',
+        molecularFormula: 'C13H18O2',
+        molecularWeight: 206.28,
+        pubchemId: '3672',
+        synonyms: ['Advil', 'Brufen', 'AI Recommended'],
+        type: 'compound',
+        properties: { aiRecommended: true }
+      });
+    }
+    
+    if (lowerQuery.includes('caffeine') || lowerQuery.includes('energy')) {
+      recommendations.push({
+        id: 'ai_rec_2',
+        name: 'Theobromine',
+        smiles: 'CN1C=NC2=C1C(=O)N(C(=O)N2C)C',
+        molecularFormula: 'C7H8N4O2',
+        molecularWeight: 180.16,
+        pubchemId: '5429',
+        synonyms: ['Chocolate Alkaloid', 'AI Recommended'],
+        type: 'compound',
+        properties: { aiRecommended: true }
+      });
+    }
+    
+    return recommendations;
+  }
+
+  // SMILES 유효성 검사
+  private isValidSMILES(smiles: string): boolean {
+    // 간단한 SMILES 유효성 검사 (실제로는 더 복잡한 검증 필요)
+    const validChars = /^[A-Za-z0-9()\[\]=#@+\-\\/\\]+$/;
+    return validChars.test(smiles) && smiles.length > 0;
+  }
+
+  // InChI 유효성 검사
+  private isValidInChI(inchi: string): boolean {
+    return inchi.startsWith('InChI=') && inchi.length > 10;
+  }
+
+  // CAS 번호 유효성 검사
+  private isValidCAS(casNumber: string): boolean {
+    // CAS 번호 형식: XXXXX-XX-X (숫자-숫자-숫자)
+    const casPattern = /^\d{2,7}-\d{2}-\d$/;
+    return casPattern.test(casNumber);
+  }
+
+  // CAS 번호로 분자명 조회 (시뮬레이션)
+  private async getMoleculeNameByCAS(casNumber: string): Promise<string> {
+    const casToName: { [key: string]: string } = {
+      '50-78-2': 'Aspirin',
+      '58-08-2': 'Caffeine',
+      '50-81-7': 'Ascorbic Acid',
+      '103-90-2': 'Paracetamol',
+      '15687-27-1': 'Ibuprofen'
+    };
+    
+    return casToName[casNumber] || `CAS ${casNumber}`;
+  }
+
   getDatabases(): DatabaseInfo[] {
     return DATABASES;
   }
