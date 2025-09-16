@@ -847,21 +847,224 @@ const Home: React.FC = () => {
         <Box
           component="footer"
           sx={{
-            textAlign: 'center',
-            padding: 4,
+            backgroundColor: 'transparent',
             borderTop: `1px solid ${isDark ? '#333333' : '#e0e0e0'}`,
-            marginTop: 6
+            marginTop: 6,
+            padding: 6
           }}
         >
+          <Container maxWidth="lg">
+            {/* Upper Footer Section */}
+            <Grid container spacing={4} sx={{ marginBottom: 4 }}>
+              {/* Similar Sites Column */}
+              <Grid item xs={12} md={4}>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontWeight: 600,
+                    color: isDark ? '#ffffff' : '#1a1a1a',
+                    marginBottom: 2,
+                    fontSize: '1.1rem'
+                  }}
+                >
+                  Similar Sites
+                </Typography>
+                <Button
+                  variant="outlined"
+                  sx={{
+                    borderColor: isDark ? '#555555' : '#cccccc',
+                    color: isDark ? '#ffffff' : '#1a1a1a',
+                    borderRadius: 'var(--border-radius-medium)',
+                    textTransform: 'none',
+                    fontSize: '0.9rem',
+                    padding: '8px 16px',
+                    '&:hover': {
+                      backgroundColor: isDark ? '#2a2a2a' : '#f0f0f0',
+                      borderColor: isDark ? '#666666' : '#999999',
+                      transform: 'none'
+                    }
+                  }}
+                  onClick={() => window.open('https://biolabs.world', '_blank')}
+                >
+                  biolabs.world
+                </Button>
+              </Grid>
+
+              {/* Medical Resources Column */}
+              <Grid item xs={12} md={4}>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontWeight: 600,
+                    color: isDark ? '#ffffff' : '#1a1a1a',
+                    marginBottom: 2,
+                    fontSize: '1.1rem'
+                  }}
+                >
+                  Medical Resources
+                </Typography>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                  {[
+                    { name: 'FDA Official', url: 'https://www.fda.gov' },
+                    { name: 'Drugs.com', url: 'https://www.drugs.com' },
+                    { name: 'WebMD', url: 'https://www.webmd.com' },
+                    { name: 'MedlinePlus', url: 'https://medlineplus.gov' }
+                  ].map((resource) => (
+                    <Button
+                      key={resource.name}
+                      variant="outlined"
+                      sx={{
+                        borderColor: isDark ? '#555555' : '#cccccc',
+                        color: isDark ? '#ffffff' : '#1a1a1a',
+                        borderRadius: 'var(--border-radius-medium)',
+                        textTransform: 'none',
+                        fontSize: '0.9rem',
+                        padding: '6px 12px',
+                        justifyContent: 'flex-start',
+                        '&:hover': {
+                          backgroundColor: isDark ? '#2a2a2a' : '#f0f0f0',
+                          borderColor: isDark ? '#666666' : '#999999',
+                          transform: 'none'
+                        }
+                      }}
+                      onClick={() => window.open(resource.url, '_blank')}
+                    >
+                      {resource.name}
+                    </Button>
+                  ))}
+                </Box>
+              </Grid>
+
+              {/* Contact Us Column */}
+              <Grid item xs={12} md={4}>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontWeight: 600,
+                    color: isDark ? '#ffffff' : '#1a1a1a',
+                    marginBottom: 2,
+                    fontSize: '1.1rem'
+                  }}
+                >
+                  Contact us
+                </Typography>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                  {[
+                    { name: 'Email', url: 'mailto:support@biolabs.world' },
+                    { name: 'GitHub', url: 'https://github.com/pistolinkr/BioLabs.world' },
+                    { name: 'Feedback', url: 'mailto:feedback@biolabs.world' }
+                  ].map((contact) => (
+                    <Button
+                      key={contact.name}
+                      variant="outlined"
+                      sx={{
+                        borderColor: isDark ? '#555555' : '#cccccc',
+                        color: isDark ? '#ffffff' : '#1a1a1a',
+                        borderRadius: 'var(--border-radius-medium)',
+                        textTransform: 'none',
+                        fontSize: '0.9rem',
+                        padding: '6px 12px',
+                        justifyContent: 'flex-start',
+                        '&:hover': {
+                          backgroundColor: isDark ? '#2a2a2a' : '#f0f0f0',
+                          borderColor: isDark ? '#666666' : '#999999',
+                          transform: 'none'
+                        }
+                      }}
+                      onClick={() => window.open(contact.url, '_blank')}
+                    >
+                      {contact.name}
+                    </Button>
+                  ))}
+                </Box>
+              </Grid>
+            </Grid>
+
+            {/* Lower Footer Section */}
+        <Box
+          sx={{
+                borderTop: `1px solid ${isDark ? '#333333' : '#e0e0e0'}`,
+                paddingTop: 3,
+                display: 'flex',
+                flexDirection: { xs: 'column', md: 'row' },
+                justifyContent: 'space-between',
+                alignItems: { xs: 'flex-start', md: 'center' },
+                gap: 2
+              }}
+            >
+              {/* Left Side - Version & Brand */}
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexWrap: 'wrap' }}>
           <Typography
             variant="caption"
             sx={{
-              color: isDark ? '#888888' : '#666666',
-              fontSize: '0.8rem'
+                    color: isDark ? '#888888' : '#666666',
+                    fontSize: '0.8rem'
+                  }}
+                >
+                  Beta v2.1 | G.gear® Pistol™
+                </Typography>
+                <Button
+                  variant="outlined"
+                  size="small"
+                  sx={{
+                    borderColor: isDark ? '#555555' : '#cccccc',
+                    color: isDark ? '#ffffff' : '#1a1a1a',
+                    borderRadius: 'var(--border-radius-small)',
+                    textTransform: 'none',
+                    fontSize: '0.8rem',
+                    padding: '4px 8px',
+                    minWidth: 'auto',
+                    '&:hover': {
+                      backgroundColor: isDark ? '#2a2a2a' : '#f0f0f0',
+                      borderColor: isDark ? '#666666' : '#999999',
+                      transform: 'none'
+                    }
+                  }}
+                  onClick={() => handleLanguageChange(language === 'ko' ? 'en' : 'ko')}
+                >
+                  {language === 'ko' ? '한국어' : 'English'}
+                </Button>
+              </Box>
+
+              {/* Middle Section - Legal Links */}
+              <Box sx={{ display: 'flex', gap: 3, flexWrap: 'wrap' }}>
+                {[
+                  { name: 'Privacy Policy', url: '/privacy' },
+                  { name: 'Terms of Service', url: '/terms' },
+                  { name: 'Data Sources', url: '/data-sources' }
+                ].map((link) => (
+                  <Typography
+                    key={link.name}
+                    variant="caption"
+                    sx={{
+                      color: isDark ? '#888888' : '#666666',
+                      fontSize: '0.8rem',
+                      cursor: 'pointer',
+                      textDecoration: 'underline',
+                      '&:hover': {
+                        color: isDark ? '#ffffff' : '#1a1a1a'
+                      }
+                    }}
+                    onClick={() => navigate(link.url)}
+                  >
+                    {link.name}
+          </Typography>
+                ))}
+              </Box>
+
+              {/* Right Side - Copyright */}
+          <Typography
+            variant="caption"
+            sx={{
+                  color: isDark ? '#888888' : '#666666',
+                  fontSize: '0.8rem'
             }}
           >
-            © 2025 BioLabs. All Rights Reserved.
+                © 2025 GongSaeng - Dichecker. All rights reserved.
           </Typography>
+            </Box>
+
+          </Container>
         </Box>
       </Container>
     </Box>
